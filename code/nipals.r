@@ -1,79 +1,16 @@
 library(readxl)
-setwd("C:/Users/pauli/Documents/M2/R/projet/code/")
+source("code/dummies.r")
+source("code/scale.r")
+setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 dat<-read_excel("seeds_dataset.xls")
 dat
 
-
-plsda.split_sample<-function(data, train_size=0.7){
-  
-  #parametre train_size correctement renseigné
-  if(train_size>1 | train_size<0){
-    stop("Proportion non comprise entre 0 et 1")
-  }
-  if (!is.data.frame(data)){
-    data <- as.data.frame(data)
-  }
-  
-  n <- nrow(data)
-  # Selection des indices des individus de l'echantillon d'apprentisage
-  i_sample<-sample(1:n,trunc(n*train_size))
-  # Liste de sortie
-  res<-list("train"=data[i_sample,],
-             "test"=data[-i_sample,])
-return(res)
-}
-
-
 #Crée un jeu de données d'apprentissage et test
+source("code/split_sample.r")
+
 data<-plsda.split_sample(dat)
 nrow(data$train)
 nrow(data$test)
-
-
-
-plsda.dummies<-function(y){
-  # Formatage de y
-  fX <- as.factor(as.vector(y))
-  # modalitées du facteur
-  lx <- levels(fX)
-  # Matrice d'indicatrice
-  dum<-sapply(lx,function(x){ifelse(fX==x,1,0)})
-  return(as.matrix(dum))
-}
-
-
-
-plsda.scale<-function(X, reduce=FALSE){
-  #convertir en matrice 
-  X<-as.matrix(X)
-  if(typeof(X)!="double"){
-    stop("La matrice en entrée doit contenir que des champs numériques")
-  }
-  #Moyennes par colonnes
-  means<-apply(X,2,mean)
-  
-  #centrer
-  if(ncol(X)>1){
-    Xnew<-t(apply(X,1,function(x){ return(x-means)}))
-  }else{
-    Xnew <- X-means
-  }
-  #reduire si reduce=TRUE
-  if(reduce){
-    #Variances par colonnes
-    vars<-apply(X,2,var)
-    #reduire par l'ecart type
-    Xnew <- t(apply(Xnew,1,function(x){x/sqrt(vars)}))
-    # Liste de retour
-    return(as.matrix(Xnew))
-  }else{
-    return(as.matrix(Xnew))
-  }
-}
-
-
-
-
 
 
 data=dat
