@@ -1,42 +1,33 @@
 library(readxl)
+setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 source("code/dummies.r")
 source("code/scale.r")
-setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
-dat<-read_excel("seeds_dataset.xls")
-dat
-
-#Crée un jeu de données d'apprentissage et test
-source("code/split_sample.r")
-
-data<-plsda.split_sample(dat)
-nrow(data$train)
-nrow(data$test)
 
 
-data=dat
-formula = seed ~.
 
-tol=1e-06
-max.iter=500
-ncomp=2
 
-plsda.pls <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol = 1e-06){ 
+plsda.nipals <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol = 1e-06){ 
   
   #formula au bon type
   if(plyr::is.formula(formula)==F){
     stop("formula must be R formula !")
   }
   
+  if (any(colSums(!is.na(data)) == 0) | any(rowSums(!is.na(data)) == 0 )){
+    stop("some rows or columns are entirely missing. ",
+         "Remove those before running pca.", call. = FALSE)
+  }
+  
   #Récupération des X et Y
   x <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
-  
+
   #si data est a reduire
   if(reduce == T){
     x <- plsda.scale(x, reduce=T)
-  } else {
-    x <- plsda.scale(x)
-  }
+  }# else {
+    #x <- plsda.scale(x)
+  #}
   ydum <- plsda.dummies(y)
   
   #initialisation 
@@ -46,23 +37,23 @@ plsda.pls <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol =
   #matrice des poids des composantes de X
   W <- data.frame(matrix(rep(NA), nrow = ncol(x), ncol=ncomp))
   rownames(W) <- colnames(x)
-  
-  #matrice des coefficients des composantes de X
-  P <- data.frame(matrix(nrow = ncol(x), ncol = ncomp, dimnames = list(colnames(x), comp_names)))
-  
-  
+
   #matrice des variables latentes de X
+  Tx <- data.frame(matrix(rep(0), nrow = nrow(x), ncol=ncomp))
   eigTx <- vector("numeric", length = ncomp)
   names(eigTx) <- comp_names
-    
   
-  #vecteur des variables latentes de Y
-  eigU <- vector("numeric", length = ncomp)
-  names(eigU) <- comp_names
   
   #matrice des coefficients des composantes de Y
   Q <- data.frame(matrix(rep(NA), nrow = ncol(ydum), ncol = ncomp))
   rownames(Q) <- colnames(ydum)
+  
+  
+  
+  nc.ones <- rep(1, ncol(x))
+  nr.ones <- rep(1, nrow(x))
+  is.na.x <- is.na(x)
+  na.x <- any(is.na.x)
   
   X.iter = x
   #on déroule l'algorithme NIPALS pour calculer les composantes de X et Y
@@ -70,27 +61,51 @@ plsda.pls <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol =
     
     #u = premiere colonne de Yk-1
     u <- as.matrix(ydum[,1])
-    
+    u[is.na(u)] <- 0
     
     w <- 1/rep(sqrt(ncol(x)), ncol(x))
+    
     init <- vector("numeric", length = ncol(x))
+    
     iter <- 1
     diff <- 1
     
+    if (na.x)
+    {
+      X.aux <- X.iter
+      X.aux[is.na.x] <- 0
+    }
+    
     #on boucle jusqu'à ce que w converge
     while (diff > tol & iter <= max.iter){
-    
-      init <- crossprod(X.iter, u) / drop(crossprod(u))
+      if (na.x)
+      {
+        init <- crossprod(X.aux, u)
+        Th <- drop(u) %o% nc.ones
+        Th[is.na.x] <- 0
+        u.cross <- crossprod(Th)
+        init <- init / diag(u.cross)
+      } else {
+        init <- crossprod(X.iter, u) / drop(crossprod(u))
+      }
       init <- init / drop(sqrt(crossprod(init)))
+
       
-      #on calcule la composante t de la matrice Xk-1
-      t <- X.iter %*% init / drop(crossprod(init))
+      #calcul de la composante u de Xk-1
+      if (na.x)
+      {
+        u <- X.aux %*% init
+        M <- drop(init) %o% nr.ones
+        M[t(is.na.x)] <- 0
+        ph.cross <- crossprod(M)
+        u <- u / diag(ph.cross)
+      } else {
+        u <- X.iter %*% init / drop(crossprod(init))
+      }
+      t <- u
       
       #calcul des poids de Yk-1
       q <- crossprod(ydum,t)/drop(crossprod(t))
-      
-      #calcul de la composante u de Xk-1
-      u <- (ydum%*%q)/drop(crossprod(q))
       
       
       diff <- drop(sum((init - w)^2, na.rm = TRUE))
@@ -102,31 +117,27 @@ plsda.pls <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol =
       message(paste("Maximum number of iterations reached for comp: ", k))
     }
     
-    #SVD de Y
-    eigU[k] <- sum(u * u, na.rm = TRUE)
-    
     #SVD de X
-    eigTx[k] <- sum(t * t, na.rm = TRUE)
-    Tx[,k] <- t
+    eigTx[k] <- sum(u * u, na.rm = TRUE)
+    Tx[,k] <- u
     
     #matrice des composantes de Y
     Q[,k] <- q
-    
-    #matrice des composantes "loadings" de la pls de R
-    P[,k] <- init
+  
     
     #mise à jour de la matrice des X
-    X.iter <- X.iter - t %*% t(init)
+    X.iter <- X.iter - u %*% t(init)
     #mise à jour des Y
-    ydum <- ydum - t%*%t(q)
+    ydum <- ydum - u%*%t(q)
     
-    #on stocke le vecteur des poids de la composante i dans W[,i]
-    W[,i] <- w
+    #on stocke le vecteur des poids de la composante k dans W[,k]
+    W[,k] <- w
     
   }
   eigTx <- sqrt(eigTx)
-  eigU <- sqrt(eigU)
-  t <- scale(t, center = FALSE, scale = eigTx)
+  
+  Tx <- scale(Tx, center = FALSE, scale = eigTx)
+  attr(Tx, "scaled:scale") <- NULL
   
   train_pls <- data.frame(y, Tx)
   
@@ -134,13 +145,9 @@ plsda.pls <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol =
   #=somme des carrés des covariances entre composante et chacune des variables réponses
   R2 <- cor(ydum, Tx)^2
   
-  res <- list("X"=X,
-              "Y"=y,
-              "Yloadings" = Q,
-              "Yscores" = U,
-              "Xloadings"= P,
+  res <- list("Xloadings"= Tx,
               "Xloading.weights" = W,
-              "Xscores" = Tx,
+              "Xscores" = eigTx,
               "TrainPlsData" = train_pls,
               "R2" = R2
   )
@@ -149,6 +156,15 @@ plsda.pls <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol =
   return(res)
   
 }
+
+
+formula = seed ~.
+ncomp=5
+data<-read_excel("seeds_dataset.xls")
+test = plsda.nipals(formula, data, ncomp=5)
+test$Xscores
+test$Xloading.weights
+test$Xloadings
 
 
 
