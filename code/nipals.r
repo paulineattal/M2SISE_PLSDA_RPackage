@@ -6,7 +6,7 @@ source("code/scale.r")
 
 
 
-plsda.nipals <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, tol = 1e-06){ 
+plsda.nipals <- function(formula, data, ncomp =2, std = F, max.iter = 500, tol = 1e-06){ 
   
   #formula au bon type
   if(plyr::is.formula(formula)==F){
@@ -22,12 +22,13 @@ plsda.nipals <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, to
   x <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
 
-  #si data est a reduire
-  if(reduce == T){
-    x <- plsda.scale(x, reduce=T)
-  }# else {
-    #x <- plsda.scale(x)
-  #}
+  #si data est a standardiser
+  if(std == T){
+    x <- scale(x)
+    attr(x, "scaled:scale") <- NULL
+    attr(x, "scaled:center") <- NULL
+  }
+  
   ydum <- plsda.dummies(y)
   
   #initialisation 
@@ -78,30 +79,31 @@ plsda.nipals <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, to
     
     #on boucle jusqu'à ce que w converge
     while (diff > tol & iter <= max.iter){
+      
       if (na.x)
       {
+        #calcul des poids init de X 
         init <- crossprod(X.aux, u)
         Th <- drop(u) %o% nc.ones
         Th[is.na.x] <- 0
         u.cross <- crossprod(Th)
         init <- init / diag(u.cross)
-      } else {
-        init <- crossprod(X.iter, u) / drop(crossprod(u))
-      }
-      init <- init / drop(sqrt(crossprod(init)))
-
-      
-      #calcul de la composante u de Xk-1
-      if (na.x)
-      {
+        init <- init / drop(sqrt(crossprod(init)))
+        #calcul de la composante u de Xk-1
         u <- X.aux %*% init
         M <- drop(init) %o% nr.ones
         M[t(is.na.x)] <- 0
         ph.cross <- crossprod(M)
         u <- u / diag(ph.cross)
       } else {
+        #calcul des poids init de X
+        init <- crossprod(X.iter, u) / drop(crossprod(u))
+        init <- init / drop(sqrt(crossprod(init)))
+        #calcul de la composante u de Xk-1
         u <- X.iter %*% init / drop(crossprod(init))
       }
+      
+
       t <- u
       
       #calcul des poids de Yk-1
@@ -152,7 +154,7 @@ plsda.nipals <- function(formula, data, ncomp =2, reduce = F, max.iter = 500, to
               "R2" = R2
   )
   
-  class(res)<-"PLS"
+  class(res)<-"PLSDA"
   return(res)
   
 }
