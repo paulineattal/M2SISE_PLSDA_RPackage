@@ -6,7 +6,7 @@ source("code/scale.r")
 
 
 
-plsda.nipals <- function(formula, data, ncomp =2, std = F, max.iter = 500, tol = 1e-06){ 
+plsda.nipals <- function(formula, data, ncomp =2, max.iter = 500, tol = 1e-06){ 
   
   #formula au bon type
   if(plyr::is.formula(formula)==F){
@@ -22,17 +22,16 @@ plsda.nipals <- function(formula, data, ncomp =2, std = F, max.iter = 500, tol =
   x <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
 
+  apply(x,2,mean)
+  sqrt(apply(x,2,var))
   #si data est a standardiser
-  if(std == T){
-    x <- scale(x)
-    attr(x, "scaled:scale") <- NULL
-    attr(x, "scaled:center") <- NULL
+  if ((mean(apply(x,2,mean))>abs(1)) || (sum(sqrt(apply(x,2,var))) != ncol(x))){
+    x <- plsda.scale(x)
   }
   
   ydum <- plsda.dummies(y)
   
-  #initialisation 
-  
+  #initialisations 
   comp_names <- paste0('PC', seq_len(ncomp))
   
   #matrice des poids des composantes de X
@@ -138,7 +137,8 @@ plsda.nipals <- function(formula, data, ncomp =2, std = F, max.iter = 500, tol =
   }
   eigTx <- sqrt(eigTx)
   
-  Tx <- scale(Tx, center = FALSE, scale = eigTx)
+  Tx <- plsda.scale(Tx, center = FALSE, scale = eigTx)
+  
   attr(Tx, "scaled:scale") <- NULL
   
   train_pls <- data.frame(y, Tx)

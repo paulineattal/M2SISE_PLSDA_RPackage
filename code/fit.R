@@ -1,7 +1,8 @@
 
 
-fit <- function(X, ncomp, ...)
+fit <- function(formula, X, ncomp, ...)
 {
+  #mettre x et y avec formula ... 
   if (!any(is.na(X)))
   {
     cat("no missing values in 'X' to impute \n")
@@ -13,11 +14,12 @@ fit <- function(X, ncomp, ...)
     message("consider high 'ncomp' for more accurate ",
             "imputation of the missing values.")
   
-  nipals.res <- plsda.nipals(X = X, ncomp = ncomp, ...)
-  X.impute <- .fit.nipals(X = X, 
-                             t = nipals.res$Xloadings,
-                             eig = nipals.res$Xscores,
-                             p = nipals.res$Xloading.weights
+  nipals.res <- plsda.nipals(formula = formula, X = X, ncomp = ncomp, ...)
+  X.impute <- .fit.nipals(formula = formula, 
+                          X = X, 
+                          t = nipals.res$Xloadings,
+                          eig = nipals.res$Xscores,
+                          p = nipals.res$Xloading.weights
   )
   return(X.impute)
 }

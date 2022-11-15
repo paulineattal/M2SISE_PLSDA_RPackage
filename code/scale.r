@@ -1,27 +1,36 @@
-plsda.scale<-function(X, reduce=FALSE){
-  #convertir en matrice 
+
+
+plsda.scale<-function(X, center=TRUE, scale=TRUE ){
+
   X<-as.matrix(X)
   if(typeof(X)!="double"){
     stop("La matrice en entrée doit contenir que des champs numériques")
   }
-  #Moyennes par colonnes
-  means<-apply(X,2,mean)
   
-  #centrer
-  if(ncol(X)>1){
-    Xnew<-t(apply(X,1,function(x){ return(x-means)}))
-  }else{
-    Xnew <- X-means
+  
+  #CENTRER 
+  if (is.logical(center)) {
+    if (center) {
+      X<-t(apply(X,1,function(x){ return(x-apply(X,2,mean))}))
+    }
   }
-  #reduire si reduce=TRUE
-  if(reduce){
-    #Variances par colonnes
-    vars<-apply(X,2,var)
-    #reduire par l'ecart type
-    Xnew <- t(apply(Xnew,1,function(x){x/sqrt(vars)}))
-    # Liste de retour
-    return(as.matrix(Xnew))
-  }else{
-    return(as.matrix(Xnew))
+  else if (is.numeric(center) && (length(center) == ncol(x)))
+    X<-t(apply(X,1,function(x){ return(x-center)}))
+  
+  
+  #REDUIRE 
+  if (is.logical(scale)) {
+    if (scale) {
+      X <- t(apply(X,1,function(x){x/sqrt(apply(X,2,var))}))
+    }
   }
+  else if (is.numeric(scale) && length(scale) == ncol(X))
+    X <- t(apply(X,1,function(x){x/scale}))
+  
+  
+  return(as.matrix(X))
+  
 }
+
+
+

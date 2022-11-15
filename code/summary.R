@@ -10,6 +10,6 @@ summary.PLSDA <- function(object,ncomp=2){
   #affichage 
   
   
-  #voir td senace 5
+  #voir td seance 5
   
 }
