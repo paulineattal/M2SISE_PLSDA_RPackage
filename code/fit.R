@@ -32,7 +32,7 @@ fit <- function(formula, data,
   
   
   nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp , max.iter = max.iter, tol = tol)
-  return(X.impute)
+  return(nipals.res)
 }
 
 

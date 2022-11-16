@@ -1,5 +1,5 @@
 library(readxl)
-ource("code/dummies.r")
+source("code/dummies.r")
 source("code/scale.r")
 
 
@@ -37,7 +37,7 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
   for(k in 1:ncomp){
     
     #u = premiere colonne de Yk-1
-    u <- as.matrix(ydum[,1])
+    u <- as.matrix(y[,1])
     u[is.na(u)] <- 0
     
     w <- 1/rep(sqrt(ncol(X)), ncol(X))
@@ -83,7 +83,7 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
       t <- u
       
       #calcul des poids de Yk-1
-      q <- crossprod(ydum,t)/drop(crossprod(t))
+      q <- crossprod(y,t)/drop(crossprod(t))
       
       
       diff <- drop(sum((init - w)^2, na.rm = TRUE))
@@ -120,7 +120,7 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
   
   #critere a maximiser 
   #=somme des carrés des covariances entre composante et chacune des variables réponses
-  R2 <- cor(ydum, Tx)^2
+  R2 <- cor(y, Tx)^2
   
   res <- list("Xloadings"= Tx,
               "Xloading.weights" = W,
