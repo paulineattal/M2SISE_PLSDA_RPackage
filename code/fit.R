@@ -39,9 +39,9 @@ fit <- function(formula, data,
 
 
 data<-read_excel("seeds_dataset.xls")
-test = fit(seed ~., data)
-test$Xscores
-test$Xloading.weights
-test$Xloadings
+test2 = fit(seed ~., data)
+test2$Xscores
+test2$Xloading.weights
+test2$Xloadings
 
 
