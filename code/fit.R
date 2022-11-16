@@ -1,6 +1,12 @@
-source("code/nipals.R")
+setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
-fit <- function(formula, data, ncomp, ...)
+source("code/nipals.R")
+source("code/scale.r")
+
+fit <- function(formula, data, 
+                ncomp = 2, 
+                max.iter = 100,
+                tol = 1e-06)
 {
   #formula au bon type
   if(plyr::is.formula(formula)==F){
@@ -13,51 +19,29 @@ fit <- function(formula, data, ncomp, ...)
   }
   
   #Récupération des X et Y
-  x <- as.matrix(model.matrix(formula, data = data)[,-1])
+  X <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
+
   
   #si data est a standardiser
-  if ((mean(apply(x,2,mean))>abs(1)) || (sum(sqrt(apply(x,2,var))) != ncol(x))){
-    x <- plsda.scale(x)
+  if ((mean(apply(X,2,mean))>abs(1)) || (sum(sqrt(apply(X,2,var))) != ncol(X))){
+    X <- plsda.scale(X)
   }
   
   ydum <- plsda.dummies(y)
   
   
-  if (!any(is.na(X)))
-  {
-    cat("no missing values in 'X' to impute \n")
-    return(X)
-  }
-  
-  ## check ncomp is high enough for reliable imputation
-  if (ncomp < min(5, min(dim(X))))
-    message("consider high 'ncomp' for more accurate ",
-            "imputation of the missing values.")
-  
-  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp, ...)
-  X.impute <- .fit.nipals(formula = formula, 
-                          X = X, 
-                          t = nipals.res$Xloadings,
-                          eig = nipals.res$Xscores,
-                          p = nipals.res$Xloading.weights
-  )
+  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp , max.iter = max.iter, tol = tol)
   return(X.impute)
 }
 
 
-.reconstitute.matrix <- function(t, eig, p)
-{
-  t %*% diag(eig) %*% t(p)
-}
 
 
-.fit.nipals <- function(X, t, eig, p)
-{
-  X.hat <- .reconstitute.matrix(t = t, eig = eig, p = p)
-  X[is.na(X)] <- X.hat[is.na(X)]
-  return(X)
-}
-
+data<-read_excel("seeds_dataset.xls")
+test = fit(seed ~., data)
+test$Xscores
+test$Xloading.weights
+test$Xloadings
 
 

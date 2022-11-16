@@ -1,6 +1,5 @@
 library(readxl)
-setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
-source("code/dummies.r")
+ource("code/dummies.r")
 source("code/scale.r")
 
 
@@ -134,15 +133,6 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
   return(res)
   
 }
-
-
-formula = seed ~.
-ncomp=5
-data<-read_excel("seeds_dataset.xls")
-test = plsda.nipals(formula, data, ncomp=5)
-test$Xscores
-test$Xloading.weights
-test$Xloadings
 
 
 
