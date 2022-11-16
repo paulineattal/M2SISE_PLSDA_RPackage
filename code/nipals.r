@@ -21,9 +21,7 @@ plsda.nipals <- function(formula, data, ncomp =2, max.iter = 500, tol = 1e-06){
   #Récupération des X et Y
   x <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
-
-  apply(x,2,mean)
-  sqrt(apply(x,2,var))
+  
   #si data est a standardiser
   if ((mean(apply(x,2,mean))>abs(1)) || (sum(sqrt(apply(x,2,var))) != ncol(x))){
     x <- plsda.scale(x)
