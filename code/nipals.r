@@ -7,6 +7,8 @@ source("code/scale.r")
 
 plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){ 
   
+  X.init <- as.matrix(X)
+  Y.init <- as.matrix(y)
   
   #initialisations 
   comp_names <- paste0('PC', seq_len(ncomp))
@@ -72,7 +74,7 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
         ph.cross <- crossprod(M)
         u <- u / diag(ph.cross)
       } else {
-        #calcul des poids init de X
+        #calcul des poids init de X normalisés
         init <- crossprod(X.iter, u) / drop(crossprod(u))
         init <- init / drop(sqrt(crossprod(init)))
         #calcul de la composante u de Xk-1
@@ -118,22 +120,40 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
   
   train_pls <- data.frame(y, Tx)
   
+  ###########################################
+  
+  # Calculation of standards beta coefficients
+  B <-as.matrix(W) %*% t(as.matrix(Q))
+  
+  # Calculation of PLS regression coefficients
+  Br <- diag(1/apply(X.init, 2, sd)) %*% B %*% diag(apply(Y.init, 2, sd))
+  
+  # Constant calculation
+  Ct <- as.vector(apply(Y.init,2,mean) - apply(X.init,2,mean) %*% Br)
+  
+
+  # Final matrix of the coefficients
+  dimnames(Br)=list(colnames(X), colnames(y))
+  coeffs <- rbind(Constant = Ct, Br)
+  
+  
   #critere a maximiser 
   #=somme des carrés des covariances entre composante et chacune des variables réponses
   R2 <- cor(y, Tx)^2
+  
   
   res <- list("Xloadings"= Tx,
               "Xloading.weights" = W,
               "Xscores" = eigTx,
               "TrainPlsData" = train_pls,
-              "R2" = R2
+              "R2" = R2,
+              "Coeffs"=coeffs
   )
   
   class(res)<-"PLSDA"
   return(res)
   
 }
-
 
 
 

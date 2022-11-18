@@ -1,7 +1,8 @@
 setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
-source("code/nipals.R")
+source("code/nipals.r")
 source("code/scale.r")
+source("code/predict.r")
 
 fit <- function(formula, data, 
                 ncomp = 2, 
@@ -32,6 +33,7 @@ fit <- function(formula, data,
   
   
   nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp , max.iter = max.iter, tol = tol)
+  
   return(nipals.res)
 }
 
@@ -39,9 +41,9 @@ fit <- function(formula, data,
 
 
 data<-read_excel("seeds_dataset.xls")
-test2 = fit(seed ~., data)
-test2$Xscores
-test2$Xloading.weights
-test2$Xloadings
+test = fit(seed ~., data)
+test$Coeffs
+pouette = plsda.predict(test, X)
+
 
 

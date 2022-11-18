@@ -2,13 +2,10 @@
 
 
 
-plsda.predict<-function(ObjectPLSDA,newdata,type=c("posterior","class")){
-  if (class(ObjectPLSDA)!="PLSDA") {
-    stop("Object's class is not PLSDA")
-  }
-  
-  ################recuperer coeff dans nipals
-  
+plsda.predict<-function(object,newdata,...){
+  #if (class(ObjectPLSDA)!="PLSDA") {
+   # stop("Object's class is not PLSDA")
+  #}
   
   if (ncol(X) != (nrow(object$Coeffs)-1)) {
     stop("X must have the same number of columns than model")
@@ -30,6 +27,7 @@ plsda.predict<-function(ObjectPLSDA,newdata,type=c("posterior","class")){
   result <- structure((list(
     Y.hat = Y.hat,
     y.hat = y.hat)))
+  
   class(result) <- "plsda-pred"
   return(result)
 }
