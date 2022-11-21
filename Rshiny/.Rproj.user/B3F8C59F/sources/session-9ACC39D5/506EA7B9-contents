@@ -1,0 +1,78 @@
+#' Variable Important for Prediction in PLS-DA
+#'
+#' This function calculates the VIP that determines which variables are important for prediction. See the 'Details'
+#' section for specification about VIP.
+#' @usage
+#' plsda.vip(objectPLS,threshold=0.8)
+#' @param
+#' ObjectPls is an object from \code{plsda.pls} function.
+#' @param
+#' threshold is the threshold below which the variable is rejected.Usually, the threshold is fixed to 0.8.
+#' @details
+#' The VIP is a criterion based on the coefficient of determination between Y and the components of X calculated
+#' from NIPALS algorithm. Usually, if the VIP < 0.8 for a given variable, that variable is not important for the preidciton
+#' of Y.
+#' @return
+#' An object of class VIP is a list conatining at least the following components :
+#' \cr
+#' \code{newX} the data frame containing the Variable Important for Predictions.
+#' \cr
+#' \code{name} a vector of names of the VIP.
+#' \cr
+#' \code{vip} a vector containing the VIP criterion calculated for each variables.
+#' \cr
+#' \code{r2} the coefficient of determination from the PLS Object.
+#' \cr
+#' \code{threshold} the threshold below which a variable is rejected.
+#' @examples
+#'vip.t1<-plsda.vip(pls.t1)
+#'vip.t1<-plsda.vip(pls.t1, 0.6)
+
+
+# CALCUL DU R2 ET VIP POUR LA SELECTION DE VARIABLE
+# objectPLS *= Objet de la regression PLS (Nippals)
+# seuil = seuil de selection des variables
+plsda.vip<-function(objectPLS,threshold=0.8){
+
+  #récupération du dataset des prédicteurs
+  x <- as.matrix(objectPLS$X)
+  #récupération de la matrice des poids des loadings
+  W<-as.matrix(objectPLS$Xloading.weights)
+  #récupération du coefficient de détermination de la PLS-DA
+  r2 <- objectPLS$R2
+
+  #somme des corrélations au carré par colonne
+  Sqr2 <- colSums(r2)
+  #somme de l'ensemble des corrélations
+  Sr2 <- sum(Sqr2)
+
+  #calcul des vip pour chaque variable en 2 étapes
+  Sr2b<- sapply(1:ncol(x),function(x){sum(Sqr2*((W^2)[x,]))})
+  vip<- sqrt((ncol(x)/Sr2)*Sr2b)
+
+  #récupération des noms des colonnes
+  names(vip)<-colnames(x)
+
+  #détermination des variables importantes
+  res<-names(vip)[vip>threshold]
+  #si une seule variable importante, on sélectionne les 2 avec le VIP le plus important
+  if(length(res)<2){
+    res <- sort(vip, decreasing = T)
+    res <- names(vip)[1:2]
+  }
+
+  #construction du data frame contenant uniquement les variables importantes
+  X <- as.data.frame(objectPLS$X)
+  newX<-X[,colnames(x) %in% res]
+
+
+  object <- list("newX"=newX,
+                 "name"=res,
+                 "vip"=vip,
+                 "r2"=r2,
+                 "threshold" = threshold
+  )
+
+  class(object) <- "VIP"
+  return(object)
+}

@@ -1,0 +1,6 @@
+data('iris')
+
+library(ggplot2)
+
+ggplot(iris, aes(Species)) + geom_bar()
+
