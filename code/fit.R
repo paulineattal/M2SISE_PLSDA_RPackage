@@ -34,16 +34,29 @@ fit <- function(formula, data,
   
   nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp , max.iter = max.iter, tol = tol)
   
+  XYloadings <- cbind(nipals.res$Xloadings,as.data.frame(y))
+  
+  ###faire les plots ici 
+  
+  
   return(nipals.res)
 }
 
 
 
+data<-data(iris)
+formula<-Species~.
 
 data<-read_excel("seeds_dataset.xls")
-test = fit(seed ~., data)
+formula <- seed~.
+
+
+test = fit(formula, data)
 test$Coeffs
-pouette = plsda.predict(test, X)
+X <- as.matrix(model.matrix(formula, data = data)[,-1])
+proute = plsda.predict(test, X)
+y <- as.factor(model.response(model.frame(formula, data = data)))
+rescol<-cbind(test$Xloadings,as.data.frame(y))
 
 
 

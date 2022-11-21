@@ -3,9 +3,9 @@
 
 
 plsda.predict<-function(object,newdata,...){
-  #if (class(ObjectPLSDA)!="PLSDA") {
-   # stop("Object's class is not PLSDA")
-  #}
+  if (class(object)!="PLSDA") {
+    stop("Object's class is not PLSDA")
+  }
   
   if (ncol(X) != (nrow(object$Coeffs)-1)) {
     stop("X must have the same number of columns than model")
