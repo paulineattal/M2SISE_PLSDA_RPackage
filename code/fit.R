@@ -1,11 +1,9 @@
 setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
 source("code/nipals.r")
-source("code/scale.r")
-source("code/predict.r")
 
 fit <- function(formula, data, 
-                ncomp = 2, 
+                ncomp = 2, #ici on peut mettre "CV" 
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -30,12 +28,21 @@ fit <- function(formula, data,
     X <- plsda.scale(X)
   }
   
+  #codage disjonctif de la variable cible
   ydum <- plsda.dummies(y)
   
-  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp , max.iter = max.iter, tol = tol)
+  #if ncomp == "CV" {
+    #ncomp = plsda.cv()
+  #}
+  
+  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
   ########################LDA########################
+  
+  #ici on effectue la LDA pour la classification
+  #on l'a fait sur nos compossntes principales Th, obtenues en sorties de la PLS
   Th <- nipals.res$comp_X
+  #Th<-t(apply(as.matrix(nipals.res$comp_X),1,function(ligne){ligne %*% t(as.matrix(nipals.res$poid_X))}))
   
   #effectif par classe
   n_k <- table(y) #train
@@ -64,23 +71,21 @@ fit <- function(formula, data,
   #calcul des coefficients des variables akj
   #pour la fonction de classement
   coef_ <- t(mb_k %*% invW)
+  coef=coef_
   colnames(coef_) <- levels(y)
-  #revenir a toutes les var originelles 
-  coef_ = as.matrix(nipals.res$poid_X)%*%coef_
-  coef_ = diag(1/apply(X.init, 2, sd)) %*% coef_ %*% diag(apply(ydum, 2, sd)) 
-  
   intercept_ <- log(pi_k)-0.5*diag(mb_k %*% invW %*% t(mb_k))
-  t(as.matrix(nipals.res$poid_Y))%*%as.matrix(intercept_)
-  diag(1/apply(X, 2, sd)) %*% intercept_ %*% diag(apply(ydum, 2, sd))
+  #revenir a toutes les var originelles 
+  coef_ <- as.matrix(nipals.res$poid_X)%*%coef_
+  coef_ <- diag(1/apply(X.init, 2, sd)) %*% coef_  
   
-  
-  
+  intercept_ <- as.vector(apply(ydum,2,sd) - apply(X.init, 2, mean) %*% coef_)
+
   res <- list("comp_X"= nipals.res$comp_X,
               "poid_X" = nipals.res$poid_X,
               "comp_Y" = nipals.res$comp_Y,
               "poid_Y" = nipals.res$poid_Y,
               "intercept_" = intercept_, 
-              "coef_"=coef_non_scale,
+              "coef_"=coef_,
               "y" = y)
   
   class(res)<-"PLSDA"

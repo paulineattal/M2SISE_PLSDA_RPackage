@@ -2,13 +2,12 @@ library(readxl)
 source("code/dummies.r")
 source("code/scale.r")
 
-
-plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){ 
+plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){ 
   
   X.init <- as.matrix(X)
   Y.init <- as.matrix(y)
   
-  #initialisations 
+  #initialisation
   comp_names <- paste0('PC', seq_len(ncomp))
   
   #matrice des coordonnées des composantes de X
@@ -129,9 +128,39 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
   }
   #eigTx <- sqrt(eigTx)
   
-  #Tx <- plsda.scale(Tx, center = FALSE)
   
+  Rx <- cor(X.init,Tx)^2
+  colnames(Rx) <- paste(rep("Comp",ncomp), 1:ncomp, sep=" ")
+  if (ncomp == 1) {
+    Var.Explained.X <- rbind(Rx,Redundancy=mean(Rx))
+    Rx.cum <- as.matrix(apply(Rx,1,cumsum))
+    Var.Explained.X.Cum <- rbind(Rx.cum,Redundancy=mean(Rx.cum))
+  } else {
+    Var.Explained.X <- rbind(Rx,Redundancy=colMeans(Rx))
+    Rx.cum <- t(apply(Rx,1,cumsum))
+    Var.Explained.X.Cum <- rbind(Rx.cum,Redundancy=colMeans(Rx.cum))
+  }
   
+  # For Y (not cumulative and cumulated)
+  Ry <- cor(Y.init,Tx)^2
+  colnames(Ry) <- paste(rep("Comp",ncomp), 1:ncomp, sep=" ")
+  if (ncomp == 1) {
+    Var.Explained.Y <- rbind(Ry, Redundancy=mean(Ry))
+    Ry.cum <- as.matrix(apply(Ry, 1, cumsum))
+    Var.Explained.Y.Cum <- rbind(Ry.cum, Redundancy=mean(Ry.cum))
+  } else {
+    Var.Explained.Y <- rbind(Ry, Redundancy=colMeans(Ry))
+    Ry.cum <- t(apply(Ry, 1, cumsum))
+    Var.Explained.Y.Cum <- rbind(Ry.cum, Redundancy=colMeans(Ry.cum))
+  }
+  
+  Var.Explained.Y
+  Ry.cum
+  Var.Explained.Y.Cum
+  
+  Var.Explained.X
+  Rx.cum
+  Var.Explained.X.Cum
   ###########################################
   
   #critere a maximiser 
@@ -142,7 +171,8 @@ plsda.nipals <- function(X, y, ncomp =2, max.iter = 500, tol = 1e-06){
   res <- list("comp_X"= Tx,
               "poid_X" = W, 
               "comp_Y" = U, 
-              "poid_Y" = Q
+              "poid_Y" = Q,
+              "Y.iter" = Y.iter
               #"Xscores" = eigTx,
               #"R2" = R2,
               #"Coeffs"=coeffs

@@ -27,8 +27,8 @@ plsda.scale<-function(X, center=TRUE, scale=TRUE ){
   else if (is.numeric(scale) && length(scale) == ncol(X))
     X <- t(apply(X,1,function(x){x/scale}))
   
-  
-  return(as.matrix(X))
+  #renvoyer sous forme de dataframe
+  return(as.data.frame(X))
   
 }
 
