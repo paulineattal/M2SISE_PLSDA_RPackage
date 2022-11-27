@@ -16,3 +16,5 @@ plsda.split_sample<-function(data, train_size=0.7){
              "test"=data[-i_sample,])
 return(res)
 }
+split=plsda.split_sample(iris)
+split
