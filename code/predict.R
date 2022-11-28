@@ -1,3 +1,18 @@
+#' This is the predict function for the Partial Least Square Discriminant Analysis (plsda) regression.
+#'
+#' @param object
+#' @param X
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' plsda.predict(model, ech$test, type ="class")
+#'
+#'
+#'
+
 
 plsda.predict<-function(object, newdata){
   if (class(object)!="PLSDA") {
