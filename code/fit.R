@@ -1,3 +1,21 @@
+#' Title
+#'
+#' @param formula
+#' @param data
+#' @param ncomp
+#' @param max.iter
+#' @param tol
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' fit(Species ~ ., data = iris, ncomp = 2)
+#' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = 2)
+#'
+
+
 setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
 source("code/nipals.r")
