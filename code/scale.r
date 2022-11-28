@@ -1,4 +1,25 @@
-
+#' Scaling a Data Frame or a Numerci Vector
+#'
+#' This function performs scaling on a given data frame or numeric vector. The data frame will be centered and
+#' standardized if \code{reduce = T}.
+#'
+#' @usage
+#' plsda.scale(X,reduce = F)
+#' @param
+#' X The matrix that must be centered and standardized if \code{reduce = T}.
+#' @param
+#' reduce is an optional parameters which if \code{TRUE} standardizes the data frame or numeric vector X.
+#' @return
+#' The function returns a list of at least the following components :
+#' @return
+#' \code{New} is the resulting centered (and standardized if \code{reduce = T}) matrix.
+#' \cr
+#' \code{means} is the average of the initial matrix or numeric vector X.
+#' \cr
+#' \code{vars} is the variance of the initial matrix or numeric vector X.
+#' @examples
+#'scale.t1<-plsda.scale(iris[,-5])
+#'scale.t2<-plsda.scale(iris[,-5],reduce=T)
 
 plsda.scale<-function(X, center=TRUE, scale=TRUE ){
 
