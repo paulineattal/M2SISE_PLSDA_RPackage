@@ -1,3 +1,17 @@
+#' Algorithme NIPALS (Non-Linear iterative PLS)
+#'
+#' @param X
+#' @param y
+#' @param ncomp
+#' @param max.iter
+#' @param tol
+#'
+#' @return
+#' @export
+#'
+#' @examples
+
+
 library(readxl)
 source("code/dummies.r")
 source("code/scale.r")
