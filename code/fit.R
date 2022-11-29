@@ -1,11 +1,27 @@
+#' Title
+#'
+#' @param formula
+#' @param data
+#' @param ncomp
+#' @param max.iter
+#' @param tol
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' fit(Species ~ ., data = iris, ncomp = 2)
+#' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = 2)
+#'
+
+
 setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
 source("code/nipals.r")
-source("code/scale.r")
-source("code/predict.r")
 
 fit <- function(formula, data, 
-                ncomp = 2, 
+                ncomp = 2, #ici on peut mettre "CV" 
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -21,6 +37,7 @@ fit <- function(formula, data,
   
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
+  X.init <- X
   y <- as.factor(model.response(model.frame(formula, data = data)))
 
   
@@ -29,34 +46,77 @@ fit <- function(formula, data,
     X <- plsda.scale(X)
   }
   
+  #codage disjonctif de la variable cible
   ydum <- plsda.dummies(y)
   
+  #if ncomp == "CV" {
+    #ncomp = plsda.cv()
+  #}
   
-  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp = ncomp , max.iter = max.iter, tol = tol)
+  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
-  XYloadings <- cbind(nipals.res$Xloadings,as.data.frame(y))
+  ########################LDA########################
   
-  ###faire les plots ici 
+  #ici on effectue la LDA pour la classification
+  #on l'a fait sur nos compossntes principales Th, obtenues en sorties de la PLS
+  Th <- nipals.res$comp_X
+  #Th<-t(apply(as.matrix(nipals.res$comp_X),1,function(ligne){ligne %*% t(as.matrix(nipals.res$poid_X))}))
   
+  #effectif par classe
+  n_k <- table(y) #train
+  #nombre d'individus
+  n <- nrow(Th)
+  #nombre de modalite
+  K <- nlevels(y)
+  #nombre de variables desc
+  p <- ncol(Th)
+  #proportion par classe
+  pi_k <- n_k / n
   
-  return(nipals.res)
+  #calcul des moyennes conditionelles - lignes = classes
+  mb_k <- as.matrix(aggregate(Th,list(y),mean)[,2:(p+1)])
+  
+  #calcul des matrices de covariances conditionnelles 
+  V_k <- by(as.matrix(Th),list(y),cov)
+  
+  #matrice de covariance intra-classe W
+  #calculée à partir des matrices conditionnelles V_k
+  W <- 1/(n-K) * Reduce("+",lapply(levels(y),function(k){(n_k[k]-1)*V_k[[k]]}))
+  
+  #inverse de la matrice W
+  invW <- solve(W)
+  
+  #calcul des coefficients des variables akj
+  #pour la fonction de classement
+  coef_ <- t(mb_k %*% invW)
+  coef=coef_
+  colnames(coef_) <- levels(y)
+  intercept_ <- log(pi_k)-0.5*diag(mb_k %*% invW %*% t(mb_k))
+  #revenir a toutes les var originelles 
+  coef_ <- as.matrix(nipals.res$poid_X)%*%coef_
+  coef_ <- diag(1/apply(X.init, 2, sd)) %*% coef_  
+  
+  intercept_ <- as.vector(apply(ydum,2,sd) - apply(X.init, 2, mean) %*% coef_)
+
+  res <- list("comp_X"= nipals.res$comp_X,
+              "poid_X" = nipals.res$poid_X,
+              "comp_Y" = nipals.res$comp_Y,
+              "poid_Y" = nipals.res$poid_Y,
+              "intercept_" = intercept_, 
+              "coef_"=coef_,
+              "y" = y)
+  
+  class(res)<-"PLSDA"
+  return(res)
 }
 
 
+###################
+data<-read_excel("C:/Users/pauli/Downloads/Data_LDA_Python.xlsx")
+formula<-TYPE~.
 
-data<-data(iris)
-formula<-Species~.
-
-data<-read_excel("seeds_dataset.xls")
-formula <- seed~.
-
-
-test = fit(formula, data)
-test$Coeffs
-X <- as.matrix(model.matrix(formula, data = data)[,-1])
-proute = plsda.predict(test, X)
-y <- as.factor(model.response(model.frame(formula, data = data)))
-rescol<-cbind(test$Xloadings,as.data.frame(y))
-
-
+fit.plslda = fit(formula, data, ncomp=4)
+fit.plslda$coef_
+fit.plslda$intercept_
+fit.plslda$poid_X
 

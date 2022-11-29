@@ -1,33 +1,48 @@
+#' This is the predict function for the Partial Least Square Discriminant Analysis (plsda) regression.
+#'
+#' @param object
+#' @param X
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' plsda.predict(model, ech$test, type ="class")
+#'
+#'
+#'
 
 
-
-
-plsda.predict<-function(object,newdata,...){
+plsda.predict<-function(object, newdata){
   if (class(object)!="PLSDA") {
     stop("Object's class is not PLSDA")
   }
   
-  if (ncol(X) != (nrow(object$Coeffs)-1)) {
+  if (ncol(newdata) != (nrow(object$coef_))) {
     stop("X must have the same number of columns than model")
   }
   
-  # Setting data
-  coeffs <- object$Coeffs
-  X <- as.matrix(X)
-  B <- coeffs[-1,]
-  Cte <- matrix(rep(coeffs[1,], each=nrow(X)), nrow(X), ncol(B))
+  scores_ <- as.matrix(newdata) %*% object$coef_
+  #rajouter la constante ak0
+  scores_ <- t(apply(scores_,1,function(ligne){ligne + object$intercept_}))
   
-  # Prediction
-  Y.hat <- X %*% B + Cte
-  
+  ####softmax ou juste max ??? 
   # SoftMax
-  Y.hat <- t(apply(Y.hat, 1, function(x) { exp(x) / sum(exp(x)) }))
-  y.hat <- colnames(Y.hat)[apply(Y.hat, 1, which.max)]
+  #scores_ <- t(apply(scores_, 1, function(x) { exp(x) / sum(exp(x)) }))
+  #pred_ <- colnames(scores_)[apply(scores_, 1, which.max)]
+  #max 
+  pred_ <- apply(scores_,1, function(ligne){levels(object$y)[which.max(ligne)]})
   
-  result <- structure((list(
-    Y.hat = Y.hat,
-    y.hat = y.hat)))
-  
-  class(result) <- "plsda-pred"
-  return(result)
+  class(pred_)<-"PLSDA"
+  return(pred_)
 }
+
+XT<-read_excel("C:/Users/pauli/Downloads/Data_LDA_Python.xlsx", sheet="DATA_PREDICT")
+
+
+
+pred=plsda.predict(fit.plslda, XT)
+pred
+yT
+
