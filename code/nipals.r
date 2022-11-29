@@ -140,6 +140,7 @@ plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){
   #eigTx <- sqrt(eigTx)
   
   
+  #X
   Rx <- cor(X.init,Tx)^2
   colnames(Rx) <- paste(rep("Comp",ncomp), 1:ncomp, sep=" ")
   if (ncomp == 1) {
@@ -152,7 +153,7 @@ plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){
     Var.Explained.X.Cum <- rbind(Rx.cum,Redundancy=colMeans(Rx.cum))
   }
   
-  # For Y (not cumulative and cumulated)
+  #y
   Ry <- cor(Y.init,Tx)^2
   colnames(Ry) <- paste(rep("Comp",ncomp), 1:ncomp, sep=" ")
   if (ncomp == 1) {

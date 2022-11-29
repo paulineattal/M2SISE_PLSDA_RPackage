@@ -21,7 +21,7 @@
 
 
 fit <- function(formula, data, 
-                ncomp = 2, #ici on peut mettre "CV" 
+                ncomp = 4, #ici on peut mettre "CV" 
                 sel_var = NA, #ici on peut mettre que backward
                 max.iter = 100,
                 tol = 1e-06)
@@ -95,14 +95,16 @@ fit <- function(formula, data,
   #calcul des coefficients des variables akj
   #pour la fonction de classement
   coef_ <- t(mb_k %*% invW)
-  coef=coef_
+  coef_
   colnames(coef_) <- levels(y)
   intercept_ <- log(pi_k)-0.5*diag(mb_k %*% invW %*% t(mb_k))
   #revenir a toutes les var originelles 
   coef_ <- as.matrix(nipals.res$poid_X)%*%coef_
   coef_ <- diag(1/apply(X.init, 2, sd)) %*% coef_  
+  coef_
   
-  intercept_ <- as.vector(apply(ydum,2,sd) - apply(X.init, 2, mean) %*% coef_)
+  
+  intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_) + log(pi_k)
 
   res <- list("comp_X"= nipals.res$comp_X,
               "poid_X" = nipals.res$poid_X,
@@ -116,7 +118,5 @@ fit <- function(formula, data,
   return(res)
 }
 
-
-###################
 
 
