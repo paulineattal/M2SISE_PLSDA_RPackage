@@ -1,6 +1,6 @@
 plsda.split_sample<-function(data, train_size=0.7){
   
-  #parametre train_size correctement renseigné
+  #parametre train_size conforme
   if(train_size>1 | train_size<0){
     stop("Proportion non comprise entre 0 et 1")
   }

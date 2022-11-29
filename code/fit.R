@@ -2,8 +2,11 @@ setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
 source("code/nipals.r")
 
+
+
 fit <- function(formula, data, 
                 ncomp = 2, #ici on peut mettre "CV" 
+                sel_var = NA, #ici on peut mettre que backward
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -15,6 +18,11 @@ fit <- function(formula, data,
   if (any(colSums(!is.na(data)) == 0) | any(rowSums(!is.na(data)) == 0 )){
     stop("some rows or columns are entirely missing. ",
          "Remove those before running pca.", call. = FALSE)
+  }
+  
+  if (sel_var=="backward"){
+    var_rm = backward(data)
+    data = data[setdiff(colnames(data), as.vector(rm))]
   }
   
   #Récupération des X et Y

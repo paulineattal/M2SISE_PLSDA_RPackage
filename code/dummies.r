@@ -2,12 +2,15 @@
 #fonction pour creer des dummies
 #a partir d'une variable de type factor
 #codage disjonctif complet 
-plsda.dummies<-function(y, mod=TRUE){
+#le parametre mod sert a donner les modalités references a dummies 
+
+plsda.dummies<-function(y, mod=NA){
   
   #formatage de y
   y <- as.factor(as.vector(y))
-  #nombre de modalités
-  if (length(mod)!=0){
+  
+  #si on a renseigné le parametre mod
+  if (!is.na(mod)){
     mod <- as.factor(as.vector(mod))
     n.mod <- levels(mod)
   }else{
