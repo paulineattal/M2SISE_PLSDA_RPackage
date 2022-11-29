@@ -16,9 +16,7 @@
 #'
 
 
-setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
-source("code/nipals.r")
 
 
 
@@ -38,10 +36,10 @@ fit <- function(formula, data,
          "Remove those before running pca.", call. = FALSE)
   }
   
-  if (sel_var=="backward"){
-    var_rm = backward(data)
-    data = data[setdiff(colnames(data), as.vector(rm))]
-  }
+  #if (sel_var){
+    #var_rm = backward(data)
+    #data = data[setdiff(colnames(data), as.vector(rm))]
+  #}
   
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
@@ -120,11 +118,5 @@ fit <- function(formula, data,
 
 
 ###################
-data<-read_excel("C:/Users/pauli/Downloads/Data_LDA_Python.xlsx")
-formula<-TYPE~.
 
-fit.plslda = fit(formula, data, ncomp=4)
-fit.plslda$coef_
-fit.plslda$intercept_
-fit.plslda$poid_X
 

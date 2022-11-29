@@ -12,9 +12,6 @@
 #' @examples
 
 
-library(readxl)
-source("code/dummies.r")
-source("code/scale.r")
 
 plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){ 
   

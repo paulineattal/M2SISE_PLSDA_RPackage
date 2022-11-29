@@ -30,6 +30,8 @@ plsda.cv<-function(formula,data){
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   Y <- as.factor(model.response(model.frame(formula, data = data)))
+  PRESS <- data.frame()
+  print(PRESS)
   
   #rang de la matrice X
   #au max on peut avoir rang(matrice) composantes 
@@ -72,6 +74,7 @@ plsda.cv<-function(formula,data){
       
     }
     PRESS[j] <-as.numeric(sum(press))
+    print(PRESS)
   }
   #recuperer le ncomp sur pour lequel le press a ete le plus petit
   ncomp <- which.min(PRESS)

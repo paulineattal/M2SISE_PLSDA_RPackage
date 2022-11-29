@@ -23,12 +23,17 @@ plsda.dummies<-function(y, mod=NA){
   
   #formatage de y
   y <- as.factor(as.vector(y))
+  #print(any(is.na(as.vector(mod))))
+  mod <- as.factor(as.vector(mod))
+  #print(levels(mod))
   
   #si on a renseigné le parametre mod
-  if (!is.na(mod)){
+  if (!any(is.na(mod))){
+    #print(paste('s',class(mod)))
     mod <- as.factor(as.vector(mod))
     n.mod <- levels(mod)
-  }else{
+  } else {
+    #print(paste('t',class(mode)))
     n.mod <- levels(y)
   }
 
@@ -38,4 +43,3 @@ plsda.dummies<-function(y, mod=NA){
   return(as.data.frame(dum))
 }
 
-test_dum=plsda.dummies(pred,Y.test)

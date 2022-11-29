@@ -38,11 +38,5 @@ plsda.predict<-function(object, newdata){
   return(pred_)
 }
 
-XT<-read_excel("C:/Users/pauli/Downloads/Data_LDA_Python.xlsx", sheet="DATA_PREDICT")
 
-
-
-pred=plsda.predict(fit.plslda, XT)
-pred
-yT
 
