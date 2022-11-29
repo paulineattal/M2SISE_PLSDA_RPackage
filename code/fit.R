@@ -1,9 +1,28 @@
-setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
+#' Title
+#'
+#' @param formula
+#' @param data
+#' @param ncomp
+#' @param max.iter
+#' @param tol
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' fit(Species ~ ., data = iris, ncomp = 2)
+#' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = 2)
+#'
 
-source("code/nipals.r")
+
+
+
+
 
 fit <- function(formula, data, 
                 ncomp = 2, #ici on peut mettre "CV" 
+                sel_var = NA, #ici on peut mettre que backward
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -16,6 +35,11 @@ fit <- function(formula, data,
     stop("some rows or columns are entirely missing. ",
          "Remove those before running pca.", call. = FALSE)
   }
+  
+  #if (sel_var){
+    #var_rm = backward(data)
+    #data = data[setdiff(colnames(data), as.vector(rm))]
+  #}
   
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
@@ -94,11 +118,5 @@ fit <- function(formula, data,
 
 
 ###################
-data<-read_excel("C:/Users/pauli/Downloads/Data_LDA_Python.xlsx")
-formula<-TYPE~.
 
-fit.plslda = fit(formula, data, ncomp=4)
-fit.plslda$coef_
-fit.plslda$intercept_
-fit.plslda$poid_X
 

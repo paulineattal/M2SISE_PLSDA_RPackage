@@ -1,4 +1,17 @@
+#print.R
 
+#' This function prints the scores of
+#'
+#' @param object
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#'
+#'
+#'
 
 print.PLSDA <- function(object){
   #affichage des scores de X 

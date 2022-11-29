@@ -1,3 +1,22 @@
+#' Cross Validation for Partial Least Squares Discriminant Analysis
+#'
+#' This function performs a k-cross-validation in order to determine the number of components \code{ncomp}
+#' to use in \code{plsda.fit} function.
+#' @param
+#' formula an object of class "formula" (or one that can be coerced to that class):
+#' a symbolic description of the model to be fitted.
+#' @param
+#' nfold the number of folds used for cross-validation (k=10 by default).
+#' @return
+#' \code{ncomp} the number of components that must be used in plsda.fit.
+#' \cr
+#' \code{PRESS} a vector containing the calculated PRESS for each components.
+#' \cr
+#' \code{min.PRESS}the minimum value of te vector PRESS that has been calculated.
+#' @examples
+#' plsda.cv(Species~., data = iris)
+#' plsda.cv(Species~.,data=iris, nfold = 50)
+
 
 plsda.cv<-function(formula,data){
   #TODO : adapter la taille du nfold en fonction de la taille du jeu de données
@@ -11,6 +30,8 @@ plsda.cv<-function(formula,data){
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   Y <- as.factor(model.response(model.frame(formula, data = data)))
+  PRESS <- data.frame()
+  print(PRESS)
   
   #rang de la matrice X
   #au max on peut avoir rang(matrice) composantes 
@@ -53,6 +74,7 @@ plsda.cv<-function(formula,data){
       
     }
     PRESS[j] <-as.numeric(sum(press))
+    print(PRESS)
   }
   #recuperer le ncomp sur pour lequel le press a ete le plus petit
   ncomp <- which.min(PRESS)

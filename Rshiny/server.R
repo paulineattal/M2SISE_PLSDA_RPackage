@@ -1,6 +1,8 @@
 library(ggplot2)
 server <- function(session, input, output) {
   
+  options(shiny.maxRequestSize=30*1024^2)
+  
   
   data <- reactive({
     

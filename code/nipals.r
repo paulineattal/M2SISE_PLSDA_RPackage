@@ -1,6 +1,17 @@
-library(readxl)
-source("code/dummies.r")
-source("code/scale.r")
+#' Algorithme NIPALS (Non-Linear iterative PLS)
+#'
+#' @param X
+#' @param y
+#' @param ncomp
+#' @param max.iter
+#' @param tol
+#'
+#' @return
+#' @export
+#'
+#' @examples
+
+
 
 plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){ 
   
