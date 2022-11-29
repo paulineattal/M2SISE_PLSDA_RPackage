@@ -1,3 +1,22 @@
+#' Cross Validation for Partial Least Squares Discriminant Analysis
+#'
+#' This function performs a k-cross-validation in order to determine the number of components \code{ncomp}
+#' to use in \code{plsda.fit} function.
+#' @param
+#' formula an object of class "formula" (or one that can be coerced to that class):
+#' a symbolic description of the model to be fitted.
+#' @param
+#' nfold the number of folds used for cross-validation (k=10 by default).
+#' @return
+#' \code{ncomp} the number of components that must be used in plsda.fit.
+#' \cr
+#' \code{PRESS} a vector containing the calculated PRESS for each components.
+#' \cr
+#' \code{min.PRESS}the minimum value of te vector PRESS that has been calculated.
+#' @examples
+#' plsda.cv(Species~., data = iris)
+#' plsda.cv(Species~.,data=iris, nfold = 50)
+
 
 plsda.cv<-function(formula,data){
   #TODO : adapter la taille du nfold en fonction de la taille du jeu de données
