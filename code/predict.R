@@ -20,6 +20,11 @@ plsda.predict<-function(object, newdata){
   #verifications des entrées#
   ###########################
   
+  #parametres non vides
+  if ((missing(object) | missing(newdata))){
+    stop("object et newdata sont les deux parametres obligatoire de la fonction predict")
+  }
+  
   #vérif. class object 
   if (class(object)!="PLSDA") {
     stop("Objectn'est pas un objet de type PLSDA")

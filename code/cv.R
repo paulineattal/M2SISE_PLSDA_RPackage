@@ -22,6 +22,10 @@ plsda.cv<-function(formula,data){
   #TODO : adapter la taille du nfold en fonction de la taille du jeu de données
   nfold=10
   
+  ###########################
+  #verifications des entrées#
+  ###########################
+  
   #Vérification que l'entrée est bien une formule Y~X
   if(plyr::is.formula(formula)==F){
     stop("formula must be R formula !")
@@ -35,8 +39,9 @@ plsda.cv<-function(formula,data){
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   Y <- as.factor(model.response(model.frame(formula, data = data)))
+  
+  #variable de comptae des erreurs de predictions
   PRESS <- data.frame()
-  print(PRESS)
   
   #rang de la matrice X
   #au max on peut avoir rang(matrice) composantes 

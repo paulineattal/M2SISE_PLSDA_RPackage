@@ -16,10 +16,6 @@
 #'
 
 
-
-
-
-
 fit <- function(formula, data, 
                 ncomp = 2, #ici on peut mettre "CV" 
                 sel_var = NA, #ici on peut mettre que backward
@@ -31,6 +27,10 @@ fit <- function(formula, data,
   #verifications des entrées#
   ###########################
   
+  if ((missing(data) | missing(formula))){
+    stop("formula et data sont les deux parametres obligatoires")
+  }
+    
   #formula au bon type
   if(plyr::is.formula(formula)==F){
     stop("formula doit etre de type formule")
@@ -51,35 +51,44 @@ fit <- function(formula, data,
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
   
+  #type des variables X toutes numeriques
   nbNumeric<- sum(sapply(X,is.numeric))
   if(nbNumeric<ncol(X)){
     stop("certaines variables ne sont pas numeriques")
   }
   
-  if (sel_var && ncol(X)<1000){
+  #param ncomp
+  if(ncomp == "CV") {
+    ncomp = plsda.cv()$ncomp
+  }else if(!is.numeric(ncomp) || is.null(ncomp) || ncomp <= 0 || length(ncomp)>1){
+    stop("parametre ncomp doit etre un numerique ")
+  }else if(ncomp > qr(X)$rank){
+    ncomp <- qr(X)$rank
+  }
+  
+  
+  #selection de variable 
+  if (sel_var == TRUE && ncol(X)<1000){
     var_sel = sel.forward(data)
-    #a changer pcq la le code c t pour la backward...
-    X = data[setdiff(colnames(data), as.vector(var_sel))]
+    X = data[var_sel]
   }
   
   #si X est a standardiser
-  if ((mean(apply(X,2,mean))>abs(1)) || (sum(sqrt(apply(X,2,var))) != ncol(X))){
+  if ((round(mean(apply(X,2,mean))) != 0) || (sum(sqrt(apply(X,2,var))) != ncol(X))){
     X <- plsda.scale(X)
   }
   
   #codage disjonctif de la variable cible
   ydum <- plsda.dummies(y)
-  
-  if(ncomp == "CV") {
-    ncomp = plsda.cv()$ncomp
-  }
+
   
   X.init <- X
   
   nipals.res <- plsda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
-  ########################LDA########################
-  
+  #####
+  #LDA#
+  #####
   #ici on effectue la LDA pour la classification
   #on l'a fait sur nos compossntes principales Th, obtenues en sorties de la PLS
   Th <- nipals.res$comp_X

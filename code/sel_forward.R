@@ -1,7 +1,7 @@
 
 
 
-sel.forward<-function(formula, data, slentry = 0.01){
+sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
   
   ###########################
   #verifications des entrées#
@@ -42,10 +42,11 @@ sel.forward<-function(formula, data, slentry = 0.01){
   #matrice W - cov. intra-classes -- biaisée
   W <- Reduce("+",lst_Vk)/(n) #;print(W)
   #matrice V - cov. totale
-  V <- (n-1)/n*cov(X) #;print(V)
-  #***********************
-  #*** début recherche ***
-  #***********************
+  V <- (n-1)/n*cov(X) #
+  
+  #################
+  #début recherche#
+  #################
   curVars <- c() #variables actuellement sélectionnées
   candidatsVars <- colnames(X) #variables candidates
   curLambda <- 1.0 #pas de var. sél., lambda = 1
@@ -107,8 +108,8 @@ sel.forward<-function(formula, data, slentry = 0.01){
       break
     }
   }
+  
   return(curVars)
 }
-
 
 
