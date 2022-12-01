@@ -15,7 +15,7 @@
 #' split_sample.t1<-plsda.split_sample(iris)
 #' split_sample.t2<-plsda.split_sample(iris,0.5)
 
-plsda.split_sample<-function(data, train_size=0.7){
+plsda.split_sample<-function(formula, data, train_size=0.7){
   
   #parametre train_size conforme
   if(train_size>1 | train_size<0){
@@ -24,13 +24,28 @@ plsda.split_sample<-function(data, train_size=0.7){
   if (!is.data.frame(data)){
     data <- as.data.frame(data)
   }
+  #if pas formula...
+  
   
   n <- nrow(data)
   # Selection des indices des individus de l'echantillon d'apprentisage
   i_sample<-sample(1:n,trunc(n*train_size))
   # Liste de sortie
-  res<-list("train"=data[i_sample,],
-             "test"=data[-i_sample,])
-return(res)
+  train = data[i_sample,]
+  test = data[-i_sample,]
+  
+  Xtrain <- as.matrix(model.matrix(formula, data = train)[,-1])
+  Xtest <- as.matrix(model.matrix(formula, data = test)[,-1])
+  
+  ytrain <- as.factor(model.response(model.frame(formula, data = train)))
+  ytest <- as.factor(model.response(model.frame(formula, data = test)))
+  
+  res<-list("Xtrain"=Xtrain,
+            "ytrain"=ytrain,
+            "Xtest"=Xtest,
+            "ytest"=ytest,
+            "train" = train
+            )
+  return(res)
 }
 

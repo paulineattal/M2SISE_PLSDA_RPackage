@@ -15,12 +15,24 @@
 
 
 plsda.predict<-function(object, newdata){
+  
+  ###########################
+  #verifications des entrées#
+  ###########################
+  
+  #vérif. class object 
   if (class(object)!="PLSDA") {
-    stop("Object's class is not PLSDA")
+    stop("Objectn'est pas un objet de type PLSDA")
   }
   
+  #vérif. type data
+  if (!is.data.frame(data)){
+    stop("data doit être un data.frame")
+  }
+  
+  #vérif. coherence modele et nouvelle données
   if (ncol(newdata) != (nrow(object$coef_))) {
-    stop("X must have the same number of columns than model")
+    stop("newdata doit avoir le meme nombre de colonne que le modele")
   }
   
   scores_ <- as.matrix(newdata) %*% object$coef_
@@ -29,10 +41,10 @@ plsda.predict<-function(object, newdata){
   
   ####softmax ou juste max ??? 
   # SoftMax
-  #scores_ <- t(apply(scores_, 1, function(x) { exp(x) / sum(exp(x)) }))
-  #pred_ <- colnames(scores_)[apply(scores_, 1, which.max)]
+  scores_ <- t(apply(scores_, 1, function(x) { exp(x) / sum(exp(x)) }))
+  pred_ <- colnames(scores_)[apply(scores_, 1, which.max)]
   #max 
-  pred_ <- apply(scores_,1, function(ligne){levels(object$y)[which.max(ligne)]})
+  #pred_ <- apply(scores_,1, function(ligne){levels(object$y)[which.max(ligne)]})
   
   class(pred_)<-"PLSDA"
   return(pred_)

@@ -21,33 +21,48 @@
 
 
 fit <- function(formula, data, 
-                ncomp = 4, #ici on peut mettre "CV" 
+                ncomp = 2, #ici on peut mettre "CV" 
                 sel_var = NA, #ici on peut mettre que backward
                 max.iter = 100,
                 tol = 1e-06)
 {
+  
+  ###########################
+  #verifications des entrées#
+  ###########################
+  
   #formula au bon type
   if(plyr::is.formula(formula)==F){
-    stop("formula must be R formula !")
+    stop("formula doit etre de type formule")
   }
   
+  #data est un data.frame ?
+  if (!is.data.frame(data)){
+    stop("data doit être un data.frame")
+  }
+  
+  #ligne.s ou colonne.s entierement vide.s ?
   if (any(colSums(!is.na(data)) == 0) | any(rowSums(!is.na(data)) == 0 )){
-    stop("some rows or columns are entirely missing. ",
-         "Remove those before running pca.", call. = FALSE)
+    stop("certaines lignes ou colonnes sont entierements manquantes",
+         "Retirez-les avant de relancer la fonction fit().", call. = FALSE)
   }
-  
-  #if (sel_var){
-    #var_rm = backward(data)
-    #data = data[setdiff(colnames(data), as.vector(rm))]
-  #}
   
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
-  X.init <- X
   y <- as.factor(model.response(model.frame(formula, data = data)))
-
   
-  #si data est a standardiser
+  nbNumeric<- sum(sapply(X,is.numeric))
+  if(nbNumeric<ncol(X)){
+    stop("certaines variables ne sont pas numeriques")
+  }
+  
+  if (sel_var && ncol(X)<1000){
+    var_sel = sel.forward(data)
+    #a changer pcq la le code c t pour la backward...
+    X = data[setdiff(colnames(data), as.vector(var_sel))]
+  }
+  
+  #si X est a standardiser
   if ((mean(apply(X,2,mean))>abs(1)) || (sum(sqrt(apply(X,2,var))) != ncol(X))){
     X <- plsda.scale(X)
   }
@@ -55,9 +70,11 @@ fit <- function(formula, data,
   #codage disjonctif de la variable cible
   ydum <- plsda.dummies(y)
   
-  #if ncomp == "CV" {
-    #ncomp = plsda.cv()
-  #}
+  if(ncomp == "CV") {
+    ncomp = plsda.cv()$ncomp
+  }
+  
+  X.init <- X
   
   nipals.res <- plsda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
@@ -101,11 +118,14 @@ fit <- function(formula, data,
   #revenir a toutes les var originelles 
   coef_ <- as.matrix(nipals.res$poid_X)%*%coef_
   coef_ <- diag(1/apply(X.init, 2, sd)) %*% coef_  
-  coef_
+  
+  intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_)
   
   
-  intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_) + log(pi_k)
-
+  ##################################
+  #stockage des resultats de sortie#
+  ##################################
+  
   res <- list("comp_X"= nipals.res$comp_X,
               "poid_X" = nipals.res$poid_X,
               "comp_Y" = nipals.res$comp_Y,

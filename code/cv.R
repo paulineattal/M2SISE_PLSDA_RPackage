@@ -27,6 +27,11 @@ plsda.cv<-function(formula,data){
     stop("formula must be R formula !")
   }
   
+  #data est un data.frame ?
+  if (!is.data.frame(data)){
+    stop("data doit être un data.frame")
+  }
+  
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   Y <- as.factor(model.response(model.frame(formula, data = data)))

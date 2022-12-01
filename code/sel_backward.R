@@ -33,13 +33,14 @@ test.retrait <- function(j,SW,ST,N,K,precLW){
 }
 
 #fonction de selection backward
-backward <- function(data){
+backward <- function(formule, data){
   if (!is.data.frame(data)){
     stop("parametre data doit etre de type data.frame")
   }
   
   #alpha : risque pour piloter la sélection
   alpha=0.05
+  lambda_depart = 1
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   y <- as.factor(model.response(model.frame(formula, data = data)))
   
@@ -55,7 +56,8 @@ backward <- function(data){
   #matrice initiale de covariance intra
   Wb <- (1.0/n)*Reduce("+",lapply(mod,function(niveau){(n_k[niveau]-1)*cov(X[y==niveau,])}))
   #lambda de Wilks initial (incluant les p variables)
-  lambda_depart <- det(Wb)/det(Vb)
+  lambda_depart = 1
+  #lambda_depart <- det(Wb)/det(Vb)
   
   #matrice pour récupérer les résultats à chaque étape
   mResult <- matrix(0,nrow=0,ncol=3)
