@@ -14,7 +14,7 @@
 #'
 
 
-plsda.predict<-function(object, newdata){
+plslda.predict<-function(object, newdata){
   
   ###########################
   #verifications des entrées#
@@ -40,11 +40,21 @@ plsda.predict<-function(object, newdata){
     stop("newdata doit avoir le meme nombre de colonne que le modele")
   }
   
+  ########
+  #Scores#
+  ########
+  
   scores_ <- as.matrix(newdata) %*% object$coef_
   #rajouter la constante ak0
   scores_ <- t(apply(scores_,1,function(ligne){ligne + object$intercept_}))
   
-  ####softmax ou juste max ??? 
+  ###############
+  #Classe finale#
+  ###############
+  
+  #Choix de la modalité a retenir pour chaque nouvel individu
+  
+  #softmax ou juste max du score d'appartenance a chaque modalité pour un nouvel individu
   # SoftMax
   scores_ <- t(apply(scores_, 1, function(x) { exp(x) / sum(exp(x)) }))
   pred_ <- colnames(scores_)[apply(scores_, 1, which.max)]

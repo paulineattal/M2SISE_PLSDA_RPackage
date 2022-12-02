@@ -16,9 +16,9 @@
 #'
 
 
-fit <- function(formula, data, 
+plslda.fit <- function(formula, data, 
                 ncomp = 2, #ici on peut mettre "CV" 
-                sel_var = NA, #ici on peut mettre que backward
+                sel_var = NA, #sel_val=TRUE executera la selection filtre forward
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -49,6 +49,7 @@ fit <- function(formula, data,
   
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
+  X.init <- X
   y <- as.factor(model.response(model.frame(formula, data = data)))
   
   #type des variables X toutes numeriques
@@ -57,7 +58,11 @@ fit <- function(formula, data,
     stop("certaines variables ne sont pas numeriques")
   }
   
+  
+  #lancer les traitements correspondant aux parametrages
+  
   #param ncomp
+  #choix du nombre idéal de composantes principales
   if(ncomp == "CV") {
     ncomp = plsda.cv()$ncomp
   }else if(!is.numeric(ncomp) || is.null(ncomp) || ncomp <= 0 || length(ncomp)>1){
@@ -66,12 +71,16 @@ fit <- function(formula, data,
     ncomp <- qr(X)$rank
   }
   
-  
+  #param sel_var
   #selection de variable 
   if (sel_var == TRUE && ncol(X)<1000){
     var_sel = sel.forward(data)
     X = data[var_sel]
   }
+  
+  #####################
+  #preparer les X et y#
+  #####################
   
   #si X est a standardiser
   if ((round(mean(apply(X,2,mean))) != 0) || (sum(sqrt(apply(X,2,var))) != ncol(X))){
@@ -81,21 +90,23 @@ fit <- function(formula, data,
   #codage disjonctif de la variable cible
   ydum <- plsda.dummies(y)
 
+  ########
+  #NIPALS#
+  ########
   
-  X.init <- X
-  
+  #Appel de la nipals pour effectuer la regression PLS#
   nipals.res <- plsda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
   #####
   #LDA#
   #####
+  
   #ici on effectue la LDA pour la classification
   #on l'a fait sur nos compossntes principales Th, obtenues en sorties de la PLS
   Th <- nipals.res$comp_X
-  #Th<-t(apply(as.matrix(nipals.res$comp_X),1,function(ligne){ligne %*% t(as.matrix(nipals.res$poid_X))}))
-  
+
   #effectif par classe
-  n_k <- table(y) #train
+  n_k <- table(y) 
   #nombre d'individus
   n <- nrow(Th)
   #nombre de modalite
@@ -121,14 +132,16 @@ fit <- function(formula, data,
   #calcul des coefficients des variables akj
   #pour la fonction de classement
   coef_ <- t(mb_k %*% invW)
-  coef_
   colnames(coef_) <- levels(y)
   intercept_ <- log(pi_k)-0.5*diag(mb_k %*% invW %*% t(mb_k))
-  #revenir a toutes les var originelles 
+  
+  ######################################
+  #revenir a toutes les var originelles#
+  ######################################
+  
   coef_ <- as.matrix(nipals.res$poid_X)%*%coef_
   coef_ <- diag(1/apply(X.init, 2, sd)) %*% coef_  
-  
-  intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_)
+  intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_) #TODO corriger ce calcul... 
   
   
   ##################################
@@ -142,6 +155,9 @@ fit <- function(formula, data,
               "intercept_" = intercept_, 
               "coef_"=coef_,
               "y" = y)
+  
+  
+  data.frame(Attributes = colnames(X),object$coef_)
   
   class(res)<-"PLSDA"
   return(res)

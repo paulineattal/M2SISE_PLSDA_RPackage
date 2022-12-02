@@ -13,7 +13,9 @@
 
 
 
-plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){ 
+plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){ 
+  
+  #on laisse les parametres par defaut si jamais l'utilisateur veut appeler nipals()
   
   X.init <- as.matrix(X)
   Y.init <- as.matrix(y)
@@ -34,6 +36,7 @@ plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){
   #eigTx <- vector("numeric", length = ncomp)
   
   #matrice des variables latentes de Y
+  #c'est ce qui fait que la nipals est une ACP supervisée
   U <- data.frame(matrix(rep(0), nrow = nrow(Y.init), ncol=ncomp))
   names(U) <-comp_names
   
@@ -139,6 +142,9 @@ plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){
   }
   #eigTx <- sqrt(eigTx)
   
+  ########################################
+  #qualité de la restitution des facteurs#
+  ########################################
   
   #X
   Rx <- cor(X.init,Tx)^2
@@ -152,7 +158,6 @@ plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){
     Rx.cum <- t(apply(Rx,1,cumsum))
     Var.Explained.X.Cum <- rbind(Rx.cum,Redundancy=colMeans(Rx.cum))
   }
-  
   #y
   Ry <- cor(Y.init,Tx)^2
   colnames(Ry) <- paste(rep("Comp",ncomp), 1:ncomp, sep=" ")
@@ -166,28 +171,29 @@ plsda.nipals <- function(X, y, ncomp=8, max.iter = 500, tol = 1e-06){
     Var.Explained.Y.Cum <- rbind(Ry.cum, Redundancy=colMeans(Ry.cum))
   }
   
-  Var.Explained.Y
-  Ry.cum
-  Var.Explained.Y.Cum
-  
-  Var.Explained.X
-  Rx.cum
-  Var.Explained.X.Cum
-  ###########################################
-  
   #critere a maximiser 
   #=somme des carrés des covariances entre composante et chacune des variables réponses
-  #R2 <- cor(y, Tx)^2 #
+  #R2 <- cor(y, Tx)^2 
   
+  ##################################
+  #stockage des resultats de sortie#
+  ##################################
   
   res <- list("comp_X"= Tx,
               "poid_X" = W, 
               "comp_Y" = U, 
               "poid_Y" = Q,
-              "Y.iter" = Y.iter
+              "Y.iter" = Y.iter, 
+              
+              "Var.Explained.Y"=Var.Explained.Y,
+              "Ry.cum"=Ry.cum,
+              "Var.Explained.Y.Cum"=Var.Explained.Y.Cum,
+              "Var.Explained.X"=Var.Explained.X,
+              "Rx.cum"=Rx.cum,
+              "Var.Explained.X.Cum"=Var.Explained.X.Cum
+              
               #"Xscores" = eigTx,
               #"R2" = R2,
-              #"Coeffs"=coeffs
   )
   
   class(res)<-"PLSDA"

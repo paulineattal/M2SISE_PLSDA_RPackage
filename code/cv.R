@@ -18,7 +18,7 @@
 #' plsda.cv(Species~.,data=iris, nfold = 50)
 
 
-plsda.cv<-function(formula,data){
+plslda.cv<-function(formula,data){
   #TODO : adapter la taille du nfold en fonction de la taille du jeu de données
   nfold=10
   
@@ -36,6 +36,10 @@ plsda.cv<-function(formula,data){
     stop("data doit être un data.frame")
   }
   
+  #################
+  #initialisations#
+  #################
+  
   #Récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   Y <- as.factor(model.response(model.frame(formula, data = data)))
@@ -46,11 +50,13 @@ plsda.cv<-function(formula,data){
   #rang de la matrice X
   #au max on peut avoir rang(matrice) composantes 
   ncomp <- qr(X)$rank
+  
+  #tester tous les decoupages de fold pour chaque "nombre de composante"
   for(j in 1:ncomp){
     #initialisation du critere d'optimisation
     press <- NULL
   
-    #shuffle le jeu de données
+    #malanger les X
     s<-sample(1:nrow(X),nrow(X))
     newX <- X[s,]
     newY <- Y[s]
@@ -76,7 +82,7 @@ plsda.cv<-function(formula,data){
       pred <- plsda.predict(fit, X.test)
       #dummies les pred
       #ajout du Y en deuxieme parametre de dummies 
-      #complete le dummies avec une colonne a 0 si aucune pred pour un modalité
+      #complete le dummies avec une colonne a 0 si aucune pred pour une des modalité
       pred <- plsda.dummies(pred, Y)
       
       #on calcule le press pour le ième échantillon
@@ -89,6 +95,10 @@ plsda.cv<-function(formula,data){
   #recuperer le ncomp sur pour lequel le press a ete le plus petit
   ncomp <- which.min(PRESS)
   min.PRESS <- PRESS[ncomp]
+  
+  ##################################
+  #stockage des resultats de sortie#
+  ##################################
   
   object=list("ncomp" = ncomp,
               "PRESS" = PRESS,

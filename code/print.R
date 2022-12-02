@@ -14,10 +14,8 @@
 #'
 
 print.PLSDA <- function(object){
-  #affichage des scores de X 
-  cat("Scores de X : ", object$Xscores,"\n")
-  #affichage des poids de X
-  cat("poids de X : ",object$Xloading.weights, "\n")
+  #affichage de la fonction de classement 
+  cat("Fonction de classement des X obtenue par la combinaisaon PLS-LDA : ", object$coef_intercept,"\n")
   #affichage des vecteurs latent de X"
-  cat("Vecteurs latents :", object$Xloadings)
+  cat("Vecteurs latents de X :", object$comp_X)
 }
