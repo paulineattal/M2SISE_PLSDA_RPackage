@@ -8,20 +8,20 @@ cercle_correlation.PLSDA <- function(object, PC1, PC2){
     labs(title="Projection des individus sur les 2 axes factoriel",
          x ="Dim 1", y = "Dim 2", fill = "Modalitées")
 }
-cercle_correlation.PLSDA(object, "PC1", "PC2")
+#cercle_correlation.PLSDA(object, "PC1", "PC2")
 
 
 
 #projection des variables 
-plan_factoriel.PLSDA <- function(object, X1, X2){
+plan_factoriel.PLSDA <- function(object, PC1, PC2){
   Xpls <- as.data.frame(object$poid_X)
   ggplot() +  
-    geom_text(data=Xpls, aes(x = X1, y = X2, label = rownames(Xpls)), col = 'red') +
-    geom_segment(data=Xpls, aes(x = 0, y = 0, xend = X1, yend = X2), arrow=arrow(length=unit(0.2,"cm")),alpha = 0.75, color = 'darkred') + 
+    geom_text(data=Xpls, aes(x = PC1, y = PC2, label = rownames(Xpls)), col = 'red') +
+    geom_segment(data=Xpls, aes(x = 0, y = 0, xend = PC1, yend = PC2), arrow=arrow(length=unit(0.2,"cm")),alpha = 0.75, color = 'darkred') + 
     labs(title="Projection des variables sur les 2 axes factoriel",
        x ="Dim 1", y = "Dim 2")
 }
-plan_factoriel.PLSDA(object, "PC1", "PC2")
+#plan_factoriel.PLSDA(object, "PC1", "PC2")
 
 
 #matrice de correlation 
@@ -31,7 +31,7 @@ correlationplot.PLSDA <- function(object, usedComp){
   mat.corr <- cor(X[ordre])
   corrplot::corrplot(mat.corr)
 }
-correlationplot.PLSDA(object,"X1")
+#correlationplot.PLSDA(object,"PC1")
 
 
 
@@ -47,7 +47,7 @@ propz.PLSDA <- function(object){
   #+ 
 }
 
-propz.PLSDA(object)
+#propz.PLSDA(object)
 
 
 

@@ -1,4 +1,4 @@
-.navbar-default {
+/*.navbar-default {
   background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(2,0,36,1) 19%, rgba(72,75,96,0.9051995798319328) 82%, rgba(137,142,145,1) 100%);
 }
@@ -33,11 +33,12 @@ footer {
 }
 
 html, body {
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 main {
   flex-grow: 1;
-}
+}*/

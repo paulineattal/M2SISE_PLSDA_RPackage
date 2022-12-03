@@ -2,7 +2,9 @@ library(shiny)
 source('ui.R', local = TRUE)
 source('server.R')
 
+
 shinyApp(
   ui = ui,
-  server = sever
+  server = sever,
+  options = list(height = 1080)
 )
