@@ -45,7 +45,7 @@ plslda.cv<-function(formula,data){
   Y <- as.factor(model.response(model.frame(formula, data = data)))
   
   #variable de comptae des erreurs de predictions
-  PRESS <- data.frame()
+  PRESS <- NULL
   
   #rang de la matrice X
   #au max on peut avoir rang(matrice) composantes 
@@ -86,7 +86,8 @@ plslda.cv<-function(formula,data){
       pred <- plsda.dummies(pred, Y)
       
       #on calcule le press pour le ième échantillon
-      press[i] <- sum((Y.test-pred)^2)
+      press[i] <- sum((as.matrix(Y.test)-as.matrix(pred))^2)
+      #press[i] <- sum(sweep(as.matrix(Y.test), 1, as.matrix(pred), '-')^2)
       
     }
     PRESS[j] <-as.numeric(sum(press))
