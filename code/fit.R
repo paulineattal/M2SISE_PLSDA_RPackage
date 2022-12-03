@@ -17,7 +17,7 @@
 
 
 plslda.fit <- function(formula, data, 
-                ncomp = 8, #ici on peut mettre "CV" 
+                ncomp = 2, #ici on peut mettre "CV" 
                 max.iter = 100,
                 tol = 1e-06)
 {

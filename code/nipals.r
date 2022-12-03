@@ -28,6 +28,7 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
   #/ poids de X
   W <- data.frame(matrix(rep(NA), nrow = ncol(X.init), ncol=ncomp))
   rownames(W) <- colnames(X.init)
+  names(W) <- comp_names
 
   #matrice des variables latentes de X 
   #/ composantes principales
@@ -45,6 +46,7 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
   #/ poids de Y
   Q <- data.frame(matrix(rep(NA), nrow = ncol(Y.init), ncol = ncomp))
   rownames(Q) <- colnames(Y.init)
+  names(Q) <- comp_names
   
   
   nc.ones <- rep(1, ncol(X))
