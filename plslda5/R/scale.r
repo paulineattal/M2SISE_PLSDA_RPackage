@@ -27,19 +27,24 @@ plsda.scale<-function(X, center=TRUE, scale=TRUE ){
   if(typeof(X)!="double"){
     stop("La matrice en entrée doit contenir que des champs numériques")
   }
-  
-  
-  #CENTRER 
+
+
+  #CENTRER
   if (is.logical(center)) {
     if (center) {
       X<-t(apply(X,1,function(x){ return(x-apply(X,2,mean))}))
+      print(system.time(t(apply(X,1,function(x){ return(x-apply(X,2,mean))}))))
+      print(system.time(sweep(X,1,'-', STATS = colMeans(X))))
+      print(X)
+      print(sweep(X,1,'-', STATS = colMeans(X)))
+
     }
   }
   else if (is.numeric(center) && (length(center) == ncol(x)))
     X<-t(apply(X,1,function(x){ return(x-center)}))
-  
-  
-  #REDUIRE 
+
+
+  #REDUIRE
   if (is.logical(scale)) {
     if (scale) {
       X <- t(apply(X,1,function(x){x/sqrt(apply(X,2,var))}))
@@ -47,10 +52,10 @@ plsda.scale<-function(X, center=TRUE, scale=TRUE ){
   }
   else if (is.numeric(scale) && length(scale) == ncol(X))
     X <- t(apply(X,1,function(x){x/scale}))
-  
+
   #renvoyer sous forme de dataframe
   return(as.data.frame(X))
-  
+
 }
 
 
