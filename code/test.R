@@ -28,5 +28,4 @@ object
 
 pred = plslda.predict(object,newdata)
 pred
-
 data_split$ytest

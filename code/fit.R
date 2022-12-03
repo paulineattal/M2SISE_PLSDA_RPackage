@@ -155,6 +155,8 @@ plslda.fit <- function(formula, data,
               "intercept_" = intercept_, 
               "coef_"=coef_,
               "coef_cte" = coef_cte,
+              
+              "X.init" = X.init,
               "y" = y)
   
   class(res)<-"PLSDA"
