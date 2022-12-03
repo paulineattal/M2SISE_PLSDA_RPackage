@@ -26,6 +26,6 @@ newdata = data_split$Xtest
 object = plslda.fit(formula, data=data)
 object
 
-pred = plslda.predict(object,newdata)
-pred
-data_split$ytest
+ypred = plslda.predict(object,newdata)
+ypred
+y=data_split$ytest
