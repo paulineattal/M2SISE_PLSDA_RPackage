@@ -4,6 +4,9 @@ data = read_excel("Data_LDA_Python.xlsx")
 newdata = read_excel("Data_LDA_Python.xlsx", sheet="DATA_PREDICT")
 formula=TYPE~.
 
+#install.packages("https://github.com/paulineattal/PLSDA_R_Package/plslda5_0.1.0.tar.gz")
+
+
 source("code/fit.R")
 source("code/dummies.R")
 source("code/cv.r")
@@ -20,10 +23,10 @@ data = data_split$train
 newdata = data_split$Xtest
 
 
-object = fit(formula, data=data)
+object = plslda.fit(formula, data=data)
 
 
-pred = plsda.predict(object,newdata)
+pred = plslda.predict(object,newdata)
 pred
 
 data_split$ytest

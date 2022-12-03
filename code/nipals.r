@@ -140,6 +140,7 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
     #matrice des poids des composante Y
     Q[,k] <- q
   }
+  
   #eigTx <- sqrt(eigTx)
   
   ########################################
@@ -171,6 +172,12 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
     Var.Explained.Y.Cum <- rbind(Ry.cum, Redundancy=colMeans(Ry.cum))
   }
   
+  # Qualité de restitution du modele 
+  quality <- rbind(Var.Explained.X[nrow(Var.Explained.X),], Var.Explained.X.Cum[nrow(Var.Explained.X.Cum),], Var.Explained.Y[nrow(Var.Explained.Y),], Var.Explained.Y.Cum[nrow(Var.Explained.Y.Cum),])
+  rownames(quality) <- c("R2X", "R2Xcum", "R2y", "R2Ycum")
+  quality <- t(quality)
+  quality
+  
   #critere a maximiser 
   #=somme des carrés des covariances entre composante et chacune des variables réponses
   #R2 <- cor(y, Tx)^2 
@@ -185,12 +192,7 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
               "poid_Y" = Q,
               "Y.iter" = Y.iter, 
               
-              "Var.Explained.Y"=Var.Explained.Y,
-              "Ry.cum"=Ry.cum,
-              "Var.Explained.Y.Cum"=Var.Explained.Y.Cum,
-              "Var.Explained.X"=Var.Explained.X,
-              "Rx.cum"=Rx.cum,
-              "Var.Explained.X.Cum"=Var.Explained.X.Cum
+              "quality" = quality,
               
               #"Xscores" = eigTx,
               #"R2" = R2,

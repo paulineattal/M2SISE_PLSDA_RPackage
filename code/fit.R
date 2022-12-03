@@ -18,7 +18,7 @@
 
 plslda.fit <- function(formula, data, 
                 ncomp = 2, #ici on peut mettre "CV" 
-                sel_var = NA, #sel_val=TRUE executera la selection filtre forward
+                sel_var = FALSE, #sel_val=TRUE executera la selection filtre forward
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -143,6 +143,11 @@ plslda.fit <- function(formula, data,
   coef_ <- diag(1/apply(X.init, 2, sd)) %*% coef_  
   intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_) #TODO corriger ce calcul... 
   
+  #mettre dans un data.frame les coef et constant pour le print
+  coef <- data.frame(Attributes = colnames(X),object$coef_)
+  cte <- data.frame(Attributes = "constant",t(object$intercept_))
+  colnames(cte)[1:K+1] <- levels(y)
+  coef_cte <- rbind(coef,cte)
   
   ##################################
   #stockage des resultats de sortie#
@@ -152,16 +157,15 @@ plslda.fit <- function(formula, data,
               "poid_X" = nipals.res$poid_X,
               "comp_Y" = nipals.res$comp_Y,
               "poid_Y" = nipals.res$poid_Y,
+              
+              "quality" = nipals.res$quality,
+              
               "intercept_" = intercept_, 
               "coef_"=coef_,
+              "coef_cte" = coef_cte,
               "y" = y)
-  
-  
-  data.frame(Attributes = colnames(X),object$coef_)
   
   class(res)<-"PLSDA"
   return(res)
 }
-
-
 

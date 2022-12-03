@@ -16,15 +16,10 @@
 #' split_sample.t2<-plsda.split_sample(iris,0.5)
 
 #surcharge de summary
-summary.PLSDA <- function(object,ncomp=2){
-  #vérification du nombre de composantes
-  if (is.null(ncomp) || ncomp <= 0 || ncomp > length(object$vp))
-  {
-    ncomp = min(2,length(object$Xscores))
-  }
-  #affichage 
-  
-  
-  #voir td seance 5
+summary.PLSDA <- function(object){
+  #affichageCoefficient de projection standardisées
+  cat("Coefficient de projection standardisées",object$poid_X)
+  #affichage de la qualité de restitution de la regression PLS
+  cat("Qualité de restitution - Régression PLS", object$quality)
   
 }
