@@ -31,7 +31,7 @@ correlationplot.PLSDA <- function(object, usedComp){
   mat.corr <- cor(X[ordre])
   corrplot::corrplot(mat.corr)
 }
-correlationplot.PLSDA(object,"X1")
+correlationplot.PLSDA(object,"PC1")
 
 
 
