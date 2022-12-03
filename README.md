@@ -4,11 +4,11 @@
 
 ## Installaton with devtools
 
-* Install devtools package for R
+### Install devtools package for R
 ```r
 install.package('devtools')
 ```
-    * Download the PLSLDA package from github
+### Download the PLSLDA package from github
 ```r
 devtools::install_github('paulineattal/PLSDA_R_Package', subdir='/plslda')
 ```
