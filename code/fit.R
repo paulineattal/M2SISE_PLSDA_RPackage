@@ -18,7 +18,6 @@
 
 plslda.fit <- function(formula, data, 
                 ncomp = 2, #ici on peut mettre "CV" 
-                sel_var = FALSE, #sel_val=TRUE executera la selection filtre forward
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -69,13 +68,6 @@ plslda.fit <- function(formula, data,
     stop("parametre ncomp doit etre un numerique ")
   }else if(ncomp > qr(X)$rank){
     ncomp <- qr(X)$rank
-  }
-  
-  #param sel_var
-  #selection de variable 
-  if (sel_var == TRUE && ncol(X)<1000){
-    var_sel = sel.forward(data)
-    X = data[var_sel]
   }
   
   #####################
