@@ -24,7 +24,7 @@ newdata = data_split$Xtest
 
 
 object = plslda.fit(formula, data=data)
-
+object
 
 pred = plslda.predict(object,newdata)
 pred

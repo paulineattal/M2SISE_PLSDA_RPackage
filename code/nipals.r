@@ -172,11 +172,10 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
     Var.Explained.Y.Cum <- rbind(Ry.cum, Redundancy=colMeans(Ry.cum))
   }
   
-  # Qualité de restitution du modele 
+  #Data.frame pour l'affichage dans la fonction summary 
   quality <- rbind(Var.Explained.X[nrow(Var.Explained.X),], Var.Explained.X.Cum[nrow(Var.Explained.X.Cum),], Var.Explained.Y[nrow(Var.Explained.Y),], Var.Explained.Y.Cum[nrow(Var.Explained.Y.Cum),])
   rownames(quality) <- c("R2X", "R2Xcum", "R2y", "R2Ycum")
   quality <- t(quality)
-  quality
   
   #critere a maximiser 
   #=somme des carrés des covariances entre composante et chacune des variables réponses
@@ -192,7 +191,8 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
               "poid_Y" = Q,
               "Y.iter" = Y.iter, 
               
-              "quality" = quality,
+              "quality" = quality
+              
               
               #"Xscores" = eigTx,
               #"R2" = R2,

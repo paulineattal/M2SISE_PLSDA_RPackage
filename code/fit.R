@@ -17,7 +17,7 @@
 
 
 plslda.fit <- function(formula, data, 
-                ncomp = 2, #ici on peut mettre "CV" 
+                ncomp = 8, #ici on peut mettre "CV" 
                 max.iter = 100,
                 tol = 1e-06)
 {
@@ -87,7 +87,7 @@ plslda.fit <- function(formula, data,
   ########
   
   #Appel de la nipals pour effectuer la regression PLS#
-  nipals.res <- plsda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
+  nipals.res <- plslda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
   #####
   #LDA#
@@ -136,8 +136,8 @@ plslda.fit <- function(formula, data,
   intercept_ <- as.vector(-apply(X.init, 2, mean) %*% coef_) #TODO corriger ce calcul... 
   
   #mettre dans un data.frame les coef et constant pour le print
-  coef <- data.frame(Attributes = colnames(X),object$coef_)
-  cte <- data.frame(Attributes = "constant",t(object$intercept_))
+  coef <- data.frame(Attributes = colnames(X),coef_)
+  cte <- data.frame(Attributes = "constant",t(intercept_))
   colnames(cte)[1:K+1] <- levels(y)
   coef_cte <- rbind(coef,cte)
   
