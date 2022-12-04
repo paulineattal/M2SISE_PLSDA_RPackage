@@ -1,4 +1,30 @@
-
+#' sel.forward,
+#' The function used for variables selection, following the forward method
+#'
+#' @usage
+#' sel.forward(formula, data, slentry = 0.01, verbose=FALSE)
+#' @param
+#' formula
+#' @param
+#' data
+#' @param
+#' slentry, if the p value of the F test stat is lower than slentry, we stop adding variables
+#' @param
+#' verbose, is set to FALSE by default. If set to TRUE, it prints the intermediate tables at each step
+#'
+#' @details
+#' This approach carries out a selection of variables before applying the model. It adds variables one by one, and
+#' uses the Wilks lambda which helps determine if a variable contributes significantly through its total dispersion.
+#' which means, in each forward step, the one variable that is added is the ones that gives the single best improvement to your model.
+#' The idea is to keep only the variables that contribute significantly to the distance between the barycentres (class centers).
+#'
+#' @return
+#' It returns the selected variables
+#' @export
+#'
+#' @examples
+#' sel <- sel.forward(formula, data, slentry = 0.01, verbose=FALSE)
+#'
 
 
 sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
