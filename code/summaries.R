@@ -16,7 +16,7 @@
 #' split_sample.t2<-plsda.split_sample(iris,0.5)
 
 #surcharge de summary
-summary.PLSDA <- function(object){
+summary.PLSDA <- function(object, ...){
   
   #paramètre object
   if (class(object)!="PLSDA") {
@@ -24,8 +24,13 @@ summary.PLSDA <- function(object){
   }
   
   #affichage des coefficients de projection standardisés
-  cat("Coefficients de projection standardisés",object$poid_X, "\n")
+  cat("Coefficients de projection standardisés : ")
+  cat("\n")
+  print(object$poid_X)
+  cat("\n")
   #affichage de la qualité de restitution de la regression PLS
-  cat("Qualité de restitution - Régression PLS", object$quality)
+  cat("Qualité de restitution - Régression PLS : ")
+  cat("\n")
+  print(object$quality)
   
 }
