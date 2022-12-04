@@ -70,7 +70,7 @@ plslda.cv<-function(formula,data){
       train <- data.frame("Y"=Y.train, X.train)
       
       #on exécute le modèle sur les données d'appprentissage
-      fit<-fit(Y~., train, ncomp = j)
+      fit<-plslda.fit(Y~., train, ncomp = j)
       #on fait la prédiction sur X.test
       pred <- plslda.predict(fit, X.test)
       #dummies les pred

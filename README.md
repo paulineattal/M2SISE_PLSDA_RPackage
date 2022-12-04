@@ -17,5 +17,29 @@ or
 install_github('paulineattal/PLSDA_R_Package', subdir='/plslda')
 ```
 
+## Installation from the tar.gz
+
+### Download the tar.gz on your computer
+
+First you need to download the file tar.gz on the repos then you can install it.
+To install the package on Rstudio from a local file :
+```r
+install.packages('your/path/to/the/tar', repos=NULL, type="source)
+```
+### Or download the tar.gz directly on Rstudio
+
+```r
+install.packaages('https://github.com/paulineattal/PLSDA_R_Package/blob/main/plslda5_0.1.0.tar.gz', repos=NULL, method='libcurl')
+```
+
+-----
+
+# <center>**How use the package**</center>
+
+________
+
+
+
+
 (comment le télécharger, comment le faire fonction et les fonctions incluses dedans ..)
 #comment utiliser l'application

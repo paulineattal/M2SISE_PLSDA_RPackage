@@ -202,3 +202,4 @@ plslda.fit <- function(formula, data,
   return(res)
 }
 
+
