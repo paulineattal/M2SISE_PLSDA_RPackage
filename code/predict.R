@@ -1,17 +1,22 @@
-#' This is the predict function for the Partial Least Square Discriminant Analysis (plsda) regression.
+#' plslda.predict,
+#' The function used to predict in our model
 #'
-#' @param object
-#' @param X
-#' @param ...
-#'
+#' @usage
+#' plslda.predict(ObjectPLSDA,newdata)
+#' @param
+#' plsda object, result of the fit method
+#' @param
+#' newdata, optional parameter : if given, it is a dataframe used to select the predictive variables
+#' If not, the fitted values are used.
 #' @return
+#' the function returns pred_, which is a vector containing, for each individual of the matrix X, the class name of the highest probability of belonging to a the target variable Y class (modality)
 #' @export
 #'
 #' @examples
-#' plsda.predict(model, ech$test, type ="class")
-#'
-#'
-#'
+#' example on the iris dataset
+#' df <- plsda.split_sample(iris)
+#' model <- plsda(Species~.,df$train)
+#' plslda.predict(model, df$test)
 
 
 plslda.predict<-function(object, newdata){
