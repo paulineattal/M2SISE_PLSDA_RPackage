@@ -30,16 +30,16 @@ correlationplot.PLSDA <- function(object, usedComp){
   mat.corr <- cor(X[ordre])
   corrplot::corrplot(mat.corr)
 }
-<<<<<<< HEAD:code/plot.R
+#<<<<<<< HEAD:code/plot.R
 # <<<<<<< HEAD
 # #correlationplot.PLSDA(object,"PC1")
 # =======
 # #correlationplot.PLSDA(object,"PC1")
 # >>>>>>> 05ca2b5634deed9b5fcffedccb6a4577b6bd7abf
 
-=======
+#=======
 #correlationplot.PLSDA(object,"PC1")
->>>>>>> 8ceb1905494d405d41bd2155245204dd4ee2a530:code/plots.R
+#>>>>>>> 8ceb1905494d405d41bd2155245204dd4ee2a530:code/plots.R
 
 
 #proportion des variances expliquée des Z

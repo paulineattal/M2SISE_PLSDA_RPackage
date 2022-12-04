@@ -2,7 +2,7 @@ library(ggplot2)
 setwd('/home/pierre/Documents/Master/Semestre_1/R/projet/PLSDA_R_Package/code')
 source('./split_sample.r')
 source('./sel_forward.R')
-source('./plot.R')
+source('./plots.R')
 source('./fit.R')
 source('./cv.R')
 source('./scale.r')
@@ -74,7 +74,7 @@ server <- function(session, input, output) {
     updateSelectInput(session,"nb_compy_proj",choices=colnames((fit$comp_Y)))
     updateSelectInput(session,"used",choices=colnames((fit$comp_X)))
     
-    return(list('sortie'=result, 'fit'=fit, 'quality'=fit$quality))
+    return(list('sortie'=result, 'fit'=fit))
   })
   
     output$splitsample <- renderPrint({
