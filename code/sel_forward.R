@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' data(iris)
-#' sel.forward(Species~., iris)
+#' sel <- sel.forward(Species~., iris)
 #' 
 #'
 
