@@ -1,18 +1,22 @@
-#' Cross Validation for Partial Least Squares Discriminant Analysis
+#' plslda.cv,
+#' Cross validation for PLSLDA
 #'
-#' This function performs a k-cross-validation in order to determine the number of components \code{ncomp}
-#' to use in \code{plsda.fit} function.
 #' @param
-#' formula an object of class "formula" (or one that can be coerced to that class):
-#' a symbolic description of the model to be fitted.
+#' formula : this parameter is an object of class formula
 #' @param
-#' nfold the number of folds used for cross-validation (k=10 by default).
+#' data : the data to perform the cross validation on and from which to get the samples
+#' @description
+#' This function allows the user to apply a k-fold cross validation on the data in order to determine the optimal number of components \code{ncomp} to keep
+#' the \code{ncomp} that we get from this cv function can also be used in \code{plslda.fit} if the parameter of the function is set to "CV"
 #' @return
-#' \code{ncomp} the number of components that must be used in plsda.fit.
+#' This function returns a list object containing :
+#' \code{ncomp} the number of principal components (or latent variables) that should be used in the fit function, if not given by the user.
 #' \cr
-#' \code{PRESS} a vector containing the calculated PRESS for each components.
+#' \code{PRESS} PRESS is a vector of PRESS values for each component.
 #' \cr
-#' \code{min.PRESS}the minimum value of te vector PRESS that has been calculated.
+#' \code{min.PRESS}the minimum value of the PRESS vector that has been calculated, giving the number of principal components to keep.
+#' @export
+#'
 #' @examples
 #' plsda.cv(Species~., data = iris)
 #' plsda.cv(Species~.,data=iris, nfold = 50)
