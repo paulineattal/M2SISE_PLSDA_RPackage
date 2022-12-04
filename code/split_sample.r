@@ -1,19 +1,19 @@
-#' Randomly Sample a DataSet
+#' plsda.split_sample,
+#' This function is used to split data into a train and a test sets
+#' @param
+#' formula, used to select the predictive variables
+#' @param
+#' data, the data to split into train and test sets
+#' @param
+#' train_size, is set to 0.7 by default (70%), which means 70% of the data goes to the train set
 #'
-#' This function randomly separate a data set into a learning sample and test sample that can be selected by the user.
-#' @usage
-#' plsda.split_sample(data,prop.train=0.75)
-#' @param
-#' data the dataset to split.
-#' @param
-#' prop.train proportion of the learning sample.
 #' @return
-#' \code{train} a subset matrice of data corresponding to the learning sample dataset.
-#' \cr
-#' \code{test} a subset matrice of data corresponding to the test sample dataset.
+#' It returns train-test splits of inputs
+#' @export
+#'
 #' @examples
-#' split_sample.t1<-plsda.split_sample(iris)
-#' split_sample.t2<-plsda.split_sample(iris,0.5)
+#' split_sample.t1<-plsda.split_sample(iris) !!!!!!!!!!!!!!!
+#' split_sample.t2<-plsda.split_sample(iris,0.5) !!!!!!!!!!!! formula ??
 
 plsda.split_sample<-function(formula, data, train_size=0.7){
   
