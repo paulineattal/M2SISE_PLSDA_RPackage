@@ -43,9 +43,12 @@
 #' @examples
 #' 1st example : where all the variables are used
 #' fit(Species ~ ., data = iris, ncomp = 2,max.iter = 100,tol = 1e-06)
-#' 2nd example: only 2 variables are selected
+#' 2nd example : only 2 variables are selected
 #' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = 2, max.iter = 100,tol = 1e-06)
-#'
+#' 3rd example : using "CV" in ncomp parameter
+#' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = "CV", max.iter = 100,tol = 1e-06)
+#' 
+#' 
 
 
 plslda.fit <- function(formula, data, 

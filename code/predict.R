@@ -13,10 +13,16 @@
 #' @export
 #'
 #' @examples
-#' example on the iris dataset
-#' df <- plsda.split_sample(iris)
-#' model <- plsda(Species~.,df$train)
-#' plslda.predict(model, df$test)
+#' 
+#' #' data(iris)
+#' formula = Species~.
+#' 
+#' data_split = plsda.split_sample(formula=formule, data=iris)
+#'
+#' object = plslda.fit(formula=formule, data=data_split$train)
+#'
+#' ypred = plslda.predict(object=object,newdata=data_split$Xtest)
+#'
 
 
 plslda.predict<-function(object, newdata){

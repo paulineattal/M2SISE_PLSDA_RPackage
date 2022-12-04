@@ -18,6 +18,7 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
 #' plsda.cv(Species~., data = iris)
 #' plsda.cv(Species~.,data=iris, nfold = 50)
 

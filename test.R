@@ -45,7 +45,7 @@ print(data.frame(ypred=as.factor(ypred), y=data_split$ytest))
 
 
 #metrics
-metrics <- report.plslda(y=data_split$ytest, ypred=ypred)
+metrics <- plslda.metrics(y=data_split$ytest, ypred=ypred)
 print(metrics)
 
 #fonctions surchargées

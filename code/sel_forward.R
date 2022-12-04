@@ -4,9 +4,9 @@
 #' @usage
 #' sel.forward(formula, data, slentry = 0.01, verbose=FALSE)
 #' @param
-#' formula
+#' formula, used to select the predictive variables
 #' @param
-#' data
+#' data, dataset with many numeric variables
 #' @param
 #' slentry, if the p value of the F test stat is lower than slentry, we stop adding variables
 #' @param
@@ -24,7 +24,8 @@
 #'
 #' @examples
 #' data(iris)
-#' sel <- sel.forward(Species~., iris)
+#' formule = Species~
+#' sel <- sel.forward(formula=formule, data=iris, slentry = 0.01, verbose=FALSE)
 #' 
 #'
 

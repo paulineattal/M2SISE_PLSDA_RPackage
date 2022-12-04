@@ -13,8 +13,13 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' formule = Species~.
+#' 
+#' y <- as.factor(model.response(model.frame(formula=formule, data = iris)))
+#' 
 #' dummy <- plsda.dummies(iris$Species, mod=NA)
-#' dummy_mod <-plsda.dummies(iris$Species, mod= ) !!!!!
+#' dummy_mod <-plsda.dummies(iris$Species, mod= y) 
 
 
 

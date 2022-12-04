@@ -11,6 +11,12 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' formule = Species~.
+#' 
+#' PLSDA_object = fit(formula=formule, data=iris)
+#' print(PLSDA_object)
+#' 
 
 print.PLSDA <- function(object, ...){
   

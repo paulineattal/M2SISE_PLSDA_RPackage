@@ -15,6 +15,18 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' formula = Species~.
+#' 
+#' data_split = plsda.split_sample(formula=formule, data=iris)
+#'
+#' object = plslda.fit(formula=formula, data=data_split$train)
+#'
+#' ypred = plslda.predict(object=object,newdata=data_split$Xtest)
+#'
+#' metrics <- plslda.metrics(y=data_split$ytest, ypred=ypred)
+#' print(metrics$summary)
+#' print(metrics$accuracy)
 #'
 
 

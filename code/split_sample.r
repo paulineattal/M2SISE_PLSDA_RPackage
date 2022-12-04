@@ -12,8 +12,17 @@
 #' @export
 #'
 #' @examples
-#' split_sample.t1<-plsda.split_sample(iris) !!!!!!!!!!!!!!!
-#' split_sample.t2<-plsda.split_sample(iris,0.5) !!!!!!!!!!!! formula ??
+#' data(iris)
+#' formule = Species~.
+#' split_sample.t1<-plsda.split_sample(formula=formule, data=iris) 
+#' split_sample.t2<-plsda.split_sample(formula=formule, data=iris, iris,0.5) 
+#' train1 = split_sample.t1$train
+#' Xtrain1 = split_sample.t1$Xtrain
+#' ytrain1 = split_sample.t1$ytrain
+#' Xtest1 = split_sample.t1$Xtest
+#' ytest1 = split_sample.t1$ytest
+#' 
+#' 
 
 plsda.split_sample<-function(formula, data, train_size=0.7){
   

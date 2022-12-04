@@ -12,6 +12,11 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' formule = Species~.
+#' 
+#' PLSDA_object = fit(formula=formule, data=iris)
+#' summary(PLSDA_object)
 #'
 
 #surcharge de summary

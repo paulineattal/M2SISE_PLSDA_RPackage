@@ -1,6 +1,7 @@
 #' plslda.nipals,
 #' Nipals
 #'
+#' nipals is an internal function used in the fit function
 #' @param
 #' X entry matrix containing observations and variables
 #' @param
@@ -35,6 +36,14 @@
 #' @export
 #'
 #' @examples
+#' data(iris)
+#' formula = Species~.
+#' X <- as.matrix(model.matrix(formula=formule, data = iris)[,-1])
+#' y <- as.factor(model.response(model.frame(formula=formule, data = iris)))
+#' ydum <- plsda.dummies(y)
+#' 
+#' plslda.nipals(X=X, y=ydum, ncomp = 2, max.iter = 100, tol = 1e-06)
+#' 
 
 
 
