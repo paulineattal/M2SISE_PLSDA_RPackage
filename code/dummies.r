@@ -1,4 +1,4 @@
-#' plsda.dummies,
+#' plslda.dummies,
 #' Converting factor to dummy
 #'
 #' @param
@@ -18,12 +18,12 @@
 #' 
 #' y <- as.factor(model.response(model.frame(formula=formule, data = iris)))
 #' 
-#' dummy <- plsda.dummies(iris$Species, mod=NA)
-#' dummy_mod <-plsda.dummies(iris$Species, mod= y) 
+#' dummy <- plslda.dummies(iris$Species, mod=NA)
+#' dummy_mod <-plslda.dummies(iris$Species, mod= y) 
 
 
 
-plsda.dummies<-function(y, mod=NA){
+plslda.dummies<-function(y, mod=NA){
   
   #formatage des entrées
   y <- as.factor(as.vector(y))

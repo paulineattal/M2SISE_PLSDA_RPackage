@@ -1,4 +1,4 @@
-#' plsda.split_sample,
+#' plslda.split_sample,
 #' This function is used to split data into a train and a test sets
 #' @param
 #' formula, used to select the predictive variables
@@ -14,8 +14,8 @@
 #' @examples
 #' data(iris)
 #' formule = Species~.
-#' split_sample.t1<-plsda.split_sample(formula=formule, data=iris) 
-#' split_sample.t2<-plsda.split_sample(formula=formule, data=iris, iris,0.5) 
+#' split_sample.t1<-plslda.split_sample(formula=formule, data=iris) 
+#' split_sample.t2<-plslda.split_sample(formula=formule, data=iris, iris,0.5) 
 #' train1 = split_sample.t1$train
 #' Xtrain1 = split_sample.t1$Xtrain
 #' ytrain1 = split_sample.t1$ytrain
@@ -24,7 +24,7 @@
 #' 
 #' 
 
-plsda.split_sample<-function(formula, data, train_size=0.7){
+plslda.split_sample<-function(formula, data, train_size=0.7){
   
   ###########################
   #vérifications des entrées#

@@ -1,4 +1,4 @@
-#' plsda.scale,
+#' plslda.scale,
 #' Function to standardize vectors and matrixes (center and reduce)
 #'
 #' @param
@@ -14,8 +14,8 @@
 #'
 #' @examples
 #' data(iris)
-#' scale.t1<-plsda.scale(iris[,-5],center=TRUE, scale=TRUE)
-#' scale.t2<-plsda.scale(iris[,-5],center=TRUE, scale=FALSE)
+#' scale.t1<-plslda.scale(iris[,-5],center=TRUE, scale=TRUE)
+#' scale.t2<-plslda.scale(iris[,-5],center=TRUE, scale=FALSE)
 
 plslda.scale<-function(X, center=TRUE, scale=TRUE ){
   

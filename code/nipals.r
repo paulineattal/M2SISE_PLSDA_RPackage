@@ -40,7 +40,7 @@
 #' formula = Species~.
 #' X <- as.matrix(model.matrix(formula=formule, data = iris)[,-1])
 #' y <- as.factor(model.response(model.frame(formula=formule, data = iris)))
-#' ydum <- plsda.dummies(y)
+#' ydum <- plslda.dummies(y)
 #' 
 #' plslda.nipals(X=X, y=ydum, ncomp = 2, max.iter = 100, tol = 1e-06)
 #' 

@@ -18,7 +18,7 @@
 #' data(iris)
 #' formula = Species~.
 #' 
-#' data_split = plsda.split_sample(formula=formule, data=iris)
+#' data_split = plslda.split_sample(formula=formule, data=iris)
 #'
 #' object = plslda.fit(formula=formula, data=data_split$train)
 #'

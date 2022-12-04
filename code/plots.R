@@ -1,5 +1,31 @@
 
 #representation des y sur 2 axes
+#' Plots
+#'
+#' @param
+#' object
+#' @param
+#' PC1, first principal component
+#' @param
+#' PC2, second principal component
+#'
+#' @return
+#' returns a graph which shows the projection of the individuals on 2 principal axis
+#' @export
+#'
+#' @examples
+#' data(iris)
+#' formule = Species~.
+#' object = plslda.fit(formula=formule, data=iris)
+#' 
+#' cercle_correlation.PLSDA(object=object, "PC1", "PC2")
+#' plan_factoriel.PLSDA(object=object, "PC1", "PC2")
+#' correlationplot.PLSDA(object=object,"PC1")
+#' propz.PLSDA(object)
+#'
+
+
+#representation des y sur 2 axes
 cercle_correlation.PLSDA <- function(object, PC1, PC2){
   Ypls = cbind(object$comp_X, y=as.matrix(object$y))
   ggplot(Ypls, aes(x=PC1, y=PC2, col = y, fill = y)) +
@@ -8,7 +34,6 @@ cercle_correlation.PLSDA <- function(object, PC1, PC2){
     labs(title="Projection des individus sur les 2 axes factoriel",
          x ="Dim 1", y = "Dim 2", fill = "Modalitées")
 }
-#cercle_correlation.PLSDA(object, "PC1", "PC2")
 
 
 #projection des variables 
@@ -20,7 +45,6 @@ plan_factoriel.PLSDA <- function(object, PC1, PC2){
     labs(title="Projection des variables sur les 2 axes factoriel",
        x ="Dim 1", y = "Dim 2")
 }
-#plan_factoriel.PLSDA(object, "PC1", "PC2")
 
 
 #matrice de correlation 
@@ -30,7 +54,6 @@ correlationplot.PLSDA <- function(object, usedComp){
   mat.corr <- cor(X[ordre])
   corrplot::corrplot(mat.corr)
 }
-#correlationplot.PLSDA(object,"PC1")
 
 
 #proportion des variances expliquée des Z
@@ -42,10 +65,8 @@ propz.PLSDA <- function(object){
     geom_point(color="violetred") +
     labs(title="Proportion des variances expliquée des Z",
          x ="Composantes", y = "% explication")
-  #+ 
 }
 
-#propz.PLSDA(object)
 
 
 

@@ -19,8 +19,8 @@
 #'
 #' @examples
 #' data(iris)
-#' plsda.cv(Species~., data = iris)
-#' plsda.cv(Species~.,data=iris, nfold = 50)
+#' plslda.cv(Species~., data = iris)
+#' plslda.cv(Species~.,data=iris, nfold = 50)
 
 
 plslda.cv<-function(formula,data){
@@ -72,11 +72,11 @@ plslda.cv<-function(formula,data){
       #on exécute le modèle sur les données d'appprentissage
       fit<-fit(Y~., train, ncomp = j)
       #on fait la prédiction sur X.test
-      pred <- plsda.predict(fit, X.test)
+      pred <- plslda.predict(fit, X.test)
       #dummies les pred
       #ajout du Y en deuxieèe paramètre de dummies 
       #complète le dummies avec une colonne a 0 si aucune pred pour une des modalité
-      pred <- plsda.dummies(pred, Y)
+      pred <- plslda.dummies(pred, Y)
       
       #on calcule le press pour le ième échantillon
       press[i] <- sum((as.matrix(Y.test)-as.matrix(pred))^2)

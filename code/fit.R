@@ -102,7 +102,7 @@ plslda.fit <- function(formula, data,
   #paramètres ncomp
   #choix du nombre idéal de composantes principales
   if(ncomp == "CV") {
-    ncomp = plsda.cv()$ncomp
+    ncomp = plslda.cv()$ncomp
   }else if(!is.numeric(ncomp) || is.null(ncomp) || ncomp <= 0 || length(ncomp)>1){
     stop("Erreur : paramètres ncomp doit être un numériques ")
   }else if(ncomp > qr(X)$rank){
@@ -115,11 +115,11 @@ plslda.fit <- function(formula, data,
   
   #si X est a standardiser
   if ((round(mean(apply(X,2,mean))) != 0) || (sum(sqrt(apply(X,2,var))) != ncol(X))){
-    X <- plsda.scale(X)
+    X <- plslda.scale(X)
   }
   
   #codage disjonctif de la variable cible
-  ydum <- plsda.dummies(y)
+  ydum <- plslda.dummies(y)
 
   ########
   #NIPALS#

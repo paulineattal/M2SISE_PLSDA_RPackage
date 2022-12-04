@@ -1,3 +1,4 @@
+library(ggplot2)
 
 setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package")
 library(readxl)
@@ -18,25 +19,31 @@ source("code/predict.r")
 source("code/split_sample.r")
 source("code/sel_forward.r")
 source("code/metrics.r")
-library(ggplot2)
 source("code/plots.r")
 
 
 #selection de variables
-print(past("Noms des variables avant séléction : ",colnames(data)))
-print(past("Formule en entrée de la fonction : ",formula))
+print("Noms des variables avant séléction : ")
+print(colnames(data))
+print("Formule en entrée de la fonction : ")
+print(formula)
 sel.data = sel.forward(formula=formula, data=data)
-print(past("Noms des variables avant séléction : ",colnames(sel.data)))
+print("Noms des variables avant séléction : ")
+print(colnames(sel.data))
 
 
 #split datas
-print(past("Nombre de ligne total du jeu de données : ",nrow(sel.data)))
-data_split = plsda.split_sample(formula=formula, data=sel.data)
-nrow(past("Nombre de ligne du jeu d'entrainement : ",data_split$train))
-nrow(past("Nombre de lignes du jeu de test : ",data_split$Xtest))
+print("Nombre de ligne total du jeu de données : ")
+print(nrow(sel.data))
+data_split = plslda.split_sample(formula=formula, data=sel.data)
+print("Nombre de ligne du jeu d'entrainement : ")
+print(nrow(data_split$train))
+print("Nombre de lignes du jeu de test : ")
+print(nrow(data_split$Xtest))
 
 #fit
 object = plslda.fit(formula=formula, data=data_split$train)
+print("classe de l'object : ")
 print(class(object))
 
 #predict
@@ -49,6 +56,7 @@ metrics <- plslda.metrics(y=data_split$ytest, ypred=ypred)
 print(metrics)
 
 #fonctions surchargées
+source("code/print.r")
+source("code/summary.r")
 print(object)
-
 summary(object)
