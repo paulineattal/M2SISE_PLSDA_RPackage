@@ -22,25 +22,13 @@ plslda.cv<-function(formula,data){
   #TODO : adapter la taille du nfold en fonction de la taille du jeu de données
   nfold=10
   
-  ###########################
-  #verifications des entrées#
-  ###########################
-  
-  #Vérification que l'entrée est bien une formule Y~X
-  if(plyr::is.formula(formula)==F){
-    stop("formula must be R formula !")
-  }
-  
-  #data est un data.frame ?
-  if (!is.data.frame(data)){
-    stop("data doit être un data.frame")
-  }
+  #pas de vérifications car les paramètres d'entrées ont déja été vérifiés dans la fit()
   
   #################
   #initialisations#
   #################
   
-  #Récupération des X et Y
+  #récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   Y <- as.factor(model.response(model.frame(formula, data = data)))
   
@@ -51,22 +39,22 @@ plslda.cv<-function(formula,data){
   #au max on peut avoir rang(matrice) composantes 
   ncomp <- qr(X)$rank
   
-  #tester tous les decoupages de fold pour chaque "nombre de composante"
+  #tester tous les découpages de fold pour chaque "nombre de composante"
   for(j in 1:ncomp){
-    #initialisation du critere d'optimisation
+    #initialisation du critère d'optimisation
     press <- NULL
   
-    #malanger les X
+    #mélanger les X
     s<-sample(1:nrow(X),nrow(X))
     newX <- X[s,]
     newY <- Y[s]
     
-    #creer les indices pour le nfolds
+    #créer les indices pour le nfolds
     folds <- cut(seq(1, nrow(X)), breaks = nfold, labels=FALSE)
     
     for(i in 1:nfold){
       
-      #recuperer les indices pour le fold en cours
+      #récuperer les indices pour le fold en cours
       indexes <- which(folds == i, arr.ind = TRUE)
       
       #on divise les données en test et entraînement
@@ -81,8 +69,8 @@ plslda.cv<-function(formula,data){
       #on fait la prédiction sur X.test
       pred <- plsda.predict(fit, X.test)
       #dummies les pred
-      #ajout du Y en deuxieme parametre de dummies 
-      #complete le dummies avec une colonne a 0 si aucune pred pour une des modalité
+      #ajout du Y en deuxieèe paramètre de dummies 
+      #complète le dummies avec une colonne a 0 si aucune pred pour une des modalité
       pred <- plsda.dummies(pred, Y)
       
       #on calcule le press pour le ième échantillon
@@ -93,12 +81,12 @@ plslda.cv<-function(formula,data){
     PRESS[j] <-as.numeric(sum(press))
     print(PRESS)
   }
-  #recuperer le ncomp sur pour lequel le press a ete le plus petit
+  #récuperer le ncomp sur pour lequel le press a été le plus petit
   ncomp <- which.min(PRESS)
   min.PRESS <- PRESS[ncomp]
   
   ##################################
-  #stockage des resultats de sortie#
+  #stockage des résultats de sortie#
   ##################################
   
   object=list("ncomp" = ncomp,

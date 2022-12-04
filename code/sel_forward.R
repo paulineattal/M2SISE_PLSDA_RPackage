@@ -4,17 +4,22 @@
 sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
   
   ###########################
-  #verifications des entrées#
+  #vérifications des entrées#
   ###########################
   
-  #formula au bon type
-  if(plyr::is.formula(formula)==F){
-    stop("formula doit etre de type formule")
+  #paramètre verbose
+  if(!is.logical(verbose)){
+    stop("Erreur : parametre verbose mal rensigné, il doit etre de type logical")
   }
   
-  #data est un data.frame ?
+  #paramètre formula
+  if(plyr::is.formula(formula)==F){
+    stop("Erreur : formula doit etre de type formula")
+  }
+  
+  #paramètre data
   if (!is.data.frame(data)){
-    stop("data doit être un data.frame")
+    stop("Erreur : data doit être un data.frame")
   }
   
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
@@ -22,7 +27,7 @@ sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
   
   nbNumeric<- sum(sapply(X,is.numeric))
   if(nbNumeric<ncol(X)){
-    stop("certaines variables ne sont pas numeriques")
+    stop("Erreur : certaines variables ne sont pas numeriques")
   }
   
   #######################
@@ -30,23 +35,24 @@ sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
   #######################
   
   #nombre d'obs.
-  n <- nrow(X) #;print(n)
+  n <- nrow(X) 
   #nombre d'explicatives
-  p <- ncol(X) #;print(p)
+  p <- ncol(X) 
   #nombre de modalités de la cible, y est forcément un factor
-  K <- nlevels(y) #; print(K)
+  K <- nlevels(y) 
   #modalités
-  K_values <- levels(y) #;print(K_values)
+  K_values <- levels(y)
   #Var.covar conditionnelles
   lst_Vk <- lapply(K_values,function(k){m_k <- as.matrix(X[y==k,]);(nrow(m_k)-1)*cov(m_k)})
   #matrice W - cov. intra-classes -- biaisée
-  W <- Reduce("+",lst_Vk)/(n) #;print(W)
+  W <- Reduce("+",lst_Vk)/(n) 
   #matrice V - cov. totale
-  V <- (n-1)/n*cov(X) #
+  V <- (n-1)/n*cov(X) 
   
   #################
   #début recherche#
   #################
+  
   curVars <- c() #variables actuellement sélectionnées
   candidatsVars <- colnames(X) #variables candidates
   curLambda <- 1.0 #pas de var. sél., lambda = 1
@@ -56,12 +62,16 @@ sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
   while (TRUE){
     #si pas de variables candidates - on sort
     if (length(candidatsVars)==0){
-      print("Plus de variables candidates dispo.")
-      print("Fin du processus")
-      cat("\n")
+      if(verbose){
+        print("Plus de variables candidates dispo.")
+        print("Fin du processus")
+        cat("\n")
+      }
       break
     }
-    cat(paste("Etape :",(q+1)),"\n")
+    if(verbose){
+      cat(paste("Etape :",(q+1)),"\n")
+    }
     #préparer la structure pour récupérer les résultats
     curRes <- matrix(0,nrow=length(candidatsVars),ncol=3)
     rownames(curRes) <- candidatsVars
@@ -71,8 +81,8 @@ sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
       #ajouter la variable candidate à la liste courante
       tmpVars <- c(curVars,v)
       #former les matrices intermédiaires
-      tmpW <- as.matrix(W[tmpVars,tmpVars]) #; print(tmpW)
-      tmpV <- as.matrix(V[tmpVars,tmpVars]) #; print(tmpV)
+      tmpW <- as.matrix(W[tmpVars,tmpVars])
+      tmpV <- as.matrix(V[tmpVars,tmpVars]) 
       #calculer le lambda
       tmpLambda <- det(tmpW)/det(tmpV)
       #stat. de test
@@ -85,31 +95,45 @@ sel.forward<-function(formula, data, slentry = 0.01, verbose=FALSE){
     #trier le tableau des résultats selon F décroissant, si + d'une variable
     if (nrow(curRes) > 1){curRes <- curRes[order(curRes[,"F"],decreasing=TRUE),]}
     #affichage
-    print(curRes)
+    if(verbose){
+      print(curRes)
+    }
     #récupérer la meilleure variable (la 1ere puisque triée)... si significative 
     if (curRes[1,"p-value"] < slentry){
       #nom de la variable sélectionnée
       theBest <- rownames(curRes)[1]
-      print(paste("==> Variable introduite dans le modèle :",theBest))
+      if(verbose){
+        print(paste("==> Variable introduite dans le modèle :",theBest))
+      }
       #ajouter la variable dans le pool des sélectionnées
       curVars <- c(curVars,theBest)
       #supprimer cette variable de la sélection
       candidatsVars <- candidatsVars[candidatsVars != theBest]
-      #cat("Reste à tester :",candidatsVars,"\n")
-      cat("\n")
       #màj du nb de var. dans le pool des sélectionnées
       q <- q + 1
       #màj de lambda
       curLambda <- curRes[1,"Lambda"]
     } else {
-      print("Aucune variable ne répond au critère de sélection")
-      print("Fin du processus")
+      if(verbose){
+        print("Aucune variable ne répond au critère de sélection")
+        print("Fin du processus")
+      }
       #this is the end....
       break
     }
   }
   
-  return(curVars)
+  ########
+  #sortie#
+  ########
+  
+  
+  newX <- data.frame(y=y, data[curVars])
+  yname <- all.vars(formula)[1]
+  colnames(newX)[1] <- yname
+  newX
+  
+  return(newX)
 }
 
 

@@ -17,8 +17,14 @@
 
 #surcharge de summary
 summary.PLSDA <- function(object){
-  #affichageCoefficient de projection standardisées
-  cat("Coefficient de projection standardisées",object$poid_X)
+  
+  #paramètre object
+  if (class(object)!="PLSDA") {
+    stop("Erreur : Object n'est pas un objet de type PLSDA")
+  }
+  
+  #affichage des coefficients de projection standardisés
+  cat("Coefficients de projection standardisés",object$poid_X, "\n")
   #affichage de la qualité de restitution de la regression PLS
   cat("Qualité de restitution - Régression PLS", object$quality)
   

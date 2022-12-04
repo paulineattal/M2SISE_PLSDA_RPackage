@@ -22,8 +22,14 @@
 #'scale.t2<-plsda.scale(iris[,-5],reduce=T)
 
 plsda.scale<-function(X, center=TRUE, scale=TRUE ){
-
+  
   X<-as.matrix(X)
+  
+  ###########################
+  #vérifications des entrées#
+  ###########################
+  
+  #paramètre X
   if(typeof(X)!="double"){
     stop("La matrice en entrée doit contenir que des champs numériques")
   }
@@ -47,6 +53,10 @@ plsda.scale<-function(X, center=TRUE, scale=TRUE ){
   }
   else if (is.numeric(scale) && length(scale) == ncol(X))
     X <- t(apply(X,1,function(x){x/scale}))
+  
+  ########
+  #sortie#
+  ########
   
   #renvoyer sous forme de dataframe
   return(as.data.frame(X))

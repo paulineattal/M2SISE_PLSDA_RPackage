@@ -13,14 +13,18 @@
 
 
 
-plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){ 
+
+plslda.nipals <- function(X, y, ncomp, max.iter, tol){ 
   
-  #on laisse les parametres par defaut si jamais l'utilisateur veut appeler nipals()
+  #on ne fait pas de vérifications car la fonction est seulement appelée en interne de la fit()
   
   X.init <- as.matrix(X)
   Y.init <- as.matrix(y)
   
-  #initialisation
+  #################
+  #initialisations#
+  #################
+  
   comp_names <- paste0('PC', seq_len(ncomp))
   
   #matrice des coordonnées des composantes de X
@@ -48,14 +52,15 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
   rownames(Q) <- colnames(Y.init)
   names(Q) <- comp_names
   
-  
   nc.ones <- rep(1, ncol(X))
   nr.ones <- rep(1, nrow(X))
-  is.na.X <- is.na(X)
-  na.X <- any(is.na.X)
   
   X.iter = X.init #X0
   Y.iter = Y.init #Y0
+  
+  ################################
+  #calculs des variables latentes#
+  ################################
   
   #on déroule l'algorithme NIPALS pour calculer les composantes de X et Y
   for(k in 1:ncomp){
@@ -72,39 +77,17 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
     iter <- 1
     diff <- 1
     
-    if (na.X)
-    {
-      X.aux <- X.iter
-      X.aux[is.na.X] <- 0
-    }
     
     #on boucle jusqu'à ce que wk converge
     while (diff > tol & iter <= max.iter){
       
-      if (na.X)
-      {
-        #calcul des poids w de X 
-        w <- crossprod(X.aux, u)
-        Th <- drop(u) %o% nc.ones
-        Th[is.na.X] <- 0
-        u.cross <- crossprod(Th)
-        w <- w / diag(u.cross)
-        w <- w / drop(sqrt(crossprod(w)))
-        #calcul de la composante u de Xk-1
-        u <- X.aux %*% w
-        M <- drop(w) %o% nr.ones
-        M[t(is.na.X)] <- 0
-        ph.cross <- crossprod(M)
-        u <- u / diag(ph.cross)
-      } else {
-        #wk
-        w <- crossprod(X.iter, u) / drop(crossprod(u)) 
-        #normer a 1
-        w <- w / drop(sqrt(crossprod(w)))
-        #calcul de la composante u de Xk-1
-        #pk ca fait 1 le drop(crossprod(w)) ???
-        t <- X.iter %*% w / drop(crossprod(w)) #tk
-      }
+      #wk
+      w <- crossprod(X.iter, u) / drop(crossprod(u)) 
+      #normer a 1
+      w <- w / drop(sqrt(crossprod(w)))
+      #calcul de la composante u de Xk-1
+      #pk ca fait 1 le drop(crossprod(w)) ???
+      t <- X.iter %*% w / drop(crossprod(w)) #tk
     
       #calcul des poids de Yk-1
       q <- crossprod(Y.iter,t)/drop(crossprod(t)) #qk
@@ -124,7 +107,6 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
     #SVD de X
     #eigTx[k] <- sum(t * t, na.rm = TRUE)
     
-    
     #P
     P=crossprod(X.iter,t)/drop(crossprod(t))
     #mise à jour des X
@@ -132,7 +114,12 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
     #mise à jour des Y
     Y.iter <- Y.iter - t%*%t(q)
     
+    ###################################################
+    #stockage des résultats de chaque variable latente#
+    ###################################################
+    
     #stocker les resultats pour la sortie 
+    
     #matrice des composantes de X
     Tx[,k] <- t
     #matrice des composantes de Y
@@ -179,25 +166,16 @@ plslda.nipals <- function(X, y, ncomp, max.iter = 500, tol = 1e-06){
   rownames(quality) <- c("R2X", "R2Xcum", "R2y", "R2Ycum")
   quality <- t(quality)
   
-  #critere a maximiser 
-  #=somme des carrés des covariances entre composante et chacune des variables réponses
-  #R2 <- cor(y, Tx)^2 
-  
   ##################################
-  #stockage des resultats de sortie#
+  #stockage des résultats de sortie#
   ##################################
   
   res <- list("comp_X"= Tx,
               "poid_X" = W, 
               "comp_Y" = U, 
               "poid_Y" = Q,
-              "Y.iter" = Y.iter, 
-              
+              "Y.iter" = Y.iter,
               "quality" = quality
-              
-              
-              #"Xscores" = eigTx,
-              #"R2" = R2,
   )
   
   class(res)<-"PLSDA"
