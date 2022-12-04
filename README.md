@@ -124,6 +124,19 @@ print(class(object))
 ```
     ##  classe de l'object : 
     ##  PLSDA
+```r
+summary("summary de l'object :")
+print(summary(object))
+```
+    ## summary de l'object :
+    ##            Length Class      Mode  s 
+                    comp_X      4     data.frame list   
+                    poid_X      4     data.frame list   
+                    comp_Y      4     data.frame list   
+                    poid_Y      4     data.frame list   
+                    intercept_  7     table      numeric
+                    coef_      84     -none-     numeric
+                    y          53     factor     numeric
 
 
 
