@@ -23,28 +23,27 @@ source("code/plots.r")
 
 
 #selection de variables
-colnames(data)
-formula
+print(past("Noms des variables avant séléction : ",colnames(data)))
+print(past("Formule en entrée de la fonction : ",formula))
 sel.data = sel.forward(formula=formula, data=data)
-colnames(sel.data)
+print(past("Noms des variables avant séléction : ",colnames(sel.data)))
 
 
 #split datas
-nrow(sel.data)
+print(past("Nombre de ligne total du jeu de données : ",nrow(sel.data)))
 data_split = plsda.split_sample(formula=formula, data=sel.data)
-nrow(data_split$train)
-nrow(data_split$Xtest)
+nrow(past("Nombre de ligne du jeu d'entrainement : ",data_split$train))
+nrow(past("Nombre de lignes du jeu de test : ",data_split$Xtest))
 
 #fit
 object = plslda.fit(formula=formula, data=data_split$train)
-object
+print(class(object))
 
 #predict
 ypred = plslda.predict(object=object,newdata=data_split$Xtest)
-ypred
-data_split$ytest
+print(data.frame(ypred=as.factor(ypred), y=data_split$ytest))
 
 
 #metrics
 metrics <- report.plslda(y=data_split$ytest, ypred=ypred)
-metrics
+print(metrics)
