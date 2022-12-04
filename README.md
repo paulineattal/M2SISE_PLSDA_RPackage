@@ -38,6 +38,20 @@ install.packaages('https://github.com/paulineattal/PLSDA_R_Package/blob/main/pls
 
 ________
 
+## Load the package
+
+First you need to load the package
+```r
+library(plslda5)
+```
+## Use the help function
+
+You can acces to the function help to see all the documentation about your function.
+```r
+help('the_name_of_your_function')
+```
+
+
 
 
 
