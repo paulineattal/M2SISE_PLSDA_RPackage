@@ -1,19 +1,18 @@
-#' Randomly Sample a DataSet
+# surcharge de summary
+
+#' summary.PLSDA,
+#' This function prints the standardized projection coefficients of matrix X
+#' @param
+#' a plsda object
 #'
-#' This function randomly separate a data set into a learning sample and test sample that can be selected by the user.
-#' @usage
-#' plsda.split_sample(data,prop.train=0.75)
-#' @param
-#' data the dataset to split.
-#' @param
-#' prop.train proportion of the learning sample.
 #' @return
-#' \code{train} a subset matrice of data corresponding to the learning sample dataset.
-#' \cr
-#' \code{test} a subset matrice of data corresponding to the test sample dataset.
+#' prints the standardized (centered and reduce) projection coefficients  of matrix X
+#' @return
+#' prints the restitution quality of the pls regression
+#' @export
+#'
 #' @examples
-#' split_sample.t1<-plsda.split_sample(iris)
-#' split_sample.t2<-plsda.split_sample(iris,0.5)
+#'
 
 #surcharge de summary
 summary.PLSDA <- function(object, ...){
