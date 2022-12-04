@@ -5,20 +5,17 @@ report.plslda <- function(y, ypred){
   #vérifications des entrées#
   ###########################
   
-  if(nrow(y) != nrow(ypred)){
+  if(length(y) != length(ypred)){
     stop("Erreur : y et ypred n'ont pas le mêmes nombre de lignes")
     }
-  
-  if(all(levels(y) != levels(ypred))){
-    stop("Erreur : y et ypred n'ont pas les mêmes modalitées")
-  }
   
   #####################
   #Calculs des métrics#
   #####################
 
   #matrice de confusion
-  cm <- table(y, ypred)
+  lvls <- levels(y)
+  cm <- table(factor(y,levels = lvls), factor(ypred, levels = lvls))
   
   ct <- sum(cm)
   cs <- colSums(cm)
@@ -42,7 +39,7 @@ report.plslda <- function(y, ypred){
   
   #résultats arondis à 2 chiffres significatifs
   summary <- round(data.frame(tp, tn, fp, fn, precision=pr, recall=re, f1_score=f1), 2)
-  accuracy <- round(ac, dp)
+  accuracy <- round(ac, 2)
   
   ##################################
   #stockage des résultats de sortie#
