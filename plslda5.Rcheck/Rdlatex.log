@@ -1,0 +1,419 @@
+Hmm ... looks like a package
+Converting parsed Rd's to LaTeX .
+Creating pdf output from LaTeX ...
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10> (./Rd2.tex
+(/usr/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/texmf/tex/latex/Rd.sty
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/share/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 394.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 394.
+
+) (/usr/share/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty)
+Writing index file Rd2.idx
+(/usr/share/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file Rd2.aux.
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/usr/share/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texmf-dist/tex/latex/jknapltx/ursfs.fd) [1{/var/lib/texmf/fonts/map
+/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (60.78088pt too wide) in paragraph at lines 158--158
+ []\T1/pcr/m/n/10 plslda.fit <- function(formula, data, ncomp = 2, max.iter = 1
+00,tol = 1e-06) 
+[3]
+Overfull \hbox (0.9781pt too wide) in paragraph at lines 173--174
+[]\T1/ptm/m/n/10 is the value that de-ter-mines the con-ver-gence of the cur-re
+nt weight and old weight,
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--199
+
+
+Overfull \hbox (112.38031pt too wide) in paragraph at lines 206--206
+ []\T1/pcr/m/n/9 fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp 
+= 2, max.iter = 100,tol = 1e-06)[] 
+
+Overfull \hbox (128.58029pt too wide) in paragraph at lines 208--208
+ []\T1/pcr/m/n/9 fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp 
+= "CV", max.iter = 100,tol = 1e-06)[] 
+[4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 288--307
+
+(/usr/share/texmf-dist/tex/latex/psnfss/ts1pcr.fd) [6] [7]
+Overfull \hbox (24.05597pt too wide) in paragraph at lines 422--431
+[]\T1/ptm/m/n/10 data(iris) for-mule = Species~. split_sample.t1<-plslda.split_
+sample(formula=formule,
+
+Overfull \hbox (16.63582pt too wide) in paragraph at lines 422--431
+\T1/ptm/m/n/10 data=iris) split_sample.t2<-plslda.split_sample(formula=formule,
+ data=iris, iris,0.5)
+
+Overfull \hbox (61.10583pt too wide) in paragraph at lines 422--431
+\T1/ptm/m/n/10 train1 = split_sample.t1$train Xtrain1 = split_sample.t1$Xtrain 
+ytrain1 = split_sample.t1$ytrain
+[8]
+Overfull \hbox (20.58041pt too wide) in paragraph at lines 514--514
+ []\T1/pcr/m/n/9 sel <- sel.forward(formula=formule, data=iris, slentry = 0.01,
+ verbose=FALSE)[] 
+[9]
+No file Rd2.ind.
+[10] (/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information){/usr/share/texmf-dist/font
+s/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
+fb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/t
+imes/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/s
+hare/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (10 pages, 93424 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.16 [TeX Live 2022] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (12 entries accepted, 0 rejected).
+Sorting entries....done (38 comparisons).
+Generating output file Rd2.ind....done (22 lines written, 0 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10> (./Rd2.tex
+(/usr/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/texmf/tex/latex/Rd.sty
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/share/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 394.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 394.
+
+) (/usr/share/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty)
+Writing index file Rd2.idx
+(/usr/share/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.aux)
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.out)
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.out)
+(/usr/share/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.toc
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texmf-dist/tex/latex/jknapltx/ursfs.fd)) [1{/var/lib/texmf/fonts/ma
+p/pdftex/updmap/pdftex.map}] [2] [3]
+Overfull \hbox (60.78088pt too wide) in paragraph at lines 158--158
+ []\T1/pcr/m/n/10 plslda.fit <- function(formula, data, ncomp = 2, max.iter = 1
+00,tol = 1e-06) 
+
+Overfull \hbox (0.9781pt too wide) in paragraph at lines 173--174
+[]\T1/ptm/m/n/10 is the value that de-ter-mines the con-ver-gence of the cur-re
+nt weight and old weight,
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--199
+
+[4]
+Overfull \hbox (112.38031pt too wide) in paragraph at lines 206--206
+ []\T1/pcr/m/n/9 fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp 
+= 2, max.iter = 100,tol = 1e-06)[] 
+
+Overfull \hbox (128.58029pt too wide) in paragraph at lines 208--208
+ []\T1/pcr/m/n/9 fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp 
+= "CV", max.iter = 100,tol = 1e-06)[] 
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 288--307
+
+[6] (/usr/share/texmf-dist/tex/latex/psnfss/ts1pcr.fd) [7]
+Overfull \hbox (24.05597pt too wide) in paragraph at lines 422--431
+[]\T1/ptm/m/n/10 data(iris) for-mule = Species~. split_sample.t1<-plslda.split_
+sample(formula=formule,
+
+Overfull \hbox (16.63582pt too wide) in paragraph at lines 422--431
+\T1/ptm/m/n/10 data=iris) split_sample.t2<-plslda.split_sample(formula=formule,
+ data=iris, iris,0.5)
+
+Overfull \hbox (61.10583pt too wide) in paragraph at lines 422--431
+\T1/ptm/m/n/10 train1 = split_sample.t1$train Xtrain1 = split_sample.t1$Xtrain 
+ytrain1 = split_sample.t1$ytrain
+[8] [9]
+Overfull \hbox (20.58041pt too wide) in paragraph at lines 514--514
+ []\T1/pcr/m/n/9 sel <- sel.forward(formula=formule, data=iris, slentry = 0.01,
+ verbose=FALSE)[] 
+[10] (/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.ind [11] [12])
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information){/usr/share/texmf-dist/font
+s/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
+fb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/t
+imes/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/s
+hare/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (12 pages, 96397 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.16 [TeX Live 2022] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (12 entries accepted, 0 rejected).
+Sorting entries....done (38 comparisons).
+Generating output file Rd2.ind....done (22 lines written, 0 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10> (./Rd2.tex
+(/usr/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/texmf/tex/latex/Rd.sty
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/share/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 394.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 394.
+
+) (/usr/share/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty)
+Writing index file Rd2.idx
+(/usr/share/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.aux)
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.out)
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.out)
+(/usr/share/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.toc
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texmf-dist/tex/latex/jknapltx/ursfs.fd)) [1{/var/lib/texmf/fonts/ma
+p/pdftex/updmap/pdftex.map}] [2] [3]
+Overfull \hbox (60.78088pt too wide) in paragraph at lines 158--158
+ []\T1/pcr/m/n/10 plslda.fit <- function(formula, data, ncomp = 2, max.iter = 1
+00,tol = 1e-06) 
+
+Overfull \hbox (0.9781pt too wide) in paragraph at lines 173--174
+[]\T1/ptm/m/n/10 is the value that de-ter-mines the con-ver-gence of the cur-re
+nt weight and old weight,
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--199
+
+[4]
+Overfull \hbox (112.38031pt too wide) in paragraph at lines 206--206
+ []\T1/pcr/m/n/9 fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp 
+= 2, max.iter = 100,tol = 1e-06)[] 
+
+Overfull \hbox (128.58029pt too wide) in paragraph at lines 208--208
+ []\T1/pcr/m/n/9 fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp 
+= "CV", max.iter = 100,tol = 1e-06)[] 
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 288--307
+
+[6] (/usr/share/texmf-dist/tex/latex/psnfss/ts1pcr.fd) [7]
+Overfull \hbox (24.05597pt too wide) in paragraph at lines 422--431
+[]\T1/ptm/m/n/10 data(iris) for-mule = Species~. split_sample.t1<-plslda.split_
+sample(formula=formule,
+
+Overfull \hbox (16.63582pt too wide) in paragraph at lines 422--431
+\T1/ptm/m/n/10 data=iris) split_sample.t2<-plslda.split_sample(formula=formule,
+ data=iris, iris,0.5)
+
+Overfull \hbox (61.10583pt too wide) in paragraph at lines 422--431
+\T1/ptm/m/n/10 train1 = split_sample.t1$train Xtrain1 = split_sample.t1$Xtrain 
+ytrain1 = split_sample.t1$ytrain
+[8] [9]
+Overfull \hbox (20.58041pt too wide) in paragraph at lines 514--514
+ []\T1/pcr/m/n/9 sel <- sel.forward(formula=formule, data=iris, slentry = 0.01,
+ verbose=FALSE)[] 
+[10] (/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.ind [11] [12])
+(/tmp/Rtmphp2ylY/Rd2pdf235e13d2b591/Rd2.aux) )
+(see the transcript file for additional information){/usr/share/texmf-dist/font
+s/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
+fb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/t
+imes/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/s
+hare/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (12 pages, 96724 bytes).
+Transcript written on Rd2.log.
+Saving output to ‘plslda5-manual.pdf’ ...
+Done
+You may want to clean up by 'rm -Rf /tmp/Rtmphp2ylY/Rd2pdf235e13d2b591'
