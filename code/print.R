@@ -1,17 +1,16 @@
-#print.R
-
-#' This function prints the scores of
+#' print.PLSDA,
+#' Function used to print classification function and latent vectors
 #'
-#' @param object
+#' @param
+#' a plslda object
 #'
 #' @return
+#' prints the classification function of matrix X which is obtained by the combination PLS-LDA method
+#' @return
+#' prints the latent vectors of matrix x
 #' @export
 #'
 #' @examples
-#'
-#'
-#'
-#'
 
 print.PLSDA <- function(object, ...){
   
