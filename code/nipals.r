@@ -1,12 +1,37 @@
-#' Algorithme NIPALS (Non-Linear iterative PLS)
+#' plslda.nipals,
+#' Nipals
 #'
-#' @param X
-#' @param y
-#' @param ncomp
-#' @param max.iter
-#' @param tol
+#' @param
+#' X entry matrix containing observations and variables
+#' @param
+#' y the target variable
+#' @param
+#' ncomp, number of components
+#' @param
+#' max.iter, maximum number of iterations until convergence
+#' @param
+#' tol, tol is the value that determines the convergence of the current weight and old weight, and which we put as parameter value of the nipals function which is called in this fit function
 #'
 #' @return
+#' It returns a plsda object as a list which contains :
+#' \code{comp_X}
+#' matrix of latent variables of X
+#' \cr
+#' \code{poid_X}
+#' the weight matrix of the principal components of X
+#' \cr
+#' \code{comp_Y}
+#' matrix of latent variables of Y
+#' \cr
+#' #' \code{poid_Y}
+#' the weight matrix of the principal components of Y
+#' \cr
+#' #' \code{Y.iter}
+#' matrix containing the scores of the target variable
+#' \cr
+#' #' \code{quality}
+#' used for display in summary function
+#' \cr
 #' @export
 #'
 #' @examples
