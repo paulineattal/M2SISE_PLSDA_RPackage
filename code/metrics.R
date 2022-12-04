@@ -1,3 +1,22 @@
+#' report.plslda,
+#' function to calculate the different metrics of a prediction, to define the quality of the prediction
+#' based on the confusion matrix components, and the accuracy score
+#'
+#' @param
+#' y the values of test data
+#' @param
+#' ypred the predicted values
+#'
+#' @return
+#' It returns :
+#' a 'summary' dataframe which contains the information of the confusion matrix as in the true positive, true negative, false positive, false negative
+#' the precision, recall and f1-score
+#' an 'accuracy' variable which gives the accuracy of the prediction
+#' @export
+#'
+#' @examples
+#'
+
 
 plslda.metrics <- function(y, ypred){
   
