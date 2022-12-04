@@ -23,7 +23,9 @@
 #' @export
 #'
 #' @examples
-#' sel <- sel.forward(formula, data, slentry = 0.01, verbose=FALSE)
+#' data(iris)
+#' sel.forward(Species~., iris)
+#' 
 #'
 
 
