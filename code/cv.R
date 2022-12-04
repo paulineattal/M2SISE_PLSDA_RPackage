@@ -68,11 +68,15 @@ plslda.cv<-function(formula,data){
       Y.train <- newY[-indexes]
       Y.test <- newY[indexes]
       train <- data.frame("Y"=Y.train, X.train)
+      X.test <- as.data.frame(X.test)
+
       
       #on exécute le modèle sur les données d'appprentissage
       fit<-plslda.fit(Y~., train, ncomp = j)
       #on fait la prédiction sur X.test
       pred <- plslda.predict(fit, X.test)
+      Y.test <- plsda.dummies(Y.test)
+
       #dummies les pred
       #ajout du Y en deuxieèe paramètre de dummies 
       #complète le dummies avec une colonne a 0 si aucune pred pour une des modalité
