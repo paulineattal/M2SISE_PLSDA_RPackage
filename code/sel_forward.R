@@ -19,7 +19,7 @@
 #' The idea is to keep only the variables that contribute significantly to the distance between the barycentres (class centers).
 #'
 #' @return
-#' It returns the selected variables
+#' It returns a dataframe with individuals and only the selected variables
 #' @export
 #'
 #' @examples
