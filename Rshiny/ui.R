@@ -40,7 +40,7 @@ ui <- fluidPage(
                           
              tabPanel(
                
-               tags$h5("Sélectionner ses variables"),
+               tags$h5("Visualiser vos données"),
                fluidPage(
                  sidebarPanel(
                    selectInput(
@@ -64,78 +64,58 @@ ui <- fluidPage(
                )
              ),
 
-             tabPanel(tags$h5("Variables"),
+             tabPanel(tags$h5("Sélection des variables explicatives"),
                       fluidPage(
-                        navlistPanel(
-                          tabPanel("Choisir les variables explicatives",
-                                   sidebarPanel(
-                                     selectInput(
-                                       'varcible','Variable à prédire', choices = '', multiple = F, selected = character(0)
-                                     ),
-
-                                     selectInput(
-                                       'varexpli', 'Variables explicatives', choices = '', multiple = T, selected = character(0)),
-                                     
-                                   actionButton(
-                                     inputId = 'submit_var', label = 'Lancer'
-                                   )),
-                                     mainPanel(
-                                       textOutput('splitsample')
-                                     )),
                           tabPanel('Sélection des variables par le modèle',
                                    sidebarPanel(
                                      selectInput(
                                        'varciblesel','Variable à prédire', choices = '', multiple = F, selected = character(0)
                                      ),
                                      actionButton(
-                                       inputId = 'input$submit_forward', label = 'Lancer'
-                                     )),
+                                       inputId = 'submit_forward', label = 'Lancer'
+                                     )
+                                     ),
                                      mainPanel(
                                        textOutput('forward')
-                                   )
+                                     )
                           )
-                        )
                       )
              ),
-             tabPanel(tags$h5('Fit'),
-                      fluidPage(
-                        navlistPanel(
-                          tabPanel("Cercle de correlation",
-                            sidebarPanel(
-                              selectizeInput('nb_compx','Nombre de composantes à afficher en X', multiple = F, choices=c(1:10), options=list(maxItems=1)),
-                              selectizeInput('nb_compy','Nombre de composantes à afficher en Y', multiple = F, choices=c(1:10), options=list(maxItems=1))
-                            ),
-                            mainPanel(
-                              plotOutput('corr')
-                            )
-                        ),
-                        tabPanel("Plan factoriel",
-                                 sidebarPanel(
-                                   selectizeInput('nb_facx','Nombre de composantes à afficher en X', multiple = F, choices=c(1:10), options=list(maxItems=1)),
-                                   selectizeInput('nb_facy','Nombre de composantes à afficher en Y', multiple = F, choices=c(1:10), options=list(maxItems=1))
-                                 ),
-                                 mainPanel(
-                                   plotOutput('factor')
-                                 )
-                        ),
-                        tabPanel("Matrice de corrélation",
-                                 sidebarPanel(
-                                   selectizeInput('used_comp', "Used comp à utiliser", multiple=F, choices=c(1:10), options=list(maxItems=1))
-                                 ),
-                        mainPanel(
-                          plotOutput('matrice')
-                        )
-                        ),
-                        tabPanel('Proportion des variances expliquées',
-                                  mainPanel('proportion')
-                                 )
-                          
-                        )
-                      )
-             )
+                          navbarMenu(tags$h5('Sorties graphiques'),
+                                     tabPanel('Cercle de corrélation',
+                                              sidebarPanel(
+                                                selectizeInput('nb_compx_cercle','Nombre de composantes à afficher en X', multiple = F, choices='', options=list(maxItems=1)),
+                                                selectizeInput('nb_compy_cercle','Nombre de composantes à afficher en X', multiple = F, choices='', options=list(maxItems=1)),
+                                                actionButton('cercle_var', 'Afficher le graphique')
+                                              ),
+                                              mainPanel(plotOutput('cerclevar'))
+                                     ),
+                                     tabPanel('Projection des variables',
+                                              sidebarPanel(
+                                              selectizeInput('nb_compx_proj','Nombre de composantes à afficher en X', multiple = F, choices='', options=list(maxItems=1)),
+                                              selectizeInput('nb_compy_proj','Nombre de composantes à afficher en X', multiple = F, choices='', options=list(maxItems=1)),
+                                              actionButton('proj_var', 'Afficher le graphique')
+                                              ),
+                                              mainPanel(plotOutput('projvar'))
+                                     ),
+                                     tabPanel('Matrice de corrélation',
+                                              sidebarPanel(
+                                                selectizeInput('used','Choisir le used comp', multiple=F, choices='', options=list(maxItems=1)),
+                                                actionButton('matrice', 'Afficher la matrice')
+                                              ),
+                                              mainPanel(plotOutput('matrice'))
+                                     ),
+                                     tabPanel('Proportion des variances',
+                                              mainPanel(
+                                                plotOutput('proportion')
+                                              ))
+                                              
+                                     
+                                     
+                          )
   ),
              
-  
+
   tags$footer('Pauline Attal - Pierre Dubrulle - Ibtissam Slalmi', align='center')
 )
 

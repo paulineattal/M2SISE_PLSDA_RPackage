@@ -1,3 +1,0 @@
-data('iris')
-t <- as.vector(colnames(iris))
-t[1]

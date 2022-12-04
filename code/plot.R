@@ -31,11 +31,11 @@ correlationplot.PLSDA <- function(object, usedComp){
   mat.corr <- cor(X[ordre])
   corrplot::corrplot(mat.corr)
 }
-<<<<<<< HEAD
-#correlationplot.PLSDA(object,"PC1")
-=======
-#correlationplot.PLSDA(object,"PC1")
->>>>>>> 05ca2b5634deed9b5fcffedccb6a4577b6bd7abf
+# <<<<<<< HEAD
+# #correlationplot.PLSDA(object,"PC1")
+# =======
+# #correlationplot.PLSDA(object,"PC1")
+# >>>>>>> 05ca2b5634deed9b5fcffedccb6a4577b6bd7abf
 
 
 
@@ -44,7 +44,7 @@ propz.PLSDA <- function(object){
   prop <- as.data.frame(object$quality)
   p <- ggplot(prop, aes(x=rownames(prop),y = R2Ycum))
   p +
-    geom_line(color="lightblue") +
+    geom_line(aes(group=1),color="lightblue") +
     geom_point(color="violetred") +
     labs(title="Proportion des variances expliquée des Z",
          x ="Composantes", y = "% explication")

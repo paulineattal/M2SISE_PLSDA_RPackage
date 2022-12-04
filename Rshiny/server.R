@@ -49,29 +49,41 @@ server <- function(session, input, output) {
 })
   
 
-  select_var <- eventReactive(input$submit_var,{
-    
-    varcible <- input$varcible
-    varexpli <- as.vector(input$varexpli)
-    chaine <- paste(varcible, paste(varexpli, collapse = '+'), sep = "~")
-    return(length(plsda.split_sample(as.formula(chaine), data())$Xtrain))
-  })
+  # select_var <- eventReactive(input$submit_var,{
+  # 
+  #   varcible <- input$varcible
+  #   varexpli <- as.vector(input$varexpli)
+  #   chaine <- paste(varcible, paste(varexpli, collapse = '+'), sep = "~")
+  #   fit <- plslda.fit(as.formula(chaine), data())
+  #   updateSelectInput(session,"nb_compx_cercle",choices=colnames((fit$comp_X)))
+  #   updateSelectInput(session,"nb_compy_cercle",choices=colnames((fit$comp_Y)))
+  #   updateSelectInput(session,"nb_compx_proj",choices=colnames((fit$comp_X)))
+  #   updateSelectInput(session,"nb_compy_proj",choices=colnames((fit$comp_Y)))
+  #   return(list('sortie'=length(plsda.split_sample(as.formula(chaine), data())$Xtrain), 'chaine'=chaine, 'fit'=fit))
+  # })
   
   select_forward <- eventReactive(input$submit_forward, {
-    
     varciblef <- input$varciblesel
     form <- as.formula(paste(varciblef, '~', '.'))
     result <-sel.forward(form, data()) 
-    return(result)
+    chaine <- paste(varciblef, paste(result,collapse = '+'), sep='~')
+    fit <- plslda.fit(as.formula(chaine), data())
+    updateSelectInput(session,"nb_compx_cercle",choices=colnames((fit$comp_X)))
+    updateSelectInput(session,"nb_compy_cercle",choices=colnames((fit$comp_Y)))
+    updateSelectInput(session,"nb_compx_proj",choices=colnames((fit$comp_X)))
+    updateSelectInput(session,"nb_compy_proj",choices=colnames((fit$comp_Y)))
+    updateSelectInput(session,"used",choices=colnames((fit$comp_X)))
+    
+    return(list('sortie'=result, 'fit'=fit, 'quality'=fit$quality))
   })
   
     output$splitsample <- renderPrint({
-      select_var()
+      select_var()$fit
     })
     
     
     output$forward <- renderPrint({
-      select_forward()
+      select_forward()$fit
     })
   
   output$contents <- renderTable({
@@ -101,15 +113,32 @@ server <- function(session, input, output) {
     summary(df)
   })
   
-  output$plot1 <- renderPlot({
-    gg_miss_var(data())
+  cercle <- eventReactive(input$cercle_var, {
+    return(cercle_correlation.PLSDA(select_forward()$fit, input$nb_compx_cercle, input$nb_compy_cercle))
   })
   
-  output$corr <- renderPlot({
-    fit <- plslda.fit(Species~., iris)
-    cercle_correlation.PLSDA(fit, 'PC1', 'PC2')
+  projection <- eventReactive((input$proj_var), {
+    return(plan_factoriel.PLSDA(select_forward()$fit, input$nb_compx_proj, input$nb_compy_proj))
+  })
+  
+  matrice <- eventReactive(input$matrice, {
+    return(correlationplot.PLSDA(select_forward()$fit, input$used))
   })
 
+  output$matrice <- renderPlot({
+    matrice()
+  })
   
+  output$cerclevar <- renderPlot({
+    cercle()
+  })
+  
+  output$proportion <- renderPlot({
+    propz.PLSDA(select_forward()$fit)
+  })
+  
+  output$projvar <- renderPlot({
+    projection()
+  })
 }
 
