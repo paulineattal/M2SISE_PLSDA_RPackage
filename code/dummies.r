@@ -1,17 +1,20 @@
-#' Factor to Dummy Matrix
+#' plsda.dummies,
+#' Converting factor to dummy
 #'
-#' This function transforms a vector of \code{p} factors into a matrix of \code{p} dummies variables.
-#' @usage
-#' plsda.dummies(X, name)
 #' @param
-#' X the vector of factors to transform.
+#' y the dataframe to convert into dummies
 #' @param
-#' name a vector containing the original variables names that will be the \code{colnames} of the dummy matrix.
+#' mod parameter is set by default to NA, if the mod parameter is given, it is used in cross validation to calculate the PREdicted Sum Square (PRESS)
+#' in a way that it allows the matrix of test data and the matrix of predicted values to have the same number and order of classes of the target variable
+#' so that calculating the PRESS becomes possible.
+#'
 #' @return
-#' The function returns a dummy matrix with \code{p} columns, named with the vector "\code{name}".
+#' It returns a dataframe, with factors converted to dummies (categorical variable converted to numeric (0,1))
+#' @export
+#'
 #' @examples
-#' dummies.t1<-plsda.dummies(iris$Species)
-#' dummies.t2<-plsda.dummies(iris$Species,"Species")
+#' dummy <- plsda.dummies(iris$Species, mod=NA)
+#' dummy_mod <-plsda.dummies(iris$Species, mod= ) !!!!!
 
 
 
