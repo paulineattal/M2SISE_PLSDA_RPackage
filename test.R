@@ -20,6 +20,8 @@ source("code/split_sample.r")
 source("code/sel_forward.r")
 source("code/metrics.r")
 source("code/plots.r")
+source("code/print.r")
+source("code/summary.r")
 
 
 #selection de variables
@@ -47,7 +49,7 @@ print("classe de l'object : ")
 print(class(object))
 
 #predict
-ypred = plslda.predict(object=object,newdata=data_split$Xtest)
+ypred = plslda.predict(object=object, newdata=data_split$Xtest)
 print(data.frame(ypred=as.factor(ypred), y=data_split$ytest))
 
 
@@ -56,7 +58,5 @@ metrics <- plslda.metrics(y=data_split$ytest, ypred=ypred)
 print(metrics)
 
 #fonctions surchargées
-source("code/print.r")
-source("code/summary.r")
 print(object)
 summary(object)

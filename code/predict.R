@@ -43,7 +43,7 @@ plslda.predict<-function(object, newdata){
   
   #vérif. type data
   if (!is.data.frame(newdata)){
-    stop("Erreur : data doit être un data.frame")
+    newdata = as.data.frame(newdata)
   }
   
   #vérif. coherence modele et nouvelle données
