@@ -1,18 +1,50 @@
-#' Title
+#' plslda.fit,
+#' Function used to fit the PLS-LDA Regression model
 #'
-#' @param formula
-#' @param data
-#' @param ncomp
-#' @param max.iter
-#' @param tol
+#' @usage
+#' plslda.fit <- function(formula, data, ncomp = 2, max.iter = 100,tol = 1e-06)
+#' @param
+#' formula : used to select variable to predict according to predictive variables that can be selected
+#' @param
+#' data ; the dataset or dataframe to work on
+#' @param
+#' ncomp  : can either be defined with a certain number of principal components or defined as "CV" in order to call the cross validation function that would determine the number of components
+#' @param
+#' max.iter, is the maximum number of iterations
+#' while (diff > tol & iter <= max.iter)
+#' @param
+#' tol is the value that determines the convergence of the current weight and old weight, and which we put as paramater value of the nipals function which is called in this fit function
 #'
 #' @return
+#' a plsda object which is a list of different variables :
+#' \code{comp_X} matrix of principal components of X
+#' \cr
+#' \code{poid_X} matrix of weights of components of X
+#' \cr
+#' \code{comp_Y} matrix of principal components of Y
+#' \cr
+#' \code{poid_Y} matrix of weights of components of Y
+#' \cr
+#' \code{quality} the quality is measured with the coefficient of determination R² which provides information about how good our fit is with our model
+#' \cr
+#' \code{intercept_}
+#' \cr
+#' \code{coef_} classification function
+#' \cr
+#' \code{coef_cte} the classification function matrix binded with constants
+#' \cr
+#' \code{X.init} is the initial matrix X
+#' \cr
+#' \code{y}
+#' \cr
+
 #' @export
 #'
 #' @examples
-#'
-#' fit(Species ~ ., data = iris, ncomp = 2)
-#' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = 2)
+#' 1st example : where all the variables are used
+#' fit(Species ~ ., data = iris, ncomp = 2,max.iter = 100,tol = 1e-06)
+#' 2nd example: only 2 variables are selected
+#' fit(Species ~ Sepal.Length + Petal.Length, data = iris, ncomp = 2, max.iter = 100,tol = 1e-06)
 #'
 
 
