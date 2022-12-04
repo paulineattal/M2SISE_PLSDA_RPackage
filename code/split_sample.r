@@ -17,20 +17,33 @@
 
 plsda.split_sample<-function(formula, data, train_size=0.7){
   
-  #parametre train_size conforme
+  ###########################
+  #vérifications des entrées#
+  ###########################
+  
+  #paramètre train_size
   if(train_size>1 | train_size<0){
-    stop("Proportion non comprise entre 0 et 1")
+    stop("Erreur : proportion non comprise entre 0 et 1")
   }
+  
+  #paramètre data
   if (!is.data.frame(data)){
     data <- as.data.frame(data)
   }
-  #if pas formula...
   
+  #paramètre formula
+  if(plyr::is.formula(formula)==F){
+    stop("Erreur : formula doit être de type formula")
+  }
+  
+  #############################
+  #séparation du jeu de donnée#
+  #############################
   
   n <- nrow(data)
-  # Selection des indices des individus de l'echantillon d'apprentisage
+  #Sélection des indices des individus de l'échantillon d'apprentisage
   i_sample<-sample(1:n,trunc(n*train_size))
-  # Liste de sortie
+  #Liste de sortie
   train = data[i_sample,]
   test = data[-i_sample,]
   
@@ -40,12 +53,17 @@ plsda.split_sample<-function(formula, data, train_size=0.7){
   ytrain <- as.factor(model.response(model.frame(formula, data = train)))
   ytest <- as.factor(model.response(model.frame(formula, data = test)))
   
+  ##################################
+  #stockage des résultats de sortie#
+  ##################################
+  
   res<-list("Xtrain"=Xtrain,
             "ytrain"=ytrain,
             "Xtest"=Xtest,
             "ytest"=ytest,
             "train" = train
             )
+  
   return(res)
 }
 

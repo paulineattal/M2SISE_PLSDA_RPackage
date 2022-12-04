@@ -14,31 +14,28 @@
 #' dummies.t2<-plsda.dummies(iris$Species,"Species")
 
 
-#fonction pour creer des dummies
-#a partir d'une variable de type factor
-#codage disjonctif complet 
-#le parametre mod sert a donner les modalités references a dummies 
 
 plsda.dummies<-function(y, mod=NA){
   
-  #formatage de y
+  #formatage des entrées
   y <- as.factor(as.vector(y))
-  #print(any(is.na(as.vector(mod))))
   mod <- as.factor(as.vector(mod))
-  #print(levels(mod))
   
-  #si on a renseigné le parametre mod
+  #si on a renseigné le paramètre mod
   if (!any(is.na(mod))){
-    #print(paste('s',class(mod)))
     mod <- as.factor(as.vector(mod))
     n.mod <- levels(mod)
   } else {
-    #print(paste('t',class(mode)))
     n.mod <- levels(y)
   }
 
-  # Matrice d'indicatrice 0/1
+  #matrice d'indicatrice 0/1
   dum<-sapply(n.mod,function(x){ifelse(y==x,1,0)})
+  
+  ########
+  #sortie#
+  ########
+  
   #renvoyer sous la forme de data frame
   return(as.data.frame(dum))
 }

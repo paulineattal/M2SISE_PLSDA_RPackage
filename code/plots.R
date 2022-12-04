@@ -8,8 +8,7 @@ cercle_correlation.PLSDA <- function(object, PC1, PC2){
     labs(title="Projection des individus sur les 2 axes factoriel",
          x ="Dim 1", y = "Dim 2", fill = "Modalitées")
 }
-cercle_correlation.PLSDA(object, "PC1", "PC2")
-
+#cercle_correlation.PLSDA(object, "PC1", "PC2")
 
 
 #projection des variables 
@@ -21,7 +20,7 @@ plan_factoriel.PLSDA <- function(object, X1, X2){
     labs(title="Projection des variables sur les 2 axes factoriel",
        x ="Dim 1", y = "Dim 2")
 }
-plan_factoriel.PLSDA(object, "PC1", "PC2")
+#plan_factoriel.PLSDA(object, "PC1", "PC2")
 
 
 #matrice de correlation 
@@ -31,8 +30,7 @@ correlationplot.PLSDA <- function(object, usedComp){
   mat.corr <- cor(X[ordre])
   corrplot::corrplot(mat.corr)
 }
-correlationplot.PLSDA(object,"PC1")
-
+#correlationplot.PLSDA(object,"PC1")
 
 
 #proportion des variances expliquée des Z
@@ -47,7 +45,7 @@ propz.PLSDA <- function(object){
   #+ 
 }
 
-propz.PLSDA(object)
+#propz.PLSDA(object)
 
 
 

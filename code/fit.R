@@ -23,55 +23,59 @@ plslda.fit <- function(formula, data,
 {
   
   ###########################
-  #verifications des entrées#
+  #vérifications des entrées#
   ###########################
   
+  #paramètres renseignés
   if ((missing(data) | missing(formula))){
-    stop("formula et data sont les deux parametres obligatoires")
+    stop("Erreur : formula et data sont les deux paramètres obligatoires")
   }
     
-  #formula au bon type
+  #paramètres formula
   if(plyr::is.formula(formula)==F){
-    stop("formula doit etre de type formule")
+    stop("Erreur : formula doit etre de type formule")
   }
   
-  #data est un data.frame ?
+  #paramètres data
   if (!is.data.frame(data)){
-    stop("data doit être un data.frame")
+    stop("Erreur : data doit être un data.frame")
   }
   
-  #ligne.s ou colonne.s entierement vide.s ?
+  #ligne.s ou colonne.s entièrement vide.s ?
   if (any(colSums(!is.na(data)) == 0) | any(rowSums(!is.na(data)) == 0 )){
-    stop("certaines lignes ou colonnes sont entierements manquantes",
-         "Retirez-les avant de relancer la fonction fit().", call. = FALSE)
+    stop("Erreur : certaines lignes ou colonnes sont entierements manquantes",
+         "Retirez-les avant de relancer la fonction fit().")
   }
   
-  #Récupération des X et Y
+  #récupération des X et Y
   X <- as.matrix(model.matrix(formula, data = data)[,-1])
   X.init <- X
   y <- as.factor(model.response(model.frame(formula, data = data)))
   
-  #type des variables X toutes numeriques
+  #type des variables X tous numériques
   nbNumeric<- sum(sapply(X,is.numeric))
   if(nbNumeric<ncol(X)){
-    stop("certaines variables ne sont pas numeriques")
+    stop("Erreur : certaines variables ne sont pas numériques")
   }
   
+  #############
+  #Traitements#
+  #############
   
-  #lancer les traitements correspondant aux parametrages
+  #lancer les traitements correspondant aux paramétrages
   
-  #param ncomp
+  #paramètres ncomp
   #choix du nombre idéal de composantes principales
   if(ncomp == "CV") {
     ncomp = plsda.cv()$ncomp
   }else if(!is.numeric(ncomp) || is.null(ncomp) || ncomp <= 0 || length(ncomp)>1){
-    stop("parametre ncomp doit etre un numerique ")
+    stop("Erreur : paramètres ncomp doit être un numériques ")
   }else if(ncomp > qr(X)$rank){
     ncomp <- qr(X)$rank
   }
   
   #####################
-  #preparer les X et y#
+  #préparer les X et y#
   #####################
   
   #si X est a standardiser
@@ -86,7 +90,7 @@ plslda.fit <- function(formula, data,
   #NIPALS#
   ########
   
-  #Appel de la nipals pour effectuer la regression PLS#
+  #Appel de la nipals pour effectuer la regression PLS
   nipals.res <- plslda.nipals(X=X, y=ydum, ncomp=ncomp , max.iter=max.iter, tol=tol)
   
   #####
@@ -94,7 +98,7 @@ plslda.fit <- function(formula, data,
   #####
   
   #ici on effectue la LDA pour la classification
-  #on l'a fait sur nos compossntes principales Th, obtenues en sorties de la PLS
+  #on l'a fait sur nos compossantes principales Th, obtenues en sorties de la PLS
   Th <- nipals.res$comp_X
 
   #effectif par classe
@@ -128,7 +132,7 @@ plslda.fit <- function(formula, data,
   intercept_ <- log(pi_k)-0.5*diag(mb_k %*% invW %*% t(mb_k))
   
   ######################################
-  #revenir a toutes les var originelles#
+  #revenir à toutes les var originelles#
   ######################################
   
   coef_ <- as.matrix(nipals.res$poid_X)%*%coef_
@@ -142,7 +146,7 @@ plslda.fit <- function(formula, data,
   coef_cte <- rbind(coef,cte)
   
   ##################################
-  #stockage des resultats de sortie#
+  #stockage des résultats de sortie#
   ##################################
   
   res <- list("comp_X"= nipals.res$comp_X,

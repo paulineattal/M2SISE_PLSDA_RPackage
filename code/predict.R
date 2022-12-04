@@ -22,22 +22,22 @@ plslda.predict<-function(object, newdata){
   
   #parametres non vides
   if ((missing(object) | missing(newdata))){
-    stop("object et newdata sont les deux parametres obligatoire de la fonction predict")
+    stop("Erreur : object et newdata sont les deux parametres obligatoire de la fonction predict")
   }
   
   #vérif. class object 
   if (class(object)!="PLSDA") {
-    stop("Objectn'est pas un objet de type PLSDA")
+    stop("Erreur : Object n'est pas un objet de type PLSDA")
   }
   
   #vérif. type data
   if (!is.data.frame(data)){
-    stop("data doit être un data.frame")
+    stop("Erreur : data doit être un data.frame")
   }
   
   #vérif. coherence modele et nouvelle données
   if (ncol(newdata) != (nrow(object$coef_))) {
-    stop("newdata doit avoir le meme nombre de colonne que le modele")
+    stop("Erreur : newdata doit avoir le meme nombre de colonne que le modele")
   }
   
   ########
@@ -60,6 +60,10 @@ plslda.predict<-function(object, newdata){
   pred_ <- colnames(scores_)[apply(scores_, 1, which.max)]
   #max 
   #pred_ <- apply(scores_,1, function(ligne){levels(object$y)[which.max(ligne)]})
+  
+  ########
+  #sortie#
+  ########
   
   class(pred_)<-"PLSDA"
   return(pred_)
