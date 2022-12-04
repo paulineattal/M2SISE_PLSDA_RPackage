@@ -1,4 +1,5 @@
 library(shiny)
+library(plslda5)
 source('ui.R', local = TRUE)
 source('server.R')
 
