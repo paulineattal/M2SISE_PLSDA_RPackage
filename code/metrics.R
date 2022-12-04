@@ -1,5 +1,5 @@
 
-report.plslda <- function(y, ypred){
+plslda.metrics <- function(y, ypred){
   
   ###########################
   #vérifications des entrées#

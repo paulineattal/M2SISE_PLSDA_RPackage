@@ -21,7 +21,7 @@
 #'scale.t1<-plsda.scale(iris[,-5])
 #'scale.t2<-plsda.scale(iris[,-5],reduce=T)
 
-plsda.scale<-function(X, center=TRUE, scale=TRUE ){
+plslda.scale<-function(X, center=TRUE, scale=TRUE ){
   
   X<-as.matrix(X)
   

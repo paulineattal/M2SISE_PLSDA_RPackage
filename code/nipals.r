@@ -28,7 +28,7 @@ plslda.nipals <- function(X, y, ncomp, max.iter, tol){
   comp_names <- paste0('PC', seq_len(ncomp))
   
   #matrice des coordonnées des composantes de X
-  #/ coefficients de projection de des composantes X
+  #/ coefficients de projection des composantes X
   #/ poids de X
   W <- data.frame(matrix(rep(NA), nrow = ncol(X.init), ncol=ncomp))
   rownames(W) <- colnames(X.init)
@@ -46,7 +46,7 @@ plslda.nipals <- function(X, y, ncomp, max.iter, tol){
   names(U) <-comp_names
   
   #matrice des coefficients des composantes de Y
-  #/ coefficients de projection de des composantes Y
+  #/ coefficients de projection des composantes Y
   #/ poids de Y
   Q <- data.frame(matrix(rep(NA), nrow = ncol(Y.init), ncol = ncomp))
   rownames(Q) <- colnames(Y.init)
