@@ -219,11 +219,11 @@ plan_factoriel.PLSDA(object=object, "PC1", "PC2")
 ```r
 correlationplot.PLSDA(object=object,"PC1")
 ```
-![](README_files/figure-markdown_strict/plan_factoriel.png)
+![](README_files/figure-markdown_strict/correlationplot.png)
 ```r
 propz.PLSDA(object)
 ```
-![](README_files/figure-markdown_strict/plan_factoriel.png)
+![](README_files/figure-markdown_strict/propz.png)
 
 
 
