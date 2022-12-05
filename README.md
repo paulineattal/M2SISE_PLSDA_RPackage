@@ -31,7 +31,7 @@ install.packages('your/path/to/the/tar', repos=NULL, type="source)
 ### Or download the tar.gz directly on Rstudio
 
 ```r
-install.packaages('https://github.com/paulineattal/PLSDA_R_Package/blob/main/plslda5_0.1.0.tar.gz', repos=NULL, method='libcurl')
+install.packages('https://github.com/paulineattal/PLSDA_R_Package/blob/main/plslda5_0.1.0.tar.gz', repos=NULL, method='libcurl')
 ```
 
 -----
