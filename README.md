@@ -97,43 +97,43 @@ print(colnames(sel.data))
     ##  "classe"   "toothed"  "hair"     "fins"     "tail"     "breathes" "airborne" "aquatic"  "legs"
 
 ## plslda.split_sample()
-
-cette fonction sert à séparer votre jeu de donnée pour l'apprentissage et le test de la methode 
+ 
+This function is used to split your dataset into train and test sets for the method.
 ```r
-print("Nombre de ligne total du jeu de données : ")
+print("Total number of rows in dataset: ")
 print(nrow(sel.data))
 data_split = plslda.split_sample(formula=formula, data=sel.data)
-print("Nombre de ligne du jeu d'entrainement : ")
+print("Number of rows in the training set: ")
 print(nrow(data_split$train))
-print("Nombre de lignes du jeu de test : ")
+print("Number of rows in test set: ")
 print(nrow(data_split$Xtest))
 ```
-    ##  Nombre de ligne total du jeu de données :
+    ##  Total number of rows in dataset :
     ##  53
-    ##  Nombre de ligne du jeu d'entrainement : 
+    ##  Number of rows in the training set: 
     ##  37
-    ##  Nombre de lignes du jeu de test : 
+    ##  Number of rows in test set : 
     ##  16
     
 ## plslda.fit()
 
-Cette fonction sert a lancer l'entrainement du modele de a plslda
+This function is used to train the plslda model 
 
 ```r
 object = plslda.fit(formula=formula, data=data_split$train)
-print("classe de l'object : ")
+print("object class : ")
 print(class(object))
 ```
-    ##  classe de l'object : 
+    ##  object class : 
     ##  PLSDA
 ```r
-print("summary de l'object :")
+print("summary of the object:")
 summary(object)
-print("print de l'objet : ")
+print("printing the object: ")
 print(object)
 ```
 
-    ##  Fonction de classement des X obtenue par la combinaisaon PLS-LDA : 
+    ##  Classification function of X obtained with the PLS-LDA combination: 
     ##    Attributes  amphibian        bird       fish      insect invertebrate     mammal   reptile
     ##  1    toothed  4.2464480 -12.8655335   1.882203 -3.12384736    -4.760769  13.148977   -0.9958712
     ##  2       hair  3.4166492 -12.7748327  -6.168538 -1.79976513    -9.440707  16.753616   -0.9958712
@@ -146,7 +146,7 @@ print(object)
     ##  9   constant  1.0705246   3.9846718  23.390151 -2.91610132    15.533293 -15.100386    5.8384388
     ##       reptile
 
-    ## Vecteurs latents de X : 
+    ## Latent vectors of X: 
     ##            PC1        PC2
     ## 1  -0.88630154  0.3717635
     ## 2   2.07857378 -0.5062780
