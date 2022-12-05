@@ -206,6 +206,25 @@ print(metrics)
     ##  [1] 0.62
 
 
+## plots
+
+```r
+cercle_correlation.PLSDA(object=object, "PC1", "PC2")
+```
+![](README_files/figure-markdown_strict/cercle_correlation.png)
+```r
+plan_factoriel.PLSDA(object=object, "PC1", "PC2")
+```
+![](README_files/figure-markdown_strict/plan_factoriel.png)
+```r
+correlationplot.PLSDA(object=object,"PC1")
+```
+![](README_files/figure-markdown_strict/plan_factoriel.png)
+```r
+propz.PLSDA(object)
+```
+![](README_files/figure-markdown_strict/plan_factoriel.png)
+
 
 
 
