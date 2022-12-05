@@ -227,4 +227,9 @@ propz.PLSDA(object)
 ```
 ![](README_files/figure-markdown_strict/propz.png)
 
+----
 
+## Rshiny App
+
+Our shiny app highlights the results of the fit function. The print and summary functions that have been overloaded can be seen here.
+Finally, a tab shows four graphs.
