@@ -55,7 +55,7 @@ plslda.predict<-function(object, newdata){
   #Scores#
   ########
   
-  scores_ <- as.matrix(newdata) * object$coef_
+  scores_ <- as.matrix(newdata) %*% as.matrix(object$coef_)
   #rajouter la constante ak0
   scores_ <- t(apply(scores_,1,function(ligne){ligne + object$intercept_}))
   
