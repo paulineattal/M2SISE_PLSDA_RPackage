@@ -63,7 +63,7 @@ ui <- fluidPage(
                )
              ),
 
-             tabPanel(tags$h5("Sélection des variables explicatives"),
+             tabPanel(tags$h5("Modélisation"),
                       fluidPage(
                           tabPanel('Sélection des variables par le modèle',
                                    sidebarPanel(
@@ -75,7 +75,12 @@ ui <- fluidPage(
                                      )
                                      ),
                                      mainPanel(
-                                       textOutput('forward')
+                                       fluidRow(
+                                         column(4,
+                                                verbatimTextOutput('forward')),
+                                         column(7,
+                                                verbatimTextOutput('forward2'))
+                                       )
                                      )
                           )
                       )

@@ -44,7 +44,7 @@ server <- function(session, input, output) {
   select_forward <- eventReactive(input$submit_forward, {
     varciblef <- input$varciblesel
     form <- as.formula(paste(varciblef, '~', '.')) 
-    result <-plslda::sel.forward(form, data()) 
+    result <-colnames(plslda::sel.forward(form, data()))[-1] 
     chaine <- paste(varciblef, paste(result,collapse = '+'), sep='~')
     fit <- plslda::plslda.fit(as.formula(chaine), data())
     updateSelectInput(session,"nb_compx_cercle",choices=colnames((fit$comp_X)))
@@ -53,16 +53,16 @@ server <- function(session, input, output) {
     updateSelectInput(session,"nb_compy_proj",choices=colnames((fit$comp_Y)))
     updateSelectInput(session,"used",choices=colnames((fit$comp_X)))
     
-    return(list('sortie'=result, 'fit'=fit))
+    return(list('sortie'=result, 'fit'=fit, 'chaine'=chaine))
   })
   
-    output$splitsample <- renderPrint({
-      select_var()$fit
-    })
-    
     
     output$forward <- renderPrint({
-      select_forward()$fit
+    plslda::summary.PLSDA(select_forward()$fit)
+    })
+    
+    output$forward2 <- renderPrint({
+      plslda::print.PLSDA(select_forward()$fit)
     })
   
   output$contents <- renderTable({
@@ -120,4 +120,3 @@ server <- function(session, input, output) {
     projection()
   })
 }
-
