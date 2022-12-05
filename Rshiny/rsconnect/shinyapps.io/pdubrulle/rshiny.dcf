@@ -1,0 +1,11 @@
+name: rshiny
+title:
+username:
+account: pdubrulle
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7812450
+bundleId: 6591200
+url: https://pdubrulle.shinyapps.io/rshiny/
+when: 1670208337.74034
+lastSyncTime: 1670208337.7404
