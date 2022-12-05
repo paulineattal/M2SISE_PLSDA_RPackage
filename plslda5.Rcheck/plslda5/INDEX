@@ -1,0 +1,25 @@
+cercle_correlation.PLSDA
+                        Plots
+plslda.cv               plslda.cv, Cross validation for PLSLDA
+plslda.dummies          plslda.dummies, Converting factor to dummy
+plslda.fit              plslda.fit, Function used to fit the PLS-LDA
+                        Regression model
+plslda.metrics          report.plslda, function to calculate the
+                        different metrics of a prediction, to define
+                        the quality of the prediction based on the
+                        confusion matrix components, and the accuracy
+                        score
+plslda.nipals           plslda.nipals, Nipals
+plslda.predict          plslda.predict, The function used to predict in
+                        our model
+plslda.scale            plslda.scale, Function to standardize vectors
+                        and matrixes (center and reduce)
+plslda.split_sample     plslda.split_sample, This function is used to
+                        split data into a train and a test sets
+print.PLSDA             print.PLSDA, Function used to print
+                        classification function and latent vectors
+sel.forward             sel.forward, The function used for variables
+                        selection, following the forward method
+summary.PLSDA           summary.PLSDA, This function prints the
+                        standardized projection coefficients of matrix
+                        X

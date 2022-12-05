@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 install.packages("devtools")
 library(devtools)
@@ -68,3 +69,4 @@ cercle_correlation.PLSDA(object=object, "PC1", "PC2")
 plan_factoriel.PLSDA(object=object, "PC1", "PC2")
 correlationplot.PLSDA(object=object,"PC1")
 propz.PLSDA(object)
+

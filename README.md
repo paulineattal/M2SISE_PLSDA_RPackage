@@ -125,9 +125,106 @@ print(class(object))
     ##  classe de l'object : 
     ##  PLSDA
 ```r
-summary("summary de l'object :")
-print(summary(object))
+print("summary de l'object :")
+summary(object)
+print("print de l'objet : ")
+print(object)
 ```
+
+    ##  Fonction de classement des X obtenue par la combinaisaon PLS-LDA : 
+    ##    Attributes  amphibian        bird       fish      insect invertebrate     mammal   reptile
+    ##  1    toothed  4.2464480 -12.8655335   1.882203 -3.12384736    -4.760769  13.148977   -0.9958712
+    ##  2       hair  3.4166492 -12.7748327  -6.168538 -1.79976513    -9.440707  16.753616   -0.9958712
+    ##  3       fins  3.5050117  -5.3393906  18.292514 -4.13326177     8.293590  -2.598427    3.6261381
+    ##  4       tail -1.6240716   2.4981023  -8.399690  1.90809078    -3.787196   1.142705   -1.6599277
+    ##  5   breathes -2.8797757   3.8708073 -16.665741  3.54794944    -8.009017   3.449863   -3.4141201
+    ##  6   airborne -5.5944940  15.2333756  -7.921202  4.62096850     2.298601 -12.950323   -0.1339824
+    ##  7    aquatic  0.7105437   0.4584143   8.593298 -1.29166047     5.248421  -4.452389    2.0332154
+    ##  8       legs  0.2327861  -1.1862779  -1.421776 -0.02959642    -1.374535   1.946283   -0.4598275
+    ##  9   constant  1.0705246   3.9846718  23.390151 -2.91610132    15.533293 -15.100386    5.8384388
+    ##       reptile
+
+    ## Vecteurs latents de X : 
+    ##            PC1        PC2
+    ## 1  -0.88630154  0.3717635
+    ## 2   2.07857378 -0.5062780
+    ## 3   0.25449856 -1.3454947
+    ## 4  -1.10917801  1.7935549
+    ## 5   2.07857378 -0.5062780
+    ## 6  -0.49214687  3.7567243
+    ## ...
+
+
+
+
+
+## plsda.predict()
+
+```r
+ypred = plslda.predict(object=object, newdata=data_split$Xtest)
+print(data.frame(ypred=as.factor(ypred), y=data_split$ytest))
+```
+
+
+    ##  ypred            y
+    ##  2  mammal       mammal
+    ##  5    bird invertebrate
+    ##  6    fish         fish
+    ##  9    fish    amphibian
+    ##  18   fish         fish
+    ##  20 mammal       mammal
+    ##  25   fish       mammal
+    ##  27   bird         bird
+    ##  28 mammal       mammal
+    ##  30 mammal       mammal
+    ##  32   bird         bird
+    ##  34 mammal invertebrate
+    ##  37   bird         bird
+    ##  38 mammal       mammal
+    ##  42   fish invertebrate
+    ##  43 mammal      reptile
+
+
+## plsda.metrics()
+
+```r
+metrics <- plslda.metrics(y=data_split$ytest, ypred=ypred)
+print(metrics)
+```
+
+    ##  $summary
+    ##               tp tn fp fn precision recall f1_score
+    ##  amphibian     0 15  1  0      0.00    NaN      NaN
+    ##  bird          3 12  0  1      1.00   0.75     0.86
+    ##  fish          2 11  0  3      1.00   0.40     0.57
+    ##  insect        0 16  0  0       NaN    NaN      NaN
+    ##  invertebrate  0 13  3  0      0.00    NaN      NaN
+    ##  mammal        5  8  1  2      0.83   0.71     0.77
+    ##  reptile       0 15  1  0      0.00    NaN      NaN
+
+    ##  $accuracy
+    ##  [1] 0.62
+
+
+## plots
+
+```r
+cercle_correlation.PLSDA(object=object, "PC1", "PC2")
+```
+![](README_files/figure-markdown_strict/cercle_correlation.png)
+```r
+plan_factoriel.PLSDA(object=object, "PC1", "PC2")
+```
+![](README_files/figure-markdown_strict/plan_factoriel.png)
+```r
+correlationplot.PLSDA(object=object,"PC1")
+```
+![](README_files/figure-markdown_strict/plan_factoriel.png)
+```r
+propz.PLSDA(object)
+```
+![](README_files/figure-markdown_strict/plan_factoriel.png)
+
 
 
 

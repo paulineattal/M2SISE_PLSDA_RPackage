@@ -1,0 +1,16 @@
+* installing *source* package ‘plslda5’ ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+Avis : /home/pierre/Documents/Master/Semestre_1/R/projet/PLSDA_R_Package/plslda5.Rcheck/00_pkg_src/plslda5/man/plslda.split_sample.Rd:17: unexpected section header '\value'
+Avis : /home/pierre/Documents/Master/Semestre_1/R/projet/PLSDA_R_Package/plslda5.Rcheck/00_pkg_src/plslda5/man/plslda.split_sample.Rd:20: unexpected section header '\description'
+Avis : /home/pierre/Documents/Master/Semestre_1/R/projet/PLSDA_R_Package/plslda5.Rcheck/00_pkg_src/plslda5/man/plslda.split_sample.Rd:24: unexpected section header '\examples'
+Avis : /home/pierre/Documents/Master/Semestre_1/R/projet/PLSDA_R_Package/plslda5.Rcheck/00_pkg_src/plslda5/man/plslda.split_sample.Rd:37: unexpected END_OF_INPUT '
+'
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (plslda5)
