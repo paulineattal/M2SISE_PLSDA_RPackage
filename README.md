@@ -1,8 +1,3 @@
--   [Import PLSDA from Github (using
-    devtools)](#Installaton with devtools)
-    -   [How to access to help](#Install devtools package for R)
-
-
 
 
 # <center>**Installation of the package**</center>
