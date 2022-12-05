@@ -38,7 +38,7 @@ install.packaages('https://github.com/paulineattal/PLSDA_R_Package/blob/main/pls
 
 # Description of dataset
 
-we will test this package with dataset zoo, available here https://www.kaggle.com/datasets/uciml/zoo-animal-classification
+We will test this package with the zoo dataset, available here https://www.kaggle.com/datasets/uciml/zoo-animal-classification
 
 This dataset consists of 101 animals from a zoo.
 There are 16 variables with various traits to describe the animals.
@@ -61,7 +61,7 @@ print(head(data))
     ##   0        0       0        0       0        1        0    0    0    0        0       0     invertebrate
   
 
-# <center>**How use the package**</center>
+# <center>**How to use the package**</center>
 
 ________
 
@@ -73,7 +73,7 @@ library(plslda5)
 ```
 ## Use the help function
 
-You can acces to the function help to see all the documentation about your function.
+You can access the function help to see all the documentation about your function.
 ```r
 help('the_name_of_your_function')
 ```
