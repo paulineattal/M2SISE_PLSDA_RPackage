@@ -233,3 +233,8 @@ propz.PLSDA(object)
 
 Our shiny app highlights the results of the fit function. The print and summary functions that have been overloaded can be seen here.
 Finally, a tab shows four graphs.
+## To run the shiny app on your device
+```r
+R -e "shiny::runApp('path_to_the_folder_')"
+```
+You can also use our shiny app on the following link [PLSDA SISE SHINY APP](https://pdubrulle.shinyapps.io/rshiny/)
