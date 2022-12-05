@@ -1,5 +1,5 @@
 library(ggplot2)
-library(plslda5)
+library(plslda)
 server <- function(session, input, output) {
   
   options(shiny.maxRequestSize=30*1024^2)
@@ -44,9 +44,9 @@ server <- function(session, input, output) {
   select_forward <- eventReactive(input$submit_forward, {
     varciblef <- input$varciblesel
     form <- as.formula(paste(varciblef, '~', '.'))
-    result <-plslda5::sel.forward(form, data()) 
+    result <-plslda::sel.forward(form, data()) 
     chaine <- paste(varciblef, paste(result,collapse = '+'), sep='~')
-    fit <- plslda5::plslda.fit(as.formula(chaine), data())
+    fit <- plslda::plslda.fit(as.formula(chaine), data())
     updateSelectInput(session,"nb_compx_cercle",choices=colnames((fit$comp_X)))
     updateSelectInput(session,"nb_compy_cercle",choices=colnames((fit$comp_Y)))
     updateSelectInput(session,"nb_compx_proj",choices=colnames((fit$comp_X)))
@@ -93,15 +93,15 @@ server <- function(session, input, output) {
   })
   
   cercle <- eventReactive(input$cercle_var, {
-    return(plslda5::cercle_correlation.PLSDA(select_forward()$fit, input$nb_compx_cercle, input$nb_compy_cercle))
+    return(plslda::cercle_correlation.PLSDA(select_forward()$fit, input$nb_compx_cercle, input$nb_compy_cercle))
   })
   
   projection <- eventReactive((input$proj_var), {
-    return(plslda5::plan_factoriel.PLSDA(select_forward()$fit, input$nb_compx_proj, input$nb_compy_proj))
+    return(plslda::plan_factoriel.PLSDA(select_forward()$fit, input$nb_compx_proj, input$nb_compy_proj))
   })
   
   matrice <- eventReactive(input$matrice, {
-    return(plslda5::correlationplot.PLSDA(select_forward()$fit, input$used))
+    return(plslda::correlationplot.PLSDA(select_forward()$fit, input$used))
   })
 
   output$matrice <- renderPlot({
@@ -113,7 +113,7 @@ server <- function(session, input, output) {
   })
   
   output$proportion <- renderPlot({
-    plslda5::propz.PLSDA(select_forward()$fit)
+    plslda::propz.PLSDA(select_forward()$fit)
   })
   
   output$projvar <- renderPlot({
