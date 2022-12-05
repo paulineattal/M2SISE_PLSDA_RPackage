@@ -8,7 +8,7 @@
 
 ### Install devtools package for R
 ```r
-install.package('devtools')
+install.packages('devtools')
 ```
 ### Download the PLSLDA package from github
 ```r
