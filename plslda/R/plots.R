@@ -11,6 +11,8 @@
 #' @return
 #' returns a graph which shows the projection of the individuals on 2 principal axis
 #' @export
+#' @import ggplot2
+#' @import corrplot
 #'
 #' @examples
 #' data(iris)

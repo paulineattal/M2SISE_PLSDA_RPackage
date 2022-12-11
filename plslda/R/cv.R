@@ -17,6 +17,7 @@
 #' \code{min.PRESS}the minimum value of the PRESS vector that has been calculated, giving the number of principal components to keep.
 #' @export
 #'
+#'
 #' @examples
 #' data(iris)
 #' plslda.cv(Species~., data = iris)

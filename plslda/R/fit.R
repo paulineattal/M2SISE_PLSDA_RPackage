@@ -14,6 +14,7 @@
 #' while (diff > tol & iter <= max.iter)
 #' @param
 #' tol is the value that determines the convergence of the current weight and old weight, and which we put as paramater value of the nipals function which is called in this fit function
+#' @import plyr
 #'
 #' @return
 #' a plsda object which is a list of different variables :
