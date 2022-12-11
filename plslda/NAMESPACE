@@ -2,6 +2,10 @@
 
 S3method(print,PLSDA)
 S3method(summary,PLSDA)
+import(ggplot2)
+import(plyr)
+import(dplyr)
+import(corrplot)
 export(cercle_correlation.PLSDA)
 export(plslda.cv)
 export(plslda.dummies)
