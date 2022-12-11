@@ -68,8 +68,9 @@ ________
 ## Load the package
 
 First you need to load the package
+[//]: <> (fix for the presentation)
 ```r
-library(plslda5)
+library('plslda')
 ```
 ## Use the help function
 
