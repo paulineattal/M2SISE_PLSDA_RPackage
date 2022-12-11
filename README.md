@@ -68,7 +68,7 @@ ________
 ## Load the package
 
 First you need to load the package
-[//]: <> (fix for the presentation)
+[//]: # (fix for the presentation)
 ```r
 library('plslda')
 ```
