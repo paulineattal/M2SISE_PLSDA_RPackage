@@ -5,6 +5,11 @@ Version: 0.1.0
 Author: ATTAL Pauline, DUBRULLE Pierre, SLALMI Ibtissam
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: This package presents a PLS regression method to predict a categorical target variable with more than 2 classes
+Imports:
+  ggplot2,
+  plyr,
+  dplyr,
+  corrplot
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.2.2

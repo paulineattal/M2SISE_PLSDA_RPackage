@@ -11,6 +11,8 @@
 #' @return
 #' returns a graph which shows the projection of the individuals on 2 principal axis
 #' @export
+#' @import ggplot2
+#' @import corrplot
 #'
 #' @examples
 #' data(iris)
@@ -34,7 +36,7 @@ cercle_correlation.PLSDA <- function(object, PC1, PC2){
          x ="Dim 1", y = "Dim 2", fill = "Modalitées")
 }
 
-
+#' @export
 #projection des variables
 plan_factoriel.PLSDA <- function(object, PC1, PC2){
   Xpls <- as.data.frame(object$poid_X)
@@ -45,7 +47,7 @@ plan_factoriel.PLSDA <- function(object, PC1, PC2){
          x ="Dim 1", y = "Dim 2")
 }
 
-
+#' @export
 #matrice de correlation
 correlationplot.PLSDA <- function(object, usedComp){
   ordre <- order(object$poid_X[,usedComp])
@@ -54,7 +56,7 @@ correlationplot.PLSDA <- function(object, usedComp){
   corrplot::corrplot(mat.corr)
 }
 
-
+#' @export
 #proportion des variances expliquée des Z
 propz.PLSDA <- function(object){
   prop <- as.data.frame(object$quality)
