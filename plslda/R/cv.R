@@ -75,7 +75,7 @@ plslda.cv<-function(formula,data){
       fit<-plslda.fit(Y~., train, ncomp = j)
       #on fait la prédiction sur X.test
       pred <- plslda.predict(fit, X.test)
-      Y.test <- plslda.dummies(Y.test)
+      Y.test <- plslda.dummies(Y.test, Y)
 
       #dummies les pred
       #ajout du Y en deuxieèe paramètre de dummies
