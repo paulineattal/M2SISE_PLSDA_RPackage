@@ -43,7 +43,7 @@ server <- function(session, input, output) {
   
   select_forward <- eventReactive(input$submit_forward, {
     varciblef <- input$varciblesel
-    ncomp <- ncol(data()[,names(data()!=varciblef)])
+    ncomp <- ncol(data()[,names(data())!=varciblef])
     form <- as.formula(paste(varciblef, '~', '.')) 
     result <-colnames(plslda::sel.forward(form, data()))[-1] 
     chaine <- paste(varciblef, paste(result,collapse = '+'), sep='~')
