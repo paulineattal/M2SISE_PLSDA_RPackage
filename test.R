@@ -7,7 +7,7 @@ devtools::install_github('paulineattal/PLSDA_R_Package', subdir='/plslda')
 library(plslda)
 
 
-setwd("")
+setwd("C:/Users/pauli/Documents/M2/R/projet/code/PLSDA_R_Package/")
 
 
 library(readr)
@@ -34,7 +34,7 @@ print("Nombre de lignes du jeu de test : ")
 print(nrow(data_split$Xtest))
 
 #fit
-object =plslda.fit(formula=formula, data=data_split$train, ncom=5)
+object =plslda.fit(formula=formula, data=data_split$train, ncomp="CV")
 print("classe de l'object : ")
 print(class(object))
 

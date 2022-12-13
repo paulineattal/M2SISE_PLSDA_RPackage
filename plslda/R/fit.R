@@ -102,7 +102,7 @@ plslda.fit <- function(formula, data,
   #paramètres ncomp
   #choix du nombre idéal de composantes principales
   if(ncomp == "CV") {
-    ncomp = plslda.cv()$ncomp
+    ncomp = plslda.cv(formula, data)$ncomp
   }else if(!is.numeric(ncomp) || is.null(ncomp) || ncomp <= 0 || length(ncomp)>1){
     stop("Erreur : paramètres ncomp doit être un numériques ")
   }else if(ncomp > qr(X)$rank){
