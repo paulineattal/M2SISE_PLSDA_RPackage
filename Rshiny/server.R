@@ -43,10 +43,11 @@ server <- function(session, input, output) {
   
   select_forward <- eventReactive(input$submit_forward, {
     varciblef <- input$varciblesel
+    ncomp <- ncol(data()[,names(data()!=varciblef)])
     form <- as.formula(paste(varciblef, '~', '.')) 
     result <-colnames(plslda::sel.forward(form, data()))[-1] 
     chaine <- paste(varciblef, paste(result,collapse = '+'), sep='~')
-    fit <- plslda::plslda.fit(as.formula(chaine), data())
+    fit <- plslda::plslda.fit(as.formula(chaine), data(), ncomp=ncomp)
     updateSelectInput(session,"nb_compx_cercle",choices=colnames((fit$comp_X)))
     updateSelectInput(session,"nb_compy_cercle",choices=colnames((fit$comp_Y)))
     updateSelectInput(session,"nb_compx_proj",choices=colnames((fit$comp_X)))
