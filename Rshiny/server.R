@@ -59,11 +59,11 @@ server <- function(session, input, output) {
   
     
     output$forward <- renderPrint({
-    plslda::summary.PLSDA(select_forward()$fit)
+    summary(select_forward()$fit)
     })
     
     output$forward2 <- renderPrint({
-      plslda::print.PLSDA(select_forward()$fit)
+    print(select_forward()$fit)
     })
   
   output$contents <- renderTable({
